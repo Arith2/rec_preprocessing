@@ -267,9 +267,9 @@ def transform_data(data_path, output_path):
         direct_running_mode="multi_threading")
     
   print(f"RUNNER: {pipeline_options.view_as(beam.options.pipeline_options.StandardOptions).runner}")
-  standard_options = pipeline_options.view_as(beam.options.pipeline_options.StandardOptions)
-  standard_options.enforce_runner_api = True
-  standard_options.enforce_runner_required = True  # Only in Beam 2.51+
+#   standard_options = pipeline_options.view_as(beam.options.pipeline_options.StandardOptions)
+#   standard_options.enforce_runner_api = True
+#   standard_options.enforce_runner_required = True  # Only in Beam 2.51+
 
 
 
