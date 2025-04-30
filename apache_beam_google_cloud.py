@@ -268,7 +268,8 @@ def transform_data(data_path, output_path):
   print(f"RUNNER: {pipeline_options.view_as(beam.options.pipeline_options.StandardOptions).runner}")
 
 
-  with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
+#   with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
+  with beam.Pipeline(options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
       processed_lines = (
           pipeline
