@@ -3,7 +3,7 @@
 # Set the necessary parameters
 STORAGE_BUCKET=gs://criteo_preprocessing
 PROJECT=cloud-shared-execution
-REGION=europe-west1-b
+REGION=europe-west2
 MACHINE_TYPE="n2-standard-16"  # Specify the machine type (e.g., "n2-standard-16")
 
 # Run the Apache Beam pipeline
