@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the necessary parameters
-STORAGE_BUCKET=gs://criteo_preprocessing/
+STORAGE_BUCKET=gs://criteo_preprocessing
 PROJECT=cloud-shared-execution
 REGION=europe-west4
 MACHINE_TYPE="n2-standard-16"  # Specify the machine type (e.g., "n2-standard-16")
