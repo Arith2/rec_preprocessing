@@ -248,6 +248,8 @@ def transform_data(data_path, output_path):
         "save_main_session": True,
         "region": region,
         "setup_file": "./setup.py",
+        "worker_machine_type": args.worker_machine_type,  # Add this line
+        "num_workers": args.num_workers,  # Add this line
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
   elif args.runner == "DirectRunner":
