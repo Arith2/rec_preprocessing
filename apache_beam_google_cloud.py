@@ -92,7 +92,15 @@ parser.add_argument(
     default=10_000_000,
     help="Max index range, categorical features convert to integer and take "
          "value modulus the max_vocab_size")
-
+parser.add_argument(
+    "--worker_machine_type",
+    default="n2-standard-16",
+    help="Machine type for workers")
+parser.add_argument(
+    "--num_workers",
+    type=int,
+    default=1,
+    help="Number of workers")
 
 args = parser.parse_args()
 
