@@ -264,6 +264,8 @@ def transform_data(data_path, output_path):
     pipeline_options = beam.options.pipeline_options.DirectOptions(
         direct_num_workers=os.cpu_count(),
         direct_running_mode="multi_threading")
+  print(f"RUNNER: {options.view_as(beam.options.pipeline_options.StandardOptions).runner}")
+
 
   with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
