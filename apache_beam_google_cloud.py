@@ -249,6 +249,7 @@ def transform_data(data_path, output_path):
 
   if args.runner == "DataflowRunner":
     options = {
+        "runner": "DataflowRunner",
         "staging_location": os.path.join(output_path, "tmp", "staging"),
         "temp_location": os.path.join(output_path, "tmp"),
         "job_name": job_name,
