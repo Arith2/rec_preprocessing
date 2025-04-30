@@ -1,0 +1,16 @@
+python data_utils_parquet_vocab_large_no.py --n-jobs 128 --modulus 8192
+
+Total execution time: 92.42 seconds
+
+
+python data_utils_parquet_vocab_large_no.py --n-jobs 128 --modulus 536870912
+
+Total execution time: 93.07 seconds
+
+
+python data_utils_parquet_vocab_large_no.py --n-jobs 96 --modulus 8192
+
+Total execution time: 79.07 seconds
+
+
+python data_utils_parquet_vocab_large_no.py --n-jobs 96 --modulus 536870912
