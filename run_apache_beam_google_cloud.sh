@@ -17,7 +17,7 @@ python3 apache_beam_google_cloud_no_vocab.py \
   --project ${PROJECT} \
   --region ${REGION} \
   --machine_type ${MACHINE_TYPE} \
-  --num_workers 8
+  --num_workers 1
 
 # Run the Apache Beam pipeline
 # python3 apache_beam_google_cloud.py \

@@ -107,21 +107,21 @@ args = parser.parse_args()
 NUM_NUMERIC_FEATURES = 13
 
 NUMERIC_FEATURE_KEYS = [
-    f"int-feature-{x + 1}" for x in range(NUM_NUMERIC_FEATURES)]
+    f"col_{x+1}" for x in range(NUM_NUMERIC_FEATURES)]
 CATEGORICAL_FEATURE_KEYS = [
-    "categorical-feature-%d" % x for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
-LABEL_KEY = "clicked"
+    f"col_{x}" for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
+LABEL_KEY = "col_0"
 
 
 # Data is first preprocessed in pure Apache Beam using numpy.
 # This removes missing values and hexadecimal-encoded values.
 # For the TF schema, we can thus specify the schema as FixedLenFeature
 # for TensorFlow Transform.
-FEATURE_SPEC = dict([(name, tf.io.FixedLenFeature([], dtype=tf.int64))
+FEATURE_SPEC = dict([(name, tf.io.FixedLenFeature([], dtype=tf.string))
                      for name in CATEGORICAL_FEATURE_KEYS] +
                     [(name, tf.io.FixedLenFeature([], dtype=tf.float32))
                      for name in NUMERIC_FEATURE_KEYS] +
-                    [(LABEL_KEY, tf.io.FixedLenFeature([], tf.float32))])
+                    [(LABEL_KEY, tf.io.FixedLenFeature([], tf.int64))])
 INPUT_METADATA = dataset_metadata.DatasetMetadata(
     schema_utils.schema_from_feature_spec(FEATURE_SPEC))
 
@@ -180,49 +180,55 @@ def compute_vocab_fn(inputs):
 
   return outputs
 
-
 class FillMissing(beam.DoFn):
-  """Fills missing elements with zero string value."""
+  """Fills missing elements in a dictionary with zero-equivalent values."""
 
   def process(self, element):
-    elem_list = element.split(args.csv_delimeter)
-    out_list = []
-    for val in elem_list:
-      new_val = "0" if not val else val
-      out_list.append(new_val)
-    yield (args.csv_delimeter).join(out_list)
+    output = {}
+    for key, value in element.items():
+      if value is None or value == "":
+        if key.startswith("col_") and int(key.split("_")[1]) <= 13:
+          output[key] = 0.0  # float for dense
+        else:
+          output[key] = "0"  # string for sparse
+      else:
+        output[key] = value
+    yield output
+
 
 
 class NegsToZeroLog(beam.DoFn):
-  """For int features, sets negative values to zero and takes log(x+1)."""
+  """Sets negative dense values to zero, then log(x+1)."""
 
   def process(self, element):
-    elem_list = element.split(args.csv_delimeter)
-    out_list = []
-    for i, val in enumerate(elem_list):
-      if i > 0 and i <= NUM_NUMERIC_FEATURES:
-        new_val = "0" if int(val) < 0 else val
-        new_val = np.log(int(new_val) + 1)
-        new_val = str(new_val)
-      else:
-        new_val = val
-      out_list.append(new_val)
-    yield (args.csv_delimeter).join(out_list)
+    output = dict(element)
+    for i in range(1, NUM_NUMERIC_FEATURES + 1):
+      key = f"col_{i}"
+      val = output.get(key, 0.0)
+      try:
+        val = float(val)
+        val = 0.0 if val < 0 else np.log(val + 1)
+      except Exception:
+        val = 0.0
+      output[key] = val
+    yield output
+
 
 
 class HexToIntModRange(beam.DoFn):
-  """For categorical features, takes decimal value and mods with max value."""
+  """Converts hex string to integer and applies modulo."""
 
   def process(self, element):
-    elem_list = element.split(args.csv_delimeter)
-    out_list = []
-    for i, val in enumerate(elem_list):
-      if i > NUM_NUMERIC_FEATURES:
-        new_val = int(val, 16) % args.max_vocab_size
-      else:
-        new_val = val
-      out_list.append(str(new_val))
-    yield str.encode((args.csv_delimeter).join(out_list))
+    output = dict(element)
+    for i in range(NUM_NUMERIC_FEATURES + 1, 40):
+      key = f"col_{i}"
+      val = output.get(key, "0")
+      try:
+        val = int(val, 16) % args.max_vocab_size
+      except Exception:
+        val = 0
+      output[key] = val
+    yield output
 
 
 def transform_data(data_path, output_path):
@@ -277,12 +283,15 @@ def transform_data(data_path, output_path):
   with beam.Pipeline(options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
       
-      ordered_columns = [LABEL_KEY] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
+      ordered_columns = [f"col_{i}" for i in range(40)]
+
       processed_lines = (
           pipeline
           | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
-          | 'Convert to TSV Format' >> beam.Map(
-              lambda row: '\t'.join(str(row[col]) for col in ordered_columns))
+          # For numerical features, set negatives to zero. Then take log(x+1).
+          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
+          # For categorical features, mod the values with vocab size.
+          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
       )
 
 
