@@ -93,7 +93,7 @@ parser.add_argument(
     help="Max index range, categorical features convert to integer and take "
          "value modulus the max_vocab_size")
 parser.add_argument(
-    "--worker_machine_type",
+    "--machine_type",
     default="n2-standard-16",
     help="Machine type for workers")
 parser.add_argument(
@@ -257,7 +257,7 @@ def transform_data(data_path, output_path):
         "save_main_session": True,
         "region": region,
         "setup_file": "./setup.py",
-        "worker_machine_type": args.worker_machine_type,  # Add this line
+        "machine_type": args.machine_type,  # Add this line
         "num_workers": args.num_workers,  # Add this line
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
@@ -281,45 +281,46 @@ def transform_data(data_path, output_path):
           # Read in TSV data.
         #   | beam.io.ReadFromText(data_path, coder=beam.coders.StrUtf8Coder())
           | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)  # Read the file as rows (dictionaries)
-          | 'Convert to TSV Format' >> beam.Map(lambda row: '\t'.join([str(val) for val in row.values()]))  # Convert to TSV string
-          # For numerical features, set negatives to zero. Then take log(x+1).
-          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
-          # For categorical features, mod the values with vocab size.
-          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange()))
+          | 'Convert to TSV Format' >> beam.Map(lambda row: '\t'.join([str(val) for val in dict(row).values()]))
 
-      # CSV reader: List the cols in order, as dataset schema is not ordered.
-      ordered_columns = [LABEL_KEY
-                        ] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
+    #       # For numerical features, set negatives to zero. Then take log(x+1).
+    #       | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
+    #       # For categorical features, mod the values with vocab size.
+    #       | "HexToIntModRange" >> beam.ParDo(HexToIntModRange()))
 
-      csv_tfxio = tfxio.BeamRecordCsvTFXIO(
-          physical_format="text",
-          column_names=ordered_columns,
-          delimiter=args.csv_delimeter,
-          schema=INPUT_METADATA.schema)
+    #   # CSV reader: List the cols in order, as dataset schema is not ordered.
+    #   ordered_columns = [LABEL_KEY
+    #                     ] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
 
-      converted_data = (
-          processed_lines
-          | "DecodeData" >> csv_tfxio.BeamSource())
+    #   csv_tfxio = tfxio.BeamRecordCsvTFXIO(
+    #       physical_format="text",
+    #       column_names=ordered_columns,
+    #       delimiter=args.csv_delimeter,
+    #       schema=INPUT_METADATA.schema)
 
-      raw_dataset = (converted_data, csv_tfxio.TensorAdapterConfig())
+    #   converted_data = (
+    #       processed_lines
+    #       | "DecodeData" >> csv_tfxio.BeamSource())
 
-      # The TFXIO output format is chosen for improved performance.
-      transformed_dataset, _ = (
-          raw_dataset | tft_beam.AnalyzeAndTransformDataset(
-              preprocessing_fn, output_record_batches=False))
+    #   raw_dataset = (converted_data, csv_tfxio.TensorAdapterConfig())
 
-      # Transformed metadata is not necessary for encoding.
-      transformed_data, transformed_metadata = transformed_dataset
+    #   # The TFXIO output format is chosen for improved performance.
+    #   transformed_dataset, _ = (
+    #       raw_dataset | tft_beam.AnalyzeAndTransformDataset(
+    #           preprocessing_fn, output_record_batches=False))
 
-      if not args.vocab_gen_mode:
-        # Write to CSV.
-        transformed_csv_coder = tft.coders.CsvCoder(
-            ordered_columns, transformed_metadata.schema,
-            delimiter=args.csv_delimeter)
-        _ = (
-            transformed_data
-            | "EncodeDataCsv" >> beam.Map(transformed_csv_coder.encode)
-            | "WriteDataCsv" >> beam.io.WriteToText(output_path))
+    #   # Transformed metadata is not necessary for encoding.
+    #   transformed_data, transformed_metadata = transformed_dataset
+
+    #   if not args.vocab_gen_mode:
+    #     # Write to CSV.
+    #     transformed_csv_coder = tft.coders.CsvCoder(
+    #         ordered_columns, transformed_metadata.schema,
+    #         delimiter=args.csv_delimeter)
+    #     _ = (
+    #         transformed_data
+    #         | "EncodeDataCsv" >> beam.Map(transformed_csv_coder.encode)
+    #         | "WriteDataCsv" >> beam.io.WriteToText(output_path))
 
 
 if __name__ == "__main__":
