@@ -286,7 +286,8 @@ def transform_data(data_path, output_path):
     #       # For numerical features, set negatives to zero. Then take log(x+1).
     #       | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
     #       # For categorical features, mod the values with vocab size.
-    #       | "HexToIntModRange" >> beam.ParDo(HexToIntModRange()))
+    #       | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
+    )
 
     #   # CSV reader: List the cols in order, as dataset schema is not ordered.
     #   ordered_columns = [LABEL_KEY
