@@ -1,41 +1,49 @@
 import numpy as np
 import pandas as pd
+import random
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-def generate_pseudo_parquet_with_fixed_length(output_parquet, num_rows=4000000, target_column='col_0', num_dense=504, num_sparse=42):
-    # Generate target column
+def generate_pseudo_parquet(output_parquet,
+                             num_rows=4_000_000,
+                             target_column='col_0',
+                             num_dense=504,
+                             num_sparse=42,
+                             row_group_size=100_000):
+    # Step 1: Generate the target column with binary values (0 or 1)
     target_data = np.random.randint(0, 2, size=num_rows)
 
-    # Generate dense features
+    # Step 2: Generate dense features with random positive and negative float values as float32
     dense_data = np.random.uniform(-1000, 1000, size=(num_rows, num_dense)).astype(np.float32)
 
-    # Generate sparse features as fixed-length 8-byte strings
-    sparse_data = np.random.randint(0, 0xFFFFFFFF, size=(num_rows, num_sparse), dtype=np.uint32)
-    sparse_data_hex = np.vectorize(lambda x: f"{x:08X}")(sparse_data)  # Convert to fixed-length 8-char strings
+    # Step 3: Generate sparse features with random 32-bit hexadecimal values
+    sparse_data = np.array([[f"{random.randint(0, 0xFFFFFFFF):08X}" for _ in range(num_sparse)] for _ in range(num_rows)])
 
-    # Create Arrow Table with fixed-length types
-    fields = [pa.field(target_column, pa.int8())]
-    fields += [pa.field(f'col_{i+1}', pa.float32()) for i in range(num_dense)]
-    fields += [pa.field(f'col_{i+1+num_dense}', pa.string()) for i in range(num_sparse)]  # Use string type for fixed-length strings
+    # Step 4: Create a DataFrame and combine all data
+    df = pd.DataFrame(target_data, columns=[target_column])
 
-    schema = pa.schema(fields)
+    dense_column_names = [f'col_{i+1}' for i in range(num_dense)]
+    dense_df = pd.DataFrame(dense_data, columns=dense_column_names)
 
-    # Build Arrow Table
-    target_array = pa.array(target_data, type=pa.int8())
-    dense_arrays = [pa.array(dense_data[:, i], type=pa.float32()) for i in range(num_dense)]
-    # sparse_arrays = [pa.array(sparse_data_hex[:, i], type=pa.string()) for i in range(num_sparse)]  # Use string arrays
-    sparse_arrays = [
-        pa.array(sparse_data_hex[:, i].astype("S8"), type=pa.fixed_size_binary(8))
-        for i in range(num_sparse)
-    ]
+    sparse_column_names = [f'col_{i+1+num_dense}' for i in range(num_sparse)]
+    sparse_df = pd.DataFrame(sparse_data, columns=sparse_column_names)
 
-    table = pa.Table.from_arrays([target_array] + dense_arrays + sparse_arrays, schema=schema)
+    df = pd.concat([df, dense_df, sparse_df], axis=1)
 
-    # Write to Parquet
-    pq.write_table(table, output_parquet, compression=None)
-    print(f"Pseudo dataset with fixed-length sparse features saved to {output_parquet}")
+    # Step 5: Write with PyArrow and multiple row groups
+    table = pa.Table.from_pandas(df, preserve_index=False)
+    pq.write_table(table,
+                   output_parquet,
+                   compression=None,
+                   row_group_size=row_group_size)
+
+    # Step 6: Verify and report row group count
+    pf = pq.ParquetFile(output_parquet)
+    print(f"✅ Pseudo dataset written to {output_parquet}")
+    print(f"   → Rows: {num_rows}")
+    print(f"   → Columns: {df.shape[1]}")
+    print(f"   → Row groups: {pf.num_row_groups} (row_group_size={row_group_size})")
 
 # Example usage
-output_parquet_path = "/mnt/scratch/yuzhuyu/parquet/pseudo_dataset_504_dense_42_sparse_fixed_length.parquet"
-generate_pseudo_parquet_with_fixed_length(output_parquet_path)
+output_parquet_path = "/mnt/scratch/yuzhuyu/parquet/pseudo_dataset_504_dense_42_sparse.parquet"
+generate_pseudo_parquet(output_parquet_path)

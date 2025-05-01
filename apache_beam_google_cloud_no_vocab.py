@@ -276,18 +276,15 @@ def transform_data(data_path, output_path):
 #   with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
   with beam.Pipeline(options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
+      
+      ordered_columns = [LABEL_KEY] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
       processed_lines = (
           pipeline
-          # Read in TSV data.
-        #   | beam.io.ReadFromText(data_path, coder=beam.coders.StrUtf8Coder())
-          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)  # Read the file as rows (dictionaries)
-          | 'Convert to TSV Format' >> beam.Map(lambda row: '\t'.join([str(val) for val in dict(row).values()]))
+          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
+          | 'Convert to TSV Format' >> beam.Map(
+              lambda row: '\t'.join(str(row[col]) for col in ordered_columns))
+      )
 
-    #       # For numerical features, set negatives to zero. Then take log(x+1).
-    #       | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
-    #       # For categorical features, mod the values with vocab size.
-    #       | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
-    )
 
     #   # CSV reader: List the cols in order, as dataset schema is not ordered.
     #   ordered_columns = [LABEL_KEY
