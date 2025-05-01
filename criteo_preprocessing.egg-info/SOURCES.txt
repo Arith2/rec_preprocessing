@@ -1,0 +1,6 @@
+setup.py
+criteo_preprocessing.egg-info/PKG-INFO
+criteo_preprocessing.egg-info/SOURCES.txt
+criteo_preprocessing.egg-info/dependency_links.txt
+criteo_preprocessing.egg-info/requires.txt
+criteo_preprocessing.egg-info/top_level.txt

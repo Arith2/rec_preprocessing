@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: criteo_preprocessing
+Version: 0.1.0
+Requires-Dist: tensorflow-transform
+Dynamic: requires-dist
