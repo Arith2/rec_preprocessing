@@ -10,7 +10,7 @@ SDK_CONTAINER_IMAGE=gcr.io/cloud-shared-execution/beam-custom:latest
 
 # Run the Apache Beam pipeline
 python3 apache_beam_google_cloud_no_vocab.py \
-  --input_path "${STORAGE_BUCKET}/bin2parquet.parquet" \
+  --input_path "${STORAGE_BUCKET}/criteo_small/*" \
   --output_path "${STORAGE_BUCKET}/criteo_1TB_output/" \
   --temp_dir "${STORAGE_BUCKET}/criteo_1TB_temp/" \
   --vocab_gen_mode \
