@@ -286,7 +286,7 @@ def transform_data(data_path, output_path):
         "project": gcp_project,
         "save_main_session": True,
         "region": region,
-        "setup_file": "./setup.py",
+        # "setup_file": "./setup.py",
         "machine_type": args.machine_type,  # Add this line
         "num_workers": args.num_workers,  # Add this line
         "sdk_container_image": args.sdk_container_image,
