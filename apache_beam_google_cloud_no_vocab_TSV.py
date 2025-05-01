@@ -101,31 +101,27 @@ parser.add_argument(
     type=int,
     default=1,
     help="Number of workers")
-parser.add_argument(
-    "--sdk_container_image",
-    default="gcr.io/cloud-shared-execution/beam-custom:latest",
-    help="Container image for the Beam job")
 
 args = parser.parse_args()
 
 NUM_NUMERIC_FEATURES = 13
 
 NUMERIC_FEATURE_KEYS = [
-    f"col_{x+1}" for x in range(NUM_NUMERIC_FEATURES)]
+    f"int-feature-{x + 1}" for x in range(NUM_NUMERIC_FEATURES)]
 CATEGORICAL_FEATURE_KEYS = [
-    f"col_{x}" for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
-LABEL_KEY = "col_0"
+    "categorical-feature-%d" % x for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
+LABEL_KEY = "clicked"
 
 
 # Data is first preprocessed in pure Apache Beam using numpy.
 # This removes missing values and hexadecimal-encoded values.
 # For the TF schema, we can thus specify the schema as FixedLenFeature
 # for TensorFlow Transform.
-FEATURE_SPEC = dict([(name, tf.io.FixedLenFeature([], dtype=tf.string))
+FEATURE_SPEC = dict([(name, tf.io.FixedLenFeature([], dtype=tf.int64))
                      for name in CATEGORICAL_FEATURE_KEYS] +
                     [(name, tf.io.FixedLenFeature([], dtype=tf.float32))
                      for name in NUMERIC_FEATURE_KEYS] +
-                    [(LABEL_KEY, tf.io.FixedLenFeature([], tf.int64))])
+                    [(LABEL_KEY, tf.io.FixedLenFeature([], tf.float32))])
 INPUT_METADATA = dataset_metadata.DatasetMetadata(
     schema_utils.schema_from_feature_spec(FEATURE_SPEC))
 
@@ -184,75 +180,50 @@ def compute_vocab_fn(inputs):
 
   return outputs
 
-# class FillMissing(beam.DoFn):
-#   """Fills missing elements in a dictionary with zero-equivalent values."""
 
-#   def process(self, element):
-#     output = element.as_dict() if hasattr(element, 'as_dict') else dict(element)
-#     for key, value in element.items():
-#       if value is None or value == "":
-#         if key.startswith("col_") and int(key.split("_")[1]) <= 13:
-#           output[key] = 0.0  # float for dense
-#         else:
-#           output[key] = "0"  # string for sparse
-#       else:
-#         output[key] = value
-#     yield output
+class FillMissing(beam.DoFn):
+  """Fills missing elements with zero string value."""
 
+  def process(self, element):
+    elem_list = element.split(args.csv_delimeter)
+    out_list = []
+    for val in elem_list:
+      new_val = "0" if not val else val
+      out_list.append(new_val)
+    yield (args.csv_delimeter).join(out_list)
 
 
 class NegsToZeroLog(beam.DoFn):
-  """Sets negative dense values to zero, then log(x+1)."""
+  """For int features, sets negative values to zero and takes log(x+1)."""
 
   def process(self, element):
-    # Create a new dictionary with all fields
-    output = {}
-    
-    # First, copy all fields from the BeamSchema_ object
-    for key in dir(element):
-      # Skip special methods and attributes (those starting with '_')
-      if not key.startswith('_') and key != 'as_dict' and key != 'keys' and key != 'values':
-        output[key] = getattr(element, key)
-    
-    # Process numeric features
-    for i in range(1, NUM_NUMERIC_FEATURES + 1):
-      key = f"col_{i}"
-      val = getattr(element, key, 0.0)
-      try:
-        val = float(val)
-        val = 0.0 if val < 0 else np.log(val + 1)
-      except Exception:
-        val = 0.0
-      output[key] = val
-      
-    yield output
-
+    elem_list = element.split(args.csv_delimeter)
+    out_list = []
+    for i, val in enumerate(elem_list):
+      if i > 0 and i <= NUM_NUMERIC_FEATURES:
+        new_val = "0" if int(val) < 0 else val
+        new_val = np.log(int(new_val) + 1)
+        new_val = str(new_val)
+      else:
+        new_val = val
+      out_list.append(new_val)
+    yield (args.csv_delimeter).join(out_list)
 
 
 class HexToIntModRange(beam.DoFn):
-  """Converts hex string to integer and applies modulo."""
+  """For categorical features, takes decimal value and mods with max value."""
 
   def process(self, element):
-    # Create a new dictionary with all fields
-    output = {}
-    
-    # First, copy all fields from the BeamSchema_ object
-    for key in dir(element):
-      # Skip special methods and attributes
-      if not key.startswith('_') and key != 'as_dict' and key != 'keys' and key != 'values':
-        output[key] = getattr(element, key)
-    
-    # Process categorical features
-    for i in range(NUM_NUMERIC_FEATURES + 1, 40):
-      key = f"col_{i}"
-      val = getattr(element, key, "0")
-      try:
-        val = int(val, 16) % args.max_vocab_size
-      except Exception:
-        val = 0
-      output[key] = val
-      
-    yield output
+    elem_list = element.split(args.csv_delimeter)
+    out_list = []
+    for i, val in enumerate(elem_list):
+      if i > NUM_NUMERIC_FEATURES:
+        new_val = int(val, 16) % args.max_vocab_size
+      else:
+        new_val = val
+      out_list.append(str(new_val))
+    yield str.encode((args.csv_delimeter).join(out_list))
+
 
 
 def transform_data(data_path, output_path):
@@ -289,7 +260,6 @@ def transform_data(data_path, output_path):
         "setup_file": "./setup.py",
         "machine_type": args.machine_type,  # Add this line
         "num_workers": args.num_workers,  # Add this line
-        "sdk_container_image": args.sdk_container_image,
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
   elif args.runner == "DirectRunner":
@@ -312,16 +282,7 @@ def transform_data(data_path, output_path):
 
       processed_lines = (
           pipeline
-          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
-        #   | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
-          # For numerical features, set negatives to zero. Then take log(x+1).
-          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
-          # For categorical features, mod the values with vocab size.
-          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
-        # pipeline
-        # | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
-        # | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
-        # | 'Print Sample' >> beam.FlatMap(lambda rows: print("\n".join([str(row) for row in rows])))
+          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True) 
       )
 
 
