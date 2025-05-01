@@ -180,20 +180,20 @@ def compute_vocab_fn(inputs):
 
   return outputs
 
-class FillMissing(beam.DoFn):
-  """Fills missing elements in a dictionary with zero-equivalent values."""
+# class FillMissing(beam.DoFn):
+#   """Fills missing elements in a dictionary with zero-equivalent values."""
 
-  def process(self, element):
-    output = {}
-    for key, value in element.items():
-      if value is None or value == "":
-        if key.startswith("col_") and int(key.split("_")[1]) <= 13:
-          output[key] = 0.0  # float for dense
-        else:
-          output[key] = "0"  # string for sparse
-      else:
-        output[key] = value
-    yield output
+#   def process(self, element):
+#     output = element.as_dict() if hasattr(element, 'as_dict') else dict(element)
+#     for key, value in element.items():
+#       if value is None or value == "":
+#         if key.startswith("col_") and int(key.split("_")[1]) <= 13:
+#           output[key] = 0.0  # float for dense
+#         else:
+#           output[key] = "0"  # string for sparse
+#       else:
+#         output[key] = value
+#     yield output
 
 
 
@@ -201,16 +201,26 @@ class NegsToZeroLog(beam.DoFn):
   """Sets negative dense values to zero, then log(x+1)."""
 
   def process(self, element):
-    output = dict(element)
+    # Create a new dictionary with all fields
+    output = {}
+    
+    # First, copy all fields from the BeamSchema_ object
+    for key in dir(element):
+      # Skip special methods and attributes (those starting with '_')
+      if not key.startswith('_') and key != 'as_dict' and key != 'keys' and key != 'values':
+        output[key] = getattr(element, key)
+    
+    # Process numeric features
     for i in range(1, NUM_NUMERIC_FEATURES + 1):
       key = f"col_{i}"
-      val = output.get(key, 0.0)
+      val = getattr(element, key, 0.0)
       try:
         val = float(val)
         val = 0.0 if val < 0 else np.log(val + 1)
       except Exception:
         val = 0.0
       output[key] = val
+      
     yield output
 
 
@@ -219,15 +229,25 @@ class HexToIntModRange(beam.DoFn):
   """Converts hex string to integer and applies modulo."""
 
   def process(self, element):
-    output = dict(element)
+    # Create a new dictionary with all fields
+    output = {}
+    
+    # First, copy all fields from the BeamSchema_ object
+    for key in dir(element):
+      # Skip special methods and attributes
+      if not key.startswith('_') and key != 'as_dict' and key != 'keys' and key != 'values':
+        output[key] = getattr(element, key)
+    
+    # Process categorical features
     for i in range(NUM_NUMERIC_FEATURES + 1, 40):
       key = f"col_{i}"
-      val = output.get(key, "0")
+      val = getattr(element, key, "0")
       try:
         val = int(val, 16) % args.max_vocab_size
       except Exception:
         val = 0
       output[key] = val
+      
     yield output
 
 
@@ -288,10 +308,15 @@ def transform_data(data_path, output_path):
       processed_lines = (
           pipeline
           | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
+        #   | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
           # For numerical features, set negatives to zero. Then take log(x+1).
           | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
           # For categorical features, mod the values with vocab size.
           | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
+        # pipeline
+        # | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
+        # | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
+        # | 'Print Sample' >> beam.FlatMap(lambda rows: print("\n".join([str(row) for row in rows])))
       )
 
 
