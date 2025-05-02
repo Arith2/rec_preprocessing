@@ -5,7 +5,7 @@ STORAGE_BUCKET=gs://criteo_preprocessing
 PROJECT=cloud-shared-execution
 REGION=europe-west1  # Must match the GCS bucket location
 MACHINE_TYPE="n2-standard-16"  # Specify the machine type (e.g., "n2-standard-16")
-SDK_CONTAINER_IMAGE=gcr.io/cloud-shared-execution/beam-custom:latest
+SDK_CONTAINER_IMAGE=europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:latest
 
 # Verify bucket location
 echo "Verifying bucket location..."
@@ -23,10 +23,10 @@ else
 fi
 
 # Run the Apache Beam pipeline
-python3 apache_beam_google_cloud_no_vocab.py \
-  --input_path "${STORAGE_BUCKET}/bin2parquet_singleRow.parquet" \
-  --output_path "${STORAGE_BUCKET}/criteo_1TB_output/" \
-  --temp_dir "${STORAGE_BUCKET}/criteo_1TB_temp/" \
+python3 apache_beam_google_cloud_parquet.py \
+  --input_path "${STORAGE_BUCKET}/criteo_small/shard_1023.parquet" \
+  --output_path "${STORAGE_BUCKET}/criteo_small_output/" \
+  --temp_dir "${STORAGE_BUCKET}/criteo_small_temp/" \
   --vocab_gen_mode \
   --runner DataflowRunner \
   --max_vocab_size 8192 \

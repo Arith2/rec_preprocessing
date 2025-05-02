@@ -324,11 +324,11 @@ def transform_data(data_path, output_path):
       processed_lines = (
           pipeline
           | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=False)
-        #   | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
-        #   # For numerical features, set negatives to zero. Then take log(x+1).
-        #   | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
-        #   # For categorical features, mod the values with vocab size.
-        #   | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
+          | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
+          # For numerical features, set negatives to zero. Then take log(x+1).
+          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
+          # For categorical features, mod the values with vocab size.
+          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
         # pipeline
         # | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
         # | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)

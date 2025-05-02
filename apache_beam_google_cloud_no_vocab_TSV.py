@@ -92,17 +92,38 @@ parser.add_argument(
     default=10_000_000,
     help="Max index range, categorical features convert to integer and take "
          "value modulus the max_vocab_size")
-
+parser.add_argument(
+    "--machine_type",
+    default="n2-standard-16",
+    help="Machine type for workers")
+parser.add_argument(
+    "--num_workers",
+    type=int,
+    default=1,
+    help="Number of workers")
+parser.add_argument(
+    "--sdk_container_image",
+    default="gcr.io/cloud-shared-execution/beam-custom:latest",
+    help="Container image for the Beam job")
+parser.add_argument(
+    "--max_num_workers",
+    type=int,
+    default=1,
+    help="Maximum number of workers")
+parser.add_argument(
+    "--autoscalingAlgorithm",
+    default="THROUGHPUT_BASED",
+    help="Autoscaling algorithm")
 
 args = parser.parse_args()
 
 NUM_NUMERIC_FEATURES = 13
 
 NUMERIC_FEATURE_KEYS = [
-    f"int-feature-{x + 1}" for x in range(NUM_NUMERIC_FEATURES)]
+    f"col_{x+1}" for x in range(NUM_NUMERIC_FEATURES)]
 CATEGORICAL_FEATURE_KEYS = [
-    "categorical-feature-%d" % x for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
-LABEL_KEY = "clicked"
+    f"col_{x}" for x in range(NUM_NUMERIC_FEATURES + 1, 40)]
+LABEL_KEY = "col_0"
 
 
 # Data is first preprocessed in pure Apache Beam using numpy.
@@ -241,13 +262,19 @@ def transform_data(data_path, output_path):
 
   if args.runner == "DataflowRunner":
     options = {
+        "runner": "DataflowRunner",
         "staging_location": os.path.join(output_path, "tmp", "staging"),
         "temp_location": os.path.join(output_path, "tmp"),
         "job_name": job_name,
         "project": gcp_project,
         "save_main_session": True,
         "region": region,
-        "setup_file": "./setup.py",
+        # "setup_file": "./setup.py",
+        "machine_type": args.machine_type,  # Add this line
+        "num_workers": args.num_workers,  # Add this line
+        "sdk_container_image": args.sdk_container_image,
+        "autoscalingAlgorithm": args.autoscalingAlgorithm,
+        "max_num_workers": args.max_num_workers,
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
   elif args.runner == "DirectRunner":
@@ -255,7 +282,8 @@ def transform_data(data_path, output_path):
         direct_num_workers=os.cpu_count(),
         direct_running_mode="multi_threading")
 
-  with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
+#   with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
+  with beam.Pipeline(options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
       processed_lines = (
           pipeline
