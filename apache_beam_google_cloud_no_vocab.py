@@ -105,6 +105,15 @@ parser.add_argument(
     "--sdk_container_image",
     default="gcr.io/cloud-shared-execution/beam-custom:latest",
     help="Container image for the Beam job")
+parser.add_argument(
+    "--max_num_workers",
+    type=int,
+    default=1,
+    help="Maximum number of workers")
+parser.add_argument(
+    "--autoscalingAlgorithm",
+    default="THROUGHPUT_BASED",
+    help="Autoscaling algorithm")
 
 args = parser.parse_args()
 
@@ -290,6 +299,8 @@ def transform_data(data_path, output_path):
         "machine_type": args.machine_type,  # Add this line
         "num_workers": args.num_workers,  # Add this line
         "sdk_container_image": args.sdk_container_image,
+        "autoscalingAlgorithm": args.autoscalingAlgorithm,
+        "max_num_workers": args.max_num_workers,
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
   elif args.runner == "DirectRunner":
@@ -312,12 +323,12 @@ def transform_data(data_path, output_path):
 
       processed_lines = (
           pipeline
-          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
+          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=False)
         #   | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)
-          # For numerical features, set negatives to zero. Then take log(x+1).
-          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
-          # For categorical features, mod the values with vocab size.
-          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
+        #   # For numerical features, set negatives to zero. Then take log(x+1).
+        #   | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
+        #   # For categorical features, mod the values with vocab size.
+        #   | "HexToIntModRange" >> beam.ParDo(HexToIntModRange())
         # pipeline
         # | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True)
         # | 'Take First 10 Rows' >> beam.combiners.Sample.FixedSizeGlobally(10)

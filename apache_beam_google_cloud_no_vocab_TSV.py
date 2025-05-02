@@ -92,15 +92,7 @@ parser.add_argument(
     default=10_000_000,
     help="Max index range, categorical features convert to integer and take "
          "value modulus the max_vocab_size")
-parser.add_argument(
-    "--machine_type",
-    default="n2-standard-16",
-    help="Machine type for workers")
-parser.add_argument(
-    "--num_workers",
-    type=int,
-    default=1,
-    help="Number of workers")
+
 
 args = parser.parse_args()
 
@@ -225,7 +217,6 @@ class HexToIntModRange(beam.DoFn):
     yield str.encode((args.csv_delimeter).join(out_list))
 
 
-
 def transform_data(data_path, output_path):
   """Preprocesses Criteo data.
 
@@ -250,7 +241,6 @@ def transform_data(data_path, output_path):
 
   if args.runner == "DataflowRunner":
     options = {
-        "runner": "DataflowRunner",
         "staging_location": os.path.join(output_path, "tmp", "staging"),
         "temp_location": os.path.join(output_path, "tmp"),
         "job_name": job_name,
@@ -258,67 +248,59 @@ def transform_data(data_path, output_path):
         "save_main_session": True,
         "region": region,
         "setup_file": "./setup.py",
-        "machine_type": args.machine_type,  # Add this line
-        "num_workers": args.num_workers,  # Add this line
     }
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options)
   elif args.runner == "DirectRunner":
     pipeline_options = beam.options.pipeline_options.DirectOptions(
         direct_num_workers=os.cpu_count(),
         direct_running_mode="multi_threading")
-    
-  print(f"RUNNER: {pipeline_options.view_as(beam.options.pipeline_options.StandardOptions).runner}")
-#   standard_options = pipeline_options.view_as(beam.options.pipeline_options.StandardOptions)
-#   standard_options.enforce_runner_api = True
-#   standard_options.enforce_runner_required = True  # Only in Beam 2.51+
 
-
-
-#   with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
-  with beam.Pipeline(options=pipeline_options) as pipeline:
+  with beam.Pipeline(args.runner, options=pipeline_options) as pipeline:
     with tft_beam.Context(temp_dir=args.temp_dir):
-      
-      ordered_columns = [f"col_{i}" for i in range(40)]
-
       processed_lines = (
           pipeline
-          | 'Read Parquet File' >> beam.io.ReadFromParquet(file_pattern=data_path, as_rows=True) 
-      )
+          # Read in TSV data.
+          | beam.io.ReadFromText(data_path, coder=beam.coders.StrUtf8Coder())
+          # Fill in missing elements with the defaults (zeros).
+          | "FillMissing" >> beam.ParDo(FillMissing())
+          # For numerical features, set negatives to zero. Then take log(x+1).
+          | "NegsToZeroLog" >> beam.ParDo(NegsToZeroLog())
+          # For categorical features, mod the values with vocab size.
+          | "HexToIntModRange" >> beam.ParDo(HexToIntModRange()))
 
+      # CSV reader: List the cols in order, as dataset schema is not ordered.
+      ordered_columns = [LABEL_KEY
+                        ] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
 
-    #   # CSV reader: List the cols in order, as dataset schema is not ordered.
-    #   ordered_columns = [LABEL_KEY
-    #                     ] + NUMERIC_FEATURE_KEYS + CATEGORICAL_FEATURE_KEYS
+      csv_tfxio = tfxio.BeamRecordCsvTFXIO(
+          physical_format="text",
+          column_names=ordered_columns,
+          delimiter=args.csv_delimeter,
+          schema=INPUT_METADATA.schema)
 
-    #   csv_tfxio = tfxio.BeamRecordCsvTFXIO(
-    #       physical_format="text",
-    #       column_names=ordered_columns,
-    #       delimiter=args.csv_delimeter,
-    #       schema=INPUT_METADATA.schema)
+      converted_data = (
+          processed_lines
+          | "DecodeData" >> csv_tfxio.BeamSource())
 
-    #   converted_data = (
-    #       processed_lines
-    #       | "DecodeData" >> csv_tfxio.BeamSource())
+      raw_dataset = (converted_data, csv_tfxio.TensorAdapterConfig())
 
-    #   raw_dataset = (converted_data, csv_tfxio.TensorAdapterConfig())
+      # The TFXIO output format is chosen for improved performance.
+      transformed_dataset, _ = (
+          raw_dataset | tft_beam.AnalyzeAndTransformDataset(
+              preprocessing_fn, output_record_batches=False))
 
-    #   # The TFXIO output format is chosen for improved performance.
-    #   transformed_dataset, _ = (
-    #       raw_dataset | tft_beam.AnalyzeAndTransformDataset(
-    #           preprocessing_fn, output_record_batches=False))
+      # Transformed metadata is not necessary for encoding.
+      transformed_data, transformed_metadata = transformed_dataset
 
-    #   # Transformed metadata is not necessary for encoding.
-    #   transformed_data, transformed_metadata = transformed_dataset
-
-    #   if not args.vocab_gen_mode:
-    #     # Write to CSV.
-    #     transformed_csv_coder = tft.coders.CsvCoder(
-    #         ordered_columns, transformed_metadata.schema,
-    #         delimiter=args.csv_delimeter)
-    #     _ = (
-    #         transformed_data
-    #         | "EncodeDataCsv" >> beam.Map(transformed_csv_coder.encode)
-    #         | "WriteDataCsv" >> beam.io.WriteToText(output_path))
+      if not args.vocab_gen_mode:
+        # Write to CSV.
+        transformed_csv_coder = tft.coders.CsvCoder(
+            ordered_columns, transformed_metadata.schema,
+            delimiter=args.csv_delimeter)
+        _ = (
+            transformed_data
+            | "EncodeDataCsv" >> beam.Map(transformed_csv_coder.encode)
+            | "WriteDataCsv" >> beam.io.WriteToText(output_path))
 
 
 if __name__ == "__main__":
