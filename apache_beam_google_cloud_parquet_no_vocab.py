@@ -14,6 +14,7 @@ import argparse
 import os
 import datetime
 from absl import logging
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -82,9 +83,13 @@ parser.add_argument(
     default=1,
     help="Maximum number of workers")
 parser.add_argument(
-    "--autoscalingAlgorithm",
+    "--autoscaling_algorithm",
     default="THROUGHPUT_BASED",
     help="Autoscaling algorithm")
+parser.add_argument(
+    "--job_name",
+    default="criteo-preprocess",
+    help="Job name")
 
 args = parser.parse_args()
 
@@ -118,64 +123,91 @@ def apply_vocab_fn(inputs):
     return outputs
 
 class PreprocessDict(beam.DoFn):
+    def __init__(self):
+        self.skipped_counter = beam.metrics.Metrics.counter("preprocessing", "skipped_elements")
+
     def process(self, element):
-        result = dict(element)
-        for key in NUMERIC_KEYS:
-            try:
-                val = float(result.get(key, 0.0))
-                result[key] = float(np.log(val + 1) if val >= 0 else 0.0)
-            except:
-                result[key] = 0.0
-        for key in CATEGORICAL_KEYS:
-            val = result.get(key, "0")
-            try:
-                result[key] = str(int(val, 16) % args.max_vocab_size)
-            except:
-                result[key] = "0"
-        return [result]
+        try: 
+            result = dict(element)
+            for key in NUMERIC_KEYS:
+                try:
+                    val = float(result.get(key, 0.0))
+                    result[key] = float(np.log(val + 1) if val >= 0 else 0.0)
+                except:
+                    result[key] = 0.0
+            for key in CATEGORICAL_KEYS:
+                val = result.get(key, "0")
+                try:
+                    result[key] = str(int(val, 16) % args.max_vocab_size)
+                except:
+                    result[key] = "0"
+            return [result]
+        except Exception as e:
+            logging.error(f"Error processing element: {element}, error: {e}")
+            return []
+
+def measure_time(description):
+    """Create a DoFn that logs timestamps for measuring performance"""
+    class MeasureTimeFn(beam.DoFn):
+        def __init__(self, description):
+            self.description = description
+            
+        def setup(self):
+            self.count = 0
+            self.start_time = time.time()
+            logging.info(f"Starting {self.description}")
+            
+        def process(self, element):
+            self.count += 1
+            if self.count % 1000 == 0:
+                elapsed = time.time() - self.start_time
+                logging.info(f"{self.description}: Processed {self.count} elements in {elapsed:.2f}s ({self.count/elapsed:.2f} elements/s)")
+            yield element
+            
+        def finish_bundle(self):
+            elapsed = time.time() - self.start_time
+            logging.info(f"Finished {self.description}: Processed {self.count} elements in {elapsed:.2f}s ({self.count/elapsed:.2f} elements/s)")
+            
+    return MeasureTimeFn(description)
 
 def transform_data():
-    job_name = f"criteo-preprocess-{datetime.datetime.now().strftime('%y%m%d-%H%M%S')}"
+    # job_name = f"criteo-preprocess-{datetime.datetime.now().strftime('%y%m%d-%H%M%S')}"
     options_dict = {
         "runner": "DataflowRunner",
         "staging_location": os.path.join(args.output_path, "tmp", "staging"),
         "temp_location": os.path.join(args.output_path, "tmp"),
-        "job_name": job_name,
+        "job_name": args.job_name,
         "project": args.project,
         "save_main_session": True,
         "region": args.region,
-        "setup_file": "./setup.py",
+        # "setup_file": "./setup.py",
         "machine_type": args.machine_type,  # Add this line
         "num_workers": args.num_workers,  # Add this line
-        # "sdk_container_image": args.sdk_container_image,
-        "autoscalingAlgorithm": args.autoscalingAlgorithm,
+        "sdk_container_image": args.sdk_container_image,
+        # "wait_until_finish": True,
+        "autoscaling_algorithm": args.autoscaling_algorithm,
         "max_num_workers": args.max_num_workers, 
     } if args.runner == "DataflowRunner" else {}
 
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options_dict)
 
+    logging.info(f"Starting Parquet read test from: {args.input_path}")
+    logging.info(f"Runner: {args.runner}")
+    logging.info(f"Number of workers: {args.num_workers}")
+
     with beam.Pipeline(options=pipeline_options) as p:
         with tft_beam.Context(temp_dir=args.temp_dir):
             raw_data = (
                 p
-                | 'ReadParquet' >> beam.io.ReadFromParquet(args.input_path, as_rows=False)
-                | 'PreprocessDict' >> beam.ParDo(PreprocessDict())
+                | 'ReadParquet' >> beam.io.ReadFromParquet(args.input_path, validate=False, as_rows=False)
+                | 'MeasureRead' >> beam.ParDo(measure_time("ReadParquet output"))
+                | 'PreprocessDict' >> beam.ParDo(PreprocessDict())  
             )
 
-            raw_dataset = (raw_data, INPUT_METADATA)
-            transform_fn = compute_vocab_fn if args.vocab_gen_mode else apply_vocab_fn
-
-            transformed_dataset, _ = (
-                raw_dataset
-                | 'Transform' >> tft_beam.AnalyzeAndTransformDataset(transform_fn)
-            )
-
-            transformed_data, _ = transformed_dataset
-            _ = (
-                transformed_data
-                | 'WriteOut' >> beam.io.WriteToText(args.output_path)
-            )
 
 if __name__ == '__main__':
     logging.set_verbosity(logging.DEBUG)
+    start_time = time.time()
     transform_data()
+    total_time = time.time() - start_time
+    logging.info(f"Total pipeline execution time: {total_time:.2f} seconds")

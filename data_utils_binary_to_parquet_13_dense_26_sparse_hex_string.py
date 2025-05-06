@@ -16,8 +16,8 @@ def generate_pseudo_parquet(output_parquet,
     # Step 2: Generate dense features with random positive and negative float values as float32
     dense_data = np.random.uniform(-1000, 1000, size=(num_rows, num_dense)).astype(np.float32)
 
-    # Step 3: Generate sparse features with random 64-bit integers (int64)
-    sparse_data = np.random.randint(0, 2**63-1, size=(num_rows, num_sparse), dtype=np.int64)
+    # Step 3: Generate sparse features with random 32-bit integers and convert to hexadecimal strings
+    sparse_data = np.array([[f"{random.randint(0, 0xFFFFFFFF):08X}" for _ in range(num_sparse)] for _ in range(num_rows)])
 
     # Step 4: Create a DataFrame and combine all data
     # Target column
@@ -49,5 +49,5 @@ def generate_pseudo_parquet(output_parquet,
     print(f"   → Columns: {len(df.columns)}")
 
 # Example usage
-output_parquet_path = "/mnt/scratch/yuzhuyu/parquet/bin2parquet_hex_int.parquet"
+output_parquet_path = "/mnt/scratch/yuzhuyu/parquet/bin2parquet.parquet"
 generate_pseudo_parquet(output_parquet_path)
