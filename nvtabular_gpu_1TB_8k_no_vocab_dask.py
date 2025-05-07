@@ -27,9 +27,13 @@ from nvtabular.ops import (
     FillMissing,
     Normalize,
     get_embedding_sizes,
+    LambdaOp,
+    LogOp,
 )
 
 import logging
+import cudf
+import pandas as pd
 
 # Set up logging
 logging.basicConfig(
@@ -40,6 +44,11 @@ logging.basicConfig(
         logging.FileHandler(f'preprocessing_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
     ]
 )
+
+# Log versions for debugging
+logging.info(f"NVTabular version: {nvt.__version__}")
+logging.info(f"cuDF version: {cudf.__version__}")
+logging.info(f"Pandas version: {pd.__version__}")
 
 # Define dataset schema
 CATEGORICAL_COLUMNS = ["col_" + str(x) for x in range(14, 40)]
@@ -134,7 +143,7 @@ def setup_dask_cluster():
     client = Client(cluster)
     return client, cluster
 
-def preprocess_data(train_paths, client):
+def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
     """Preprocess the data using NVTabular workflow"""
     # Calculate total data size
     total_size = sum(get_file_size(f) for f in train_paths)
@@ -142,15 +151,51 @@ def preprocess_data(train_paths, client):
     
     # Define the workflow
     logging.info("Setting up workflow...")
-    categorify_op = Categorify()
-    cat_features = CATEGORICAL_COLUMNS >> categorify_op
-    cont_features = CONTINUOUS_COLUMNS >> FillMissing() >> Clip(min_value=0) >> Normalize()
+
+    # categorify_op = Categorify()
+    # cat_features = CATEGORICAL_COLUMNS >> categorify_op
+    # cont_features = CONTINUOUS_COLUMNS >> FillMissing() >> Clip(min_value=0) >> Normalize()
+
+    cat_features = (
+        CATEGORICAL_COLUMNS
+        >> LambdaOp(lambda col: 
+                    # Convert hexadecimal strings to integers if dtype is 'object'
+                    col.str.hex_to_int() % vocab_size  # Direct conversion using `.str.hex_to_int()`
+                    if col.dtype == 'object' 
+                    else col % vocab_size)
+        # >> Categorify()
+    )
+
+    cont_features = (
+        CONTINUOUS_COLUMNS 
+        # >> LambdaOp(lambda col: col.clip(lower=0))
+        >> Clip(min_value=0)
+        >> LogOp()
+    )
+
     features = LABEL_COLUMNS + cont_features + cat_features
     workflow = nvt.Workflow(features, client=client)
 
-    # Create dataset
+    # Create dataset with modified parameters
     logging.info("Creating dataset...")
-    train_ds_iterator = nvt.Dataset(train_paths, engine='parquet')
+    try:
+        # Try without strings_to_categorical
+        train_ds_iterator = nvt.Dataset(
+            train_paths,
+            engine='parquet',
+            part_mem_fraction=part_mem_fraction
+        )
+    except ValueError as e:
+        if "strings_to_categorical" in str(e):
+            logging.info("Retrying with pandas engine...")
+            # Fall back to pandas engine if cuDF fails
+            train_ds_iterator = nvt.Dataset(
+                train_paths,
+                engine='parquet',
+                part_mem_fraction=part_mem_fraction 
+            )
+        else:
+            raise e
 
     # Fit and transform training data
     logging.info('Fitting workflow...')
@@ -190,6 +235,8 @@ def main():
                       help="Pattern to match training parquet files")
     parser.add_argument('--part_mem_fraction', type=float, default=0.3, 
                       help="Fraction of GPU memory to use for each data partition (0-1)")
+    parser.add_argument('--vocab_size', type=int, default=8192, 
+                      help="Vocabulary size for categorical features")
     args = parser.parse_args()
 
     # Start timing
@@ -207,7 +254,7 @@ def main():
             logging.info(f"Last file: {train_paths[-1]}")
 
         # Preprocess data
-        preprocess_data(train_paths, client)
+        preprocess_data(train_paths, client, args.vocab_size, args.part_mem_fraction)
 
     finally:
         # Cleanup

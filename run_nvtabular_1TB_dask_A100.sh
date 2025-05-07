@@ -9,7 +9,7 @@ INPUT_DIR="gs://criteo_preprocessing/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
 PART_MEM_FRACTIONS=(0.15)
-
+VOCAB_SIZE=8192
 # Number of runs for each configuration
 NUM_RUNS=1
 
@@ -68,6 +68,7 @@ for part_mem_fraction in "${PART_MEM_FRACTIONS[@]}"; do
             --data_dir "$INPUT_DIR" \
             --file_pattern "criteo_1TB_part_*.parquet" \
             --part_mem_fraction "$part_mem_fraction" \
+            --vocab_size $VOCAB_SIZE \
             2>&1 | tee "logs/output_${part_mem_fraction}_run${run}.log"
         
         # Stop GPU monitoring
