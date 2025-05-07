@@ -3,8 +3,9 @@
 # Set GPU device
 export CUDA_VISIBLE_DEVICES=0
 
-# Input directory containing parquet files
-INPUT_DIR="/mnt/scratch/yuzhuyu/parquet/criteo_1TB"
+# Input directory containing parquet files (can be local or GCS path)
+INPUT_DIR="/mnt/scratch/yuzhuyu/parquet/criteo_1TB"  # Local path
+# INPUT_DIR="gs://your-bucket/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
 PART_MEM_FRACTIONS=(0.15)
@@ -30,8 +31,31 @@ gc.collect()
 "
 }
 
+# Function to setup GCS authentication if needed
+setup_gcs_auth() {
+    if [[ "$INPUT_DIR" == gs://* ]]; then
+        echo "Setting up GCS authentication..."
+        # Check if GOOGLE_APPLICATION_CREDENTIALS is set
+        if [ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
+            echo "Warning: GOOGLE_APPLICATION_CREDENTIALS environment variable is not set"
+            echo "Please set it to the path of your GCS service account key file:"
+            echo "export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-key.json"
+            exit 1
+        fi
+        
+        # Verify the credentials file exists
+        if [ ! -f "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
+            echo "Error: GCS credentials file not found at $GOOGLE_APPLICATION_CREDENTIALS"
+            exit 1
+        fi
+    fi
+}
+
 # Create logs directory if it doesn't exist
 mkdir -p logs
+
+# Setup GCS authentication if needed
+setup_gcs_auth
 
 # Run tests for each part_mem_fraction
 for part_mem_fraction in "${PART_MEM_FRACTIONS[@]}"; do

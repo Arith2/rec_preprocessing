@@ -10,10 +10,12 @@ import time
 import numpy as np
 import shutil
 import numba
+from urllib.parse import urlparse
 
 import dask_cudf
 from dask_cuda import LocalCUDACluster
 from dask.distributed import Client
+import gcsfs
 
 import nvtabular as nvt
 from merlin.core.compat import device_mem_size, pynvml_mem_size
@@ -45,6 +47,28 @@ CRITEO_COLUMN = LABEL_COLUMNS + CATEGORICAL_COLUMNS
 NUM_INTEGER_COLUMNS = 13
 NUM_CATEGORICAL_COLUMNS = 26
 NUM_TOTAL_COLUMNS = 1 + NUM_INTEGER_COLUMNS + NUM_CATEGORICAL_COLUMNS
+
+def is_gcs_path(path):
+    """Check if the path is a Google Cloud Storage path"""
+    return path.startswith('gs://')
+
+def get_file_list(data_dir, file_pattern):
+    """Get list of files from either local directory or GCS"""
+    if is_gcs_path(data_dir):
+        # Initialize GCS filesystem
+        fs = gcsfs.GCSFileSystem()
+        # List files in GCS bucket
+        full_pattern = os.path.join(data_dir, file_pattern)
+        files = fs.glob(full_pattern)
+        if not files:
+            raise ValueError(f"No files found matching pattern: {full_pattern}")
+        return [f"gs://{f}" for f in files]
+    else:
+        # Local file system
+        files = glob.glob(os.path.join(data_dir, file_pattern))
+        if not files:
+            raise ValueError(f"No files found matching pattern: {os.path.join(data_dir, file_pattern)}")
+        return files
 
 def setup_dask_cluster():
     """Setup Dask cluster with GPU configuration"""
@@ -126,9 +150,12 @@ def preprocess_data(train_paths, client):
 
 def main():
     parser = argparse.ArgumentParser(description="NVTabular Preprocessing for Criteo Dataset")
-    parser.add_argument('--data_dir', type=str, required=True, help="Directory containing the parquet files")
-    parser.add_argument('--file_pattern', type=str, default="*.parquet", help="Pattern to match training parquet files")
-    parser.add_argument('--part_mem_fraction', type=float, default=0.3, help="Fraction of GPU memory to use for each data partition (0-1)")
+    parser.add_argument('--data_dir', type=str, required=True, 
+                      help="Directory containing the parquet files (local path or GCS path starting with 'gs://')")
+    parser.add_argument('--file_pattern', type=str, default="*.parquet", 
+                      help="Pattern to match training parquet files")
+    parser.add_argument('--part_mem_fraction', type=float, default=0.3, 
+                      help="Fraction of GPU memory to use for each data partition (0-1)")
     args = parser.parse_args()
 
     # Start timing
@@ -139,18 +166,13 @@ def main():
 
     try:
         # Get parquet file paths
-        train_paths = glob.glob(os.path.join(args.data_dir, args.file_pattern))
-
-        if not train_paths:
-            raise ValueError(f"No training files found matching pattern: {args.file_pattern}")
-
+        train_paths = get_file_list(args.data_dir, args.file_pattern)
         logging.info(f"Found {len(train_paths)} training files")
+        if len(train_paths) > 0:
+            logging.info(f"First file: {train_paths[0]}")
 
         # Preprocess data
-        preprocess_data(
-            train_paths,
-            client
-        )
+        preprocess_data(train_paths, client)
 
     finally:
         # Cleanup
