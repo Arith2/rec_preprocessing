@@ -1,0 +1,152 @@
+2025-05-07 20:54:57,809 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:54:57,809 - INFO - cuDF version: 23.04.01
+2025-05-07 20:54:57,809 - INFO - Pandas version: 1.5.3
+2025-05-07 20:54:57,811 - INFO - visible_devices: 0
+2025-05-07 20:54:57,811 - INFO - Device size: 25.33 GB
+2025-05-07 20:54:57,811 - INFO - Device limit: 17.73 GB
+2025-05-07 20:54:57,811 - INFO - Device pool size: 20.26 GB
+2025-05-07 20:54:58,558 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-07 20:54:58,583 - INFO - State start
+2025-05-07 20:54:58,591 - INFO -   Scheduler at:     tcp://127.0.0.1:45715
+2025-05-07 20:54:58,591 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-07 20:54:58,687 - INFO -         Start Nanny at: 'tcp://127.0.0.1:42041'
+2025-05-07 20:55:04,347 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:55:04,347 - INFO - cuDF version: 23.04.01
+2025-05-07 20:55:04,347 - INFO - Pandas version: 1.5.3
+2025-05-07 20:55:04,351 - distributed.preloading - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:55:04,351 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:55:04,351 - distributed.preloading - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:55:04,351 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:55:04,372 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 20:55:04,532 - INFO -       Start worker at:      tcp://127.0.0.1:37989
+2025-05-07 20:55:04,532 - INFO -          Listening to:      tcp://127.0.0.1:37989
+2025-05-07 20:55:04,532 - INFO -           Worker name:                          0
+2025-05-07 20:55:04,532 - INFO -          dashboard at:            127.0.0.1:45579
+2025-05-07 20:55:04,532 - INFO - Waiting to connect to:      tcp://127.0.0.1:45715
+2025-05-07 20:55:04,532 - INFO - -------------------------------------------------
+2025-05-07 20:55:04,532 - INFO -               Threads:                          1
+2025-05-07 20:55:04,532 - INFO -                Memory:                 251.74 GiB
+2025-05-07 20:55:04,532 - INFO -       Local Directory: /tmp/dask-worker-space/worker-x_dch8qx
+2025-05-07 20:55:04,532 - INFO - Starting Worker plugin RMMSetup-7cb57886-9e79-42ef-83f7-bf1f2c405f36
+2025-05-07 20:55:05,093 - INFO - Starting Worker plugin PreImport-aa8d619c-43ee-49b7-9f4b-04f70983b873
+2025-05-07 20:55:05,094 - INFO - Starting Worker plugin CPUAffinity-e2fe98d1-d8c5-4d5e-a81f-2e183d3dd6a0
+2025-05-07 20:55:05,094 - INFO - -------------------------------------------------
+2025-05-07 20:55:05,116 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:37989', name: 0, status: init, memory: 0, processing: 0>
+2025-05-07 20:55:05,133 - INFO - Starting worker compute stream, tcp://127.0.0.1:37989
+2025-05-07 20:55:05,133 - INFO - Starting established connection to tcp://127.0.0.1:56398
+2025-05-07 20:55:05,133 - INFO -         Registered to:      tcp://127.0.0.1:45715
+2025-05-07 20:55:05,133 - INFO - -------------------------------------------------
+2025-05-07 20:55:05,134 - INFO - Starting established connection to tcp://127.0.0.1:45715
+2025-05-07 20:55:05,164 - INFO - Receive client connection: Client-c9e01355-2b74-11f0-a584-506b4bdbc6c4
+2025-05-07 20:55:05,164 - INFO - Starting established connection to tcp://127.0.0.1:56410
+2025-05-07 20:55:05,168 - INFO - Found 1024 training files
+2025-05-07 20:55:05,169 - INFO - First file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0991.parquet
+2025-05-07 20:55:05,169 - INFO - Last file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0855.parquet
+2025-05-07 20:55:05,507 - INFO - Total data size: 1473.35 GB
+2025-05-07 20:55:05,507 - INFO - Setting up workflow...
+2025-05-07 20:55:05,507 - INFO - Creating dataset...
+2025-05-07 20:55:06,541 - INFO - Dataset created successfully with cuDF engine
+2025-05-07 20:55:06,542 - INFO - Part size: 2GB
+2025-05-07 20:55:06,542 - INFO - Fitting workflow...
+2025-05-07 20:55:06,542 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-07 20:55:07,996 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:55:08,668 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-07 20:55:08,669 - INFO - Workflow fitting completed in 2.13 seconds
+2025-05-07 20:55:08,669 - INFO - Transforming dataset...
+2025-05-07 20:55:10,073 - INFO - Run out-of-band function 'clean_worker_cache'
+Processing files:   0%|          | 0/1024 [00:00<?, ?it/s]Processing files:   0%|          | 0/1024 [00:00<?, ?it/s]
+2025-05-07 20:55:10,562 - INFO - Closing Nanny at 'tcp://127.0.0.1:42041'. Reason: nanny-close
+2025-05-07 20:55:10,563 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-07 20:55:10,564 - INFO - Stopping worker at tcp://127.0.0.1:37989. Reason: nanny-close
+2025-05-07 20:55:10,567 - INFO - Connection to tcp://127.0.0.1:45715 has been closed.
+2025-05-07 20:55:10,567 - INFO - Received 'close-stream' from tcp://127.0.0.1:56398; closing.
+2025-05-07 20:55:10,568 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:37989', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-07 20:55:10,568 - INFO - Removing comms to tcp://127.0.0.1:37989
+2025-05-07 20:55:10,568 - INFO - Lost all workers
+2025-05-07 20:55:11,596 - INFO - Scheduler closing...
+2025-05-07 20:55:11,596 - INFO - Scheduler closing all comms
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask_cudf/io/parquet.py", line 276, in read_partition
+    cls._read_paths(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask_cudf/io/parquet.py", line 100, in _read_paths
+    df = cudf.read_parquet(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/nvtx/nvtx.py", line 122, in inner
+    result = func(*args, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/cudf/io/parquet.py", line 550, in read_parquet
+    return _parquet_to_frame(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/nvtx/nvtx.py", line 122, in inner
+    result = func(*args, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/cudf/io/parquet.py", line 579, in _parquet_to_frame
+    return _read_parquet(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/nvtx/nvtx.py", line 122, in inner
+    result = func(*args, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/cudf/io/parquet.py", line 688, in _read_parquet
+    return libparquet.read_parquet(
+  File "parquet.pyx", line 123, in cudf._lib.parquet.read_parquet
+  File "parquet.pyx", line 182, in cudf._lib.parquet.read_parquet
+MemoryError: std::bad_alloc: out_of_memory: CUDA error at: /home/yuzhuyu/miniconda3/envs/nvtabular_23_08/include/rmm/mr/device/cuda_memory_resource.hpp
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuzhuyu/u55c/rec_preprocessing/nvtabular_gpu_1TB_8k_no_vocab_dask.py", line 282, in <module>
+    main()
+  File "/home/yuzhuyu/u55c/rec_preprocessing/nvtabular_gpu_1TB_8k_no_vocab_dask.py", line 268, in main
+    preprocess_data(train_paths, client, args.vocab_size, args.part_size)
+  File "/home/yuzhuyu/u55c/rec_preprocessing/nvtabular_gpu_1TB_8k_no_vocab_dask.py", line 223, in preprocess_data
+    for _ in transformed_data.to_iter():
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/merlin/io/dataframe_iter.py", line 44, in __iter__
+    yield part.compute(scheduler="synchronous")
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/base.py", line 314, in compute
+    (result,) = compute(self, traverse=False, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/base.py", line 599, in compute
+    results = schedule(dsk, keys, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 557, in get_sync
+    return get_async(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 500, in get_async
+    for key, res_info, failed in queue_get(queue).result():
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 542, in submit
+    fut.set_result(fn(*args, **kwargs))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 238, in batch_execute_tasks
+    return [execute_task(*a) for a in it]
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 238, in <listcomp>
+    return [execute_task(*a) for a in it]
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 229, in execute_task
+    result = pack_exception(e, dumps)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/local.py", line 224, in execute_task
+    result = _execute_task(task, data)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 119, in _execute_task
+    return func(*(_execute_task(a, cache) for a in args))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/optimization.py", line 990, in __call__
+    return core.get(self.dsk, self.outkey, dict(zip(self.inkeys, args)))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 149, in get
+    result = _execute_task(task, cache)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 119, in _execute_task
+    return func(*(_execute_task(a, cache) for a in args))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 119, in <genexpr>
+    return func(*(_execute_task(a, cache) for a in args))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 113, in _execute_task
+    return [_execute_task(a, cache) for a in arg]
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 113, in <listcomp>
+    return [_execute_task(a, cache) for a in arg]
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/core.py", line 119, in _execute_task
+    return func(*(_execute_task(a, cache) for a in args))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/dataframe/io/parquet/core.py", line 96, in __call__
+    return read_parquet_part(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/dataframe/io/parquet/core.py", line 663, in read_parquet_part
+    dfs = [
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask/dataframe/io/parquet/core.py", line 664, in <listcomp>
+    func(
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/merlin/io/parquet.py", line 127, in read_partition
+    return CudfEngine.read_partition(fs, pieces, *args, **kwargs)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask_cudf/io/parquet.py", line 301, in read_partition
+    raise MemoryError(
+MemoryError: Parquet data was larger than the available GPU memory!
+
+See the notes on split_row_groups in the read_parquet documentation.
+
+Original Error: std::bad_alloc: out_of_memory: CUDA error at: /home/yuzhuyu/miniconda3/envs/nvtabular_23_08/include/rmm/mr/device/cuda_memory_resource.hpp

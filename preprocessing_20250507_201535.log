@@ -22,3 +22,29 @@
 2025-05-07 20:15:36,195 - INFO - Starting established connection to tcp://127.0.0.1:33663
 2025-05-07 20:15:39,335 - INFO - Run out-of-band function 'clean_worker_cache'
 2025-05-07 20:15:41,215 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:54:18,383 - INFO - Stopping worker at tcp://127.0.0.1:40049. Reason: worker-close
+2025-05-07 20:54:18,387 - INFO - Batched Comm Closed <TCP (closed) Worker->Scheduler local=tcp://127.0.0.1:34796 remote=tcp://127.0.0.1:33663>
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/selectors.py", line 469, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/batched.py", line 115, in _background_send
+    nbytes = yield coro
+  File "/home/yuzhuyu/.local/lib/python3.10/site-packages/tornado/gen.py", line 767, in run
+    value = future.result()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/comm/tcp.py", line 269, in write
+    raise CommClosedError()
+distributed.comm.core.CommClosedError
+2025-05-07 20:54:19,098 - ERROR - Worker process died unexpectedly

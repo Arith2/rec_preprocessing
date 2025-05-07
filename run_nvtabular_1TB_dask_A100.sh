@@ -9,7 +9,7 @@ INPUT_DIR="gs://criteo_preprocessing/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
 # PART_MEM_FRACTIONS=(0.15)
-PART_SIZES=("1GB")
+PART_SIZES=("10GB")
 
 # Number of runs for each configuration
 NUM_RUNS=1

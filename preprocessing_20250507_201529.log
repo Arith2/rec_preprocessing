@@ -33,3 +33,29 @@
 2025-05-07 20:19:09,996 - INFO - GPU 0 memory usage: 21.52 GB
 2025-05-07 20:21:15,495 - INFO - GPU 0 memory usage: 21.52 GB
 2025-05-07 20:23:19,587 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:25:24,764 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:27:31,239 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:29:36,801 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:31:31,859 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:33:33,267 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:35:36,832 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:37:41,980 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:39:47,992 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:41:54,201 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:43:55,741 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:46:02,830 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:48:07,297 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:50:09,763 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:52:14,483 - INFO - GPU 0 memory usage: 21.52 GB
+2025-05-07 20:54:18,387 - INFO - Connection to tcp://127.0.0.1:34796 has been closed.
+2025-05-07 20:54:18,388 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:40049', name: 0, status: running, memory: 0, processing: 0>
+2025-05-07 20:54:18,388 - INFO - Removing comms to tcp://127.0.0.1:40049
+2025-05-07 20:54:18,389 - INFO - Lost all workers
+2025-05-07 20:54:18,404 - INFO - Closing Nanny gracefully at 'tcp://127.0.0.1:33605'. Reason: worker-close
+2025-05-07 20:54:19,339 - INFO - Closing Nanny at 'tcp://127.0.0.1:33605'. Reason: nanny-close
+2025-05-07 20:54:19,340 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-07 20:54:19,559 - INFO - Worker process 2234516 was killed by signal 2
+2025-05-07 20:54:29,357 - INFO - Remove client Client-45e4c3a6-2b6f-11f0-9767-506b4bdbc6c4
+2025-05-07 20:54:29,357 - INFO - Received 'close-stream' from tcp://127.0.0.1:34804; closing.
+2025-05-07 20:54:29,358 - INFO - Remove client Client-45e4c3a6-2b6f-11f0-9767-506b4bdbc6c4
+2025-05-07 20:54:29,358 - INFO - Close client connection: Client-45e4c3a6-2b6f-11f0-9767-506b4bdbc6c4
