@@ -159,10 +159,7 @@ def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
     cat_features = (
         CATEGORICAL_COLUMNS
         >> LambdaOp(lambda col: 
-                    # Convert hexadecimal strings to integers if dtype is 'object'
-                    col.str.hex_to_int() % vocab_size  # Direct conversion using `.str.hex_to_int()`
-                    if col.dtype == 'object' 
-                    else col % vocab_size)
+                    col.map_partitions(lambda s: s.apply(lambda x: int(x, 16) % vocab_size)))
         # >> Categorify()
     )
 
