@@ -92,7 +92,7 @@ def get_file_size(file_path):
     else:
         return os.path.getsize(file_path) / (1024**3)  # Convert to GB
 
-def setup_dask_cluster():
+def setup_dask_cluster(part_mem_fraction):
     """Setup Dask cluster with GPU configuration"""
     # Dask dashboard
     dashboard_port = "8787"
@@ -108,7 +108,7 @@ def setup_dask_cluster():
     # Memory configuration
     device_limit_frac = 0.7  # Spill GPU-Worker memory to host at this limit
     device_pool_frac = 0.8
-    part_mem_frac = 0.15
+    part_mem_frac = part_mem_fraction
 
     # Calculate memory limits
     device_size = device_mem_size(kind="total")
@@ -141,9 +141,9 @@ def setup_dask_cluster():
 
     # Create the distributed client
     client = Client(cluster)
-    return client, cluster
+    return client, cluster, part_size
 
-def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
+def preprocess_data(train_paths, client, vocab_size, part_size):
     """Preprocess the data using NVTabular workflow"""
     # Calculate total data size
     total_size = sum(get_file_size(f) for f in train_paths)
@@ -158,14 +158,11 @@ def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
 
     cat_features = (
         CATEGORICAL_COLUMNS
-        >> LambdaOp(lambda col: 
-                    col.map_partitions(lambda s: s.apply(lambda x: int(x, 16) % vocab_size)))
-        # >> Categorify()
+        >> LambdaOp(lambda x: int(x, 16) % vocab_size)
     )
 
     cont_features = (
         CONTINUOUS_COLUMNS 
-        # >> LambdaOp(lambda col: col.clip(lower=0))
         >> Clip(min_value=0)
         >> LogOp()
     )
@@ -180,8 +177,9 @@ def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
         train_ds_iterator = nvt.Dataset(
             train_paths,
             engine='parquet',
-            part_mem_fraction=part_mem_fraction
+            part_size=part_size
         )
+        logging.info("Dataset created successfully with cuDF engine")
     except ValueError as e:
         if "strings_to_categorical" in str(e):
             logging.info("Retrying with pandas engine...")
@@ -189,7 +187,7 @@ def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
             train_ds_iterator = nvt.Dataset(
                 train_paths,
                 engine='parquet',
-                part_mem_fraction=part_mem_fraction,
+                part_size=part_size,
                 cpu=True
             )
         else:
@@ -241,7 +239,7 @@ def main():
     runtime = time.time()
 
     # Setup Dask cluster
-    client, cluster = setup_dask_cluster()
+    client, cluster, part_size = setup_dask_cluster(args.part_mem_fraction)
 
     try:
         # Get parquet file paths
@@ -252,7 +250,7 @@ def main():
             logging.info(f"Last file: {train_paths[-1]}")
 
         # Preprocess data
-        preprocess_data(train_paths, client, args.vocab_size, args.part_mem_fraction)
+        preprocess_data(train_paths, client, args.vocab_size, part_size)
 
     finally:
         # Cleanup
