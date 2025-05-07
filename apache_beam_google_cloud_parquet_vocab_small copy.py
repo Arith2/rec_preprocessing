@@ -15,6 +15,9 @@ import os
 import datetime
 from absl import logging
 import time
+import json
+from apache_beam.ml.transforms.tft import ComputeAndApplyVocabulary
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -75,7 +78,7 @@ parser.add_argument(
     help="Number of workers")
 parser.add_argument(
     "--sdk_container_image",
-    default="gcr.io/cloud-shared-execution/beam-custom:latest",
+    default="europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-tft115:v1",
     help="Container image for the Beam job")
 parser.add_argument(
     "--max_num_workers",
@@ -90,6 +93,10 @@ parser.add_argument(
     "--job_name",
     default="criteo-preprocess",
     help="Job name")
+parser.add_argument(
+    "--csv_delimeter",
+    default="\t",
+    help="Delimeter string for input and output.")
 
 args = parser.parse_args()
 
@@ -98,11 +105,16 @@ NUMERIC_KEYS = [f"col_{i+1}" for i in range(NUM_NUMERIC_FEATURES)]
 CATEGORICAL_KEYS = [f"col_{i}" for i in range(NUM_NUMERIC_FEATURES + 1, 40)]
 LABEL_KEY = "col_0"
 
-FEATURE_SPEC = {
-    LABEL_KEY: tf.io.FixedLenFeature([], tf.int64),
-    **{k: tf.io.FixedLenFeature([], tf.float32) for k in NUMERIC_KEYS},
-    **{k: tf.io.FixedLenFeature([], tf.string) for k in CATEGORICAL_KEYS},
-}
+# FEATURE_SPEC = {
+#     LABEL_KEY: tf.io.FixedLenFeature([], tf.int64),
+#     **{k: tf.io.FixedLenFeature([], tf.float32) for k in NUMERIC_KEYS},
+#     **{k: tf.io.FixedLenFeature([], tf.string) for k in CATEGORICAL_KEYS},
+# }
+FEATURE_SPEC = dict([(LABEL_KEY, tf.io.FixedLenFeature([], tf.int64))]
+                    + [(name, tf.io.FixedLenFeature([], dtype=tf.float32))
+                     for name in NUMERIC_KEYS]
+                     + [(name, tf.io.FixedLenFeature([], dtype=tf.int64))
+                     for name in CATEGORICAL_KEYS])
 INPUT_METADATA = dataset_metadata.DatasetMetadata(
     schema_utils.schema_from_feature_spec(FEATURE_SPEC))
 
@@ -123,21 +135,28 @@ def apply_vocab_fn(inputs):
     return outputs
 
 class PreprocessDict(beam.DoFn):
+    def __init__(self):
+        self.skipped_counter = beam.metrics.Metrics.counter("preprocessing", "skipped_elements")
+
     def process(self, element):
-        result = dict(element)
-        for key in NUMERIC_KEYS:
-            try:
-                val = float(result.get(key, 0.0))
-                result[key] = float(np.log(val + 1) if val >= 0 else 0.0)
-            except:
-                result[key] = 0.0
-        for key in CATEGORICAL_KEYS:
-            val = result.get(key, "0")
-            try:
-                result[key] = str(int(val, 16) % args.max_vocab_size)
-            except:
-                result[key] = "0"
-        return [result]
+        try: 
+            result = dict(element)
+            for key in NUMERIC_KEYS:
+                try:
+                    val = float(result.get(key, 0.0))
+                    result[key] = float(np.log(val + 1) if val >= 0 else 0.0)
+                except:
+                    result[key] = 0.0
+            for key in CATEGORICAL_KEYS:
+                val = result.get(key, "0")
+                try:
+                    result[key] = int(val) % args.max_vocab_size
+                except:
+                    result[key] = 0
+            return [result]
+        except Exception as e:
+            logging.error(f"Error processing element: {element}, error: {e}")
+            return []
 
 def measure_time(description):
     """Create a DoFn that logs timestamps for measuring performance"""
@@ -182,7 +201,16 @@ def transform_data():
         "max_num_workers": args.max_num_workers, 
     } if args.runner == "DataflowRunner" else {}
 
+    # Add these debug lines:
+
+    logging.info(f"Pipeline options_dict: {json.dumps(options_dict, indent=2)}")
+    for key, value in options_dict.items():
+        logging.info(f"  {key}: {value}")
+
     pipeline_options = beam.pipeline.PipelineOptions(flags=[], **options_dict)
+
+    # pipeline_options.view_as(beam.options.pipeline_options.WorkerOptions).sdk_container_image = args.sdk_container_image
+    # pipeline_options.view_as(beam.options.pipeline_options.DebugOptions).experiments = ['use_runner_v2']
 
     logging.info(f"Starting Parquet read test from: {args.input_path}")
     logging.info(f"Runner: {args.runner}")
@@ -193,20 +221,26 @@ def transform_data():
             raw_data = (
                 p
                 | 'ReadParquet' >> beam.io.ReadFromParquet(args.input_path, validate=False, as_rows=False)
-                | 'PreprocessDict' >> beam.ParDo(PreprocessDict()) 
-                # | 'MeasureRead' >> beam.ParDo(measure_time("Parquet Reading"))
-                # | 'Count' >> beam.combiners.Count.Globally()
-                # | 'LogCount' >> beam.Map(lambda count: logging.info(f"Total records read: {count}"))
+                | 'MeasureRead' >> beam.ParDo(measure_time("ReadParquet output"))
+                | 'PreprocessDict' >> beam.ParDo(PreprocessDict())  
             )
 
-            raw_dataset = (raw_data, INPUT_METADATA)
             
-            transform_fn = compute_vocab_fn if args.vocab_gen_mode else apply_vocab_fn
 
-            transformed_dataset, _ = (
-                raw_dataset
-                | 'Transform' >> tft_beam.AnalyzeAndTransformDataset(transform_fn)
-            )
+            # # Apply vocab to categorical features
+            # for key in CATEGORICAL_KEYS:
+            #     raw_data = raw_data | f'ComputeVocab_{key}' >> ComputeAndApplyVocabulary(lambda x, key=key: x[key],
+            #                                                                      vocab_size=args.max_vocab_size,
+            #                                                                      output_key=key)
+
+            # raw_dataset = (raw_data, INPUT_METADATA)
+            
+            # transform_fn = compute_vocab_fn if args.vocab_gen_mode else apply_vocab_fn
+
+            # transformed_dataset, _ = (
+            #     raw_dataset
+            #     | 'Transform' >> tft_beam.AnalyzeAndTransformDataset(transform_fn)
+            # )
 
             # transformed_data, _ = transformed_dataset
             # _ = (

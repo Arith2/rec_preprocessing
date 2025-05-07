@@ -1,0 +1,30 @@
+===== RUNNING ALL VOCABULARY GENERATION JOBS =====
+--- GENERATION CONFIG 1: n2-standard-128 with 1 worker ---
+Will execute the following command:
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-128" "1" "criteo_1TB" "vocab_large" "536870912"
+
+Starting vocabulary generation job...
+Running vocab generation with:
+MACHINE_TYPE: n2-standard-128
+NUM_WORKERS: 1
+DATASET_NAME: criteo_1TB
+JOB_TYPE: vocab_large
+VOCAB_SIZE: 536870912
+Executing the following command:
+python3 apache_beam_google_cloud_parquet_vocab_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_1TB/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_1TB_output/vocab_536870912_1_n2-standard-128_vocab_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_1TB_temp/vocab_536870912_1_n2-standard-128_vocab_large" \
+  --runner DataflowRunner --project cloud-shared-execution \
+  --region europe-west1 \
+  --machine_type n2-standard-128 \
+  --num_workers 1 \
+  --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
+  --job_name "criteo-1tb-vocab-536870912-workers-1-n2-standard-128-vocab-large-gen"  \
+  --autoscaling_algorithm NONE \
+  --max_num_workers 1 \
+  --max_vocab_size 536870912 \
+  --vocab_gen_mode
+
+python3: can't open file '/home/yuzhuyu/u55c/rec_preprocessing/apache_beam_google_cloud_parquet_vocab_large.py': [Errno 2] No such file or directory
+Vocabulary generation job failed. Exiting.

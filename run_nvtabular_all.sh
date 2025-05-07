@@ -3,7 +3,8 @@
 NUM_LOOPS=2
 
 # Predefined values for part_mem_fraction
-PART_MEM_FRACTIONS=(0.1 0.2 0.3 0.4 0.5)
+# PART_MEM_FRACTIONS=(0.1 0.2 0.3 0.4 0.5)
+PART_MEM_FRACTIONS=(0.1)
 
 # Function to monitor GPU power usage, memory usage, and GPU utilization
 monitor_gpu_resources () {
@@ -64,10 +65,11 @@ run_tests () {
 }
 
 # Run the tests with the specified scripts
-run_tests "small_8k_no_vocab"
-run_tests "small_8k"
-run_tests "small_512k"
+# run_tests "small_8k_no_vocab"
+# run_tests "small_8k"
+# run_tests "small_512k"
 
-run_tests "large_8k_no_vocab"
-run_tests "large_8k"
-run_tests "large_512k"
+# run_tests "large_8k_no_vocab"
+# run_tests "large_8k"
+# run_tests "large_512k"
+

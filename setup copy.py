@@ -25,13 +25,6 @@ if __name__ == "__main__":
   setuptools.setup(
       name="criteo_preprocessing",
       version=version,
-      install_requires=[
-        "tensorflow-transform==1.15.0",
-        "tensorflow==2.15",
-        "tensorflow-metadata==1.15.0",
-        "tfx-bsl==1.15.1",
-        "apache-beam[gcp]==2.47.0",
-        "pyarrow==10.0.0"
-      ],
-    packages=setuptools.find_packages(),
+      install_requires=["tensorflow-transform==1.15.0"],
+      packages=setuptools.find_packages(),
   )

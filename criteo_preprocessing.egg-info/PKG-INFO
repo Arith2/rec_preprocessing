@@ -1,5 +1,10 @@
 Metadata-Version: 2.4
 Name: criteo_preprocessing
 Version: 0.1.0
-Requires-Dist: tensorflow-transform
+Requires-Dist: tensorflow-transform==1.15.0
+Requires-Dist: tensorflow==2.15
+Requires-Dist: tensorflow-metadata==1.15.0
+Requires-Dist: tfx-bsl==1.15.1
+Requires-Dist: apache-beam[gcp]==2.47.0
+Requires-Dist: pyarrow==10.0.0
 Dynamic: requires-dist
