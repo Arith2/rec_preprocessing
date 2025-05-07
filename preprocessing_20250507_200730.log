@@ -1,0 +1,26 @@
+2025-05-07 20:07:30,971 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:07:30,971 - INFO - cuDF version: 23.04.01
+2025-05-07 20:07:30,971 - INFO - Pandas version: 1.5.3
+2025-05-07 20:07:30,975 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:07:30,975 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:07:31,014 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 20:07:31,175 - INFO -       Start worker at:      tcp://127.0.0.1:40583
+2025-05-07 20:07:31,175 - INFO -          Listening to:      tcp://127.0.0.1:40583
+2025-05-07 20:07:31,175 - INFO -           Worker name:                          0
+2025-05-07 20:07:31,175 - INFO -          dashboard at:            127.0.0.1:44755
+2025-05-07 20:07:31,175 - INFO - Waiting to connect to:      tcp://127.0.0.1:42111
+2025-05-07 20:07:31,175 - INFO - -------------------------------------------------
+2025-05-07 20:07:31,175 - INFO -               Threads:                          1
+2025-05-07 20:07:31,175 - INFO -                Memory:                 251.74 GiB
+2025-05-07 20:07:31,175 - INFO -       Local Directory: /tmp/dask-worker-space/worker-u356cjcg
+2025-05-07 20:07:31,175 - INFO - Starting Worker plugin PreImport-15d58054-0a58-4b5e-bce5-f3bf6ddc4701
+2025-05-07 20:07:31,175 - INFO - Starting Worker plugin RMMSetup-e21a4cb2-672f-4865-bd0f-2fc21cac3fde
+2025-05-07 20:07:31,714 - INFO - Starting Worker plugin CPUAffinity-3cc48df5-4e20-4710-9ea0-d1cd8e807b93
+2025-05-07 20:07:31,714 - INFO - -------------------------------------------------
+2025-05-07 20:07:31,763 - INFO -         Registered to:      tcp://127.0.0.1:42111
+2025-05-07 20:07:31,764 - INFO - -------------------------------------------------
+2025-05-07 20:07:31,765 - INFO - Starting established connection to tcp://127.0.0.1:42111
+2025-05-07 20:07:34,878 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:07:37,657 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:07:38,190 - INFO - Stopping worker at tcp://127.0.0.1:40583. Reason: nanny-close
+2025-05-07 20:07:38,192 - INFO - Connection to tcp://127.0.0.1:42111 has been closed.

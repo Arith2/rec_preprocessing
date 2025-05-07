@@ -1,0 +1,58 @@
+2025-05-07 20:12:17,710 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:12:17,710 - INFO - cuDF version: 23.04.01
+2025-05-07 20:12:17,710 - INFO - Pandas version: 1.5.3
+2025-05-07 20:12:17,712 - INFO - visible_devices: 0
+2025-05-07 20:12:17,712 - INFO - Device size: 25.33 GB
+2025-05-07 20:12:17,712 - INFO - Device limit: 17.73 GB
+2025-05-07 20:12:17,712 - INFO - Device pool size: 20.26 GB
+2025-05-07 20:12:18,168 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-07 20:12:18,193 - INFO - State start
+2025-05-07 20:12:18,200 - INFO -   Scheduler at:     tcp://127.0.0.1:44509
+2025-05-07 20:12:18,201 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-07 20:12:18,316 - INFO -         Start Nanny at: 'tcp://127.0.0.1:46801'
+2025-05-07 20:12:24,701 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:12:24,701 - INFO - cuDF version: 23.04.01
+2025-05-07 20:12:24,701 - INFO - Pandas version: 1.5.3
+2025-05-07 20:12:24,705 - distributed.preloading - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:12:24,705 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:12:24,705 - distributed.preloading - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:12:24,705 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:12:24,726 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 20:12:24,887 - INFO -       Start worker at:      tcp://127.0.0.1:36297
+2025-05-07 20:12:24,887 - INFO -          Listening to:      tcp://127.0.0.1:36297
+2025-05-07 20:12:24,887 - INFO -           Worker name:                          0
+2025-05-07 20:12:24,887 - INFO -          dashboard at:            127.0.0.1:45721
+2025-05-07 20:12:24,887 - INFO - Waiting to connect to:      tcp://127.0.0.1:44509
+2025-05-07 20:12:24,887 - INFO - -------------------------------------------------
+2025-05-07 20:12:24,887 - INFO -               Threads:                          1
+2025-05-07 20:12:24,887 - INFO -                Memory:                 251.74 GiB
+2025-05-07 20:12:24,887 - INFO -       Local Directory: /tmp/dask-worker-space/worker-1xg4ipwf
+2025-05-07 20:12:24,887 - INFO - Starting Worker plugin PreImport-11a2be63-7339-473c-b3af-91d9fd015ee3
+2025-05-07 20:12:24,887 - INFO - Starting Worker plugin CPUAffinity-f63083e0-64cb-4352-94c7-030e3f0b04db
+2025-05-07 20:12:24,888 - INFO - Starting Worker plugin RMMSetup-6257c32b-340c-461f-9c1b-40f1473693d4
+2025-05-07 20:12:25,437 - INFO - -------------------------------------------------
+2025-05-07 20:12:25,472 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:36297', name: 0, status: init, memory: 0, processing: 0>
+2025-05-07 20:12:25,501 - INFO -         Registered to:      tcp://127.0.0.1:44509
+2025-05-07 20:12:25,501 - INFO - -------------------------------------------------
+2025-05-07 20:12:25,502 - INFO - Starting worker compute stream, tcp://127.0.0.1:36297
+2025-05-07 20:12:25,503 - INFO - Starting established connection to tcp://127.0.0.1:54912
+2025-05-07 20:12:25,503 - INFO - Starting established connection to tcp://127.0.0.1:44509
+2025-05-07 20:12:25,517 - INFO - Receive client connection: Client-d4347bfe-2b6e-11f0-92c2-506b4bdbc6c4
+2025-05-07 20:12:25,518 - INFO - Starting established connection to tcp://127.0.0.1:54918
+2025-05-07 20:12:25,523 - INFO - Found 1024 training files
+2025-05-07 20:12:25,523 - INFO - First file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0991.parquet
+2025-05-07 20:12:25,523 - INFO - Last file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0855.parquet
+2025-05-07 20:12:25,890 - INFO - Total data size: 1473.35 GB
+2025-05-07 20:12:25,890 - INFO - Setting up workflow...
+2025-05-07 20:12:25,891 - INFO - Creating dataset...
+2025-05-07 20:12:26,978 - INFO - Dataset created successfully with cuDF engine
+2025-05-07 20:12:26,978 - INFO - Fitting workflow...
+2025-05-07 20:12:26,979 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-07 20:12:28,805 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:12:29,377 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-07 20:12:29,377 - INFO - Workflow fitting completed in 2.40 seconds
+2025-05-07 20:12:29,378 - INFO - Transforming dataset...
+2025-05-07 20:12:31,101 - INFO - Run out-of-band function 'clean_worker_cache'
+Processing files:   0%|          | 0/1024 [00:00<?, ?it/s]Processing files:   0%|          | 1/1024 [00:00<05:40,  3.00it/s]Processing files:   0%|          | 2/1024 [00:00<04:33,  3.73it/s]Processing files:   0%|          | 3/1024 [00:00<04:01,  4.22it/s]Processing files:   0%|          | 4/1024 [00:00<03:43,  4.56it/s]Processing files:   0%|          | 5/1024 [00:05<31:59,  1.88s/it]Processing files:   1%|          | 6/1024 [00:11<54:08,  3.19s/it]Processing files:   1%|          | 7/1024 [00:17<1:07:54,  4.01s/it]Processing files:   1%|          | 8/1024 [00:23<1:17:47,  4.59s/it]Processing files:   1%|          | 9/1024 [00:29<1:26:54,  5.14s/it]Processing files:   1%|          | 10/1024 [00:35<1:33:44,  5.55s/it]2025-05-07 20:13:06,966 - INFO - GPU 0 memory usage: 21.24 GB
+Processing files:   1%|          | 11/1024 [00:42<1:36:56,  5.74s/it]Processing files:   1%|          | 12/1024 [00:48<1:39:30,  5.90s/it]Processing files:   1%|▏         | 13/1024 [00:54<1:43:08,  6.12s/it]Processing files:   1%|▏         | 14/1024 [01:00<1:42:43,  6.10s/it]Processing files:   1%|▏         | 15/1024 [01:07<1:45:12,  6.26s/it]Processing files:   2%|▏         | 16/1024 [01:13<1:41:58,  6.07s/it]Processing files:   2%|▏         | 17/1024 [01:20<1:46:09,  6.33s/it]Processing files:   2%|▏         | 18/1024 [01:26<1:46:25,  6.35s/it]Processing files:   2%|▏         | 19/1024 [01:32<1:43:53,  6.20s/it]Processing files:   2%|▏         | 20/1024 [01:38<1:41:56,  6.09s/it]2025-05-07 20:14:09,369 - INFO - GPU 0 memory usage: 21.24 GB
+Processing files:   2%|▏         | 21/1024 [01:44<1:44:49,  6.27s/it]Processing files:   2%|▏         | 22/1024 [01:51<1:44:50,  6.28s/it]Processing files:   2%|▏         | 23/1024 [01:57<1:43:24,  6.20s/it]Processing files:   2%|▏         | 24/1024 [02:03<1:42:21,  6.14s/it]Processing files:   2%|▏         | 25/1024 [02:09<1:42:58,  6.18s/it]

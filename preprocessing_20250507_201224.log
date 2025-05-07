@@ -1,0 +1,49 @@
+2025-05-07 20:12:24,701 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:12:24,701 - INFO - cuDF version: 23.04.01
+2025-05-07 20:12:24,701 - INFO - Pandas version: 1.5.3
+2025-05-07 20:12:24,705 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:12:24,705 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:12:24,726 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 20:12:24,887 - INFO -       Start worker at:      tcp://127.0.0.1:36297
+2025-05-07 20:12:24,887 - INFO -          Listening to:      tcp://127.0.0.1:36297
+2025-05-07 20:12:24,887 - INFO -           Worker name:                          0
+2025-05-07 20:12:24,887 - INFO -          dashboard at:            127.0.0.1:45721
+2025-05-07 20:12:24,887 - INFO - Waiting to connect to:      tcp://127.0.0.1:44509
+2025-05-07 20:12:24,887 - INFO - -------------------------------------------------
+2025-05-07 20:12:24,887 - INFO -               Threads:                          1
+2025-05-07 20:12:24,887 - INFO -                Memory:                 251.74 GiB
+2025-05-07 20:12:24,887 - INFO -       Local Directory: /tmp/dask-worker-space/worker-1xg4ipwf
+2025-05-07 20:12:24,887 - INFO - Starting Worker plugin PreImport-11a2be63-7339-473c-b3af-91d9fd015ee3
+2025-05-07 20:12:24,887 - INFO - Starting Worker plugin CPUAffinity-f63083e0-64cb-4352-94c7-030e3f0b04db
+2025-05-07 20:12:24,888 - INFO - Starting Worker plugin RMMSetup-6257c32b-340c-461f-9c1b-40f1473693d4
+2025-05-07 20:12:25,437 - INFO - -------------------------------------------------
+2025-05-07 20:12:25,501 - INFO -         Registered to:      tcp://127.0.0.1:44509
+2025-05-07 20:12:25,501 - INFO - -------------------------------------------------
+2025-05-07 20:12:25,503 - INFO - Starting established connection to tcp://127.0.0.1:44509
+2025-05-07 20:12:28,805 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:12:31,101 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:14:46,526 - INFO - Stopping worker at tcp://127.0.0.1:36297. Reason: worker-close
+2025-05-07 20:14:46,531 - INFO - Batched Comm Closed <TCP (closed) Worker->Scheduler local=tcp://127.0.0.1:54912 remote=tcp://127.0.0.1:44509>
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/selectors.py", line 469, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/batched.py", line 115, in _background_send
+    nbytes = yield coro
+  File "/home/yuzhuyu/.local/lib/python3.10/site-packages/tornado/gen.py", line 767, in run
+    value = future.result()
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/comm/tcp.py", line 269, in write
+    raise CommClosedError()
+distributed.comm.core.CommClosedError

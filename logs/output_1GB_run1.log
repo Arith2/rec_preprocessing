@@ -1,0 +1,62 @@
+2025-05-07 20:15:29,074 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:15:29,074 - INFO - cuDF version: 23.04.01
+2025-05-07 20:15:29,074 - INFO - Pandas version: 1.5.3
+2025-05-07 20:15:29,076 - INFO - visible_devices: 0
+2025-05-07 20:15:29,076 - INFO - Device size: 25.33 GB
+2025-05-07 20:15:29,076 - INFO - Device limit: 17.73 GB
+2025-05-07 20:15:29,076 - INFO - Device pool size: 20.26 GB
+2025-05-07 20:15:29,578 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-07 20:15:29,620 - INFO - State start
+2025-05-07 20:15:29,628 - INFO -   Scheduler at:     tcp://127.0.0.1:33663
+2025-05-07 20:15:29,629 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-07 20:15:29,693 - INFO -         Start Nanny at: 'tcp://127.0.0.1:33605'
+2025-05-07 20:15:35,333 - INFO - NVTabular version: 23.08.00
+2025-05-07 20:15:35,334 - INFO - cuDF version: 23.04.01
+2025-05-07 20:15:35,334 - INFO - Pandas version: 1.5.3
+2025-05-07 20:15:35,337 - distributed.preloading - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:15:35,337 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 20:15:35,337 - distributed.preloading - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:15:35,337 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 20:15:35,361 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 20:15:35,563 - INFO -       Start worker at:      tcp://127.0.0.1:40049
+2025-05-07 20:15:35,564 - INFO -          Listening to:      tcp://127.0.0.1:40049
+2025-05-07 20:15:35,564 - INFO -           Worker name:                          0
+2025-05-07 20:15:35,564 - INFO -          dashboard at:            127.0.0.1:35197
+2025-05-07 20:15:35,564 - INFO - Waiting to connect to:      tcp://127.0.0.1:33663
+2025-05-07 20:15:35,564 - INFO - -------------------------------------------------
+2025-05-07 20:15:35,564 - INFO -               Threads:                          1
+2025-05-07 20:15:35,564 - INFO -                Memory:                 251.74 GiB
+2025-05-07 20:15:35,564 - INFO -       Local Directory: /tmp/dask-worker-space/worker-iocgmon8
+2025-05-07 20:15:35,565 - INFO - Starting Worker plugin RMMSetup-62b158f9-3ce9-49d4-b459-b246679ffba3
+2025-05-07 20:15:36,133 - INFO - Starting Worker plugin CPUAffinity-e0cb00bc-e63b-4099-90f3-1ca387e05ea6
+2025-05-07 20:15:36,133 - INFO - Starting Worker plugin PreImport-fc8dd915-7808-401e-a276-ffc5663c4192
+2025-05-07 20:15:36,134 - INFO - -------------------------------------------------
+2025-05-07 20:15:36,161 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:40049', name: 0, status: init, memory: 0, processing: 0>
+2025-05-07 20:15:36,194 - INFO - Starting worker compute stream, tcp://127.0.0.1:40049
+2025-05-07 20:15:36,194 - INFO - Starting established connection to tcp://127.0.0.1:34796
+2025-05-07 20:15:36,194 - INFO -         Registered to:      tcp://127.0.0.1:33663
+2025-05-07 20:15:36,194 - INFO - -------------------------------------------------
+2025-05-07 20:15:36,195 - INFO - Starting established connection to tcp://127.0.0.1:33663
+2025-05-07 20:15:36,253 - INFO - Receive client connection: Client-45e4c3a6-2b6f-11f0-9767-506b4bdbc6c4
+2025-05-07 20:15:36,253 - INFO - Starting established connection to tcp://127.0.0.1:34804
+2025-05-07 20:15:36,257 - INFO - Found 1024 training files
+2025-05-07 20:15:36,257 - INFO - First file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0991.parquet
+2025-05-07 20:15:36,257 - INFO - Last file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0855.parquet
+2025-05-07 20:15:36,616 - INFO - Total data size: 1473.35 GB
+2025-05-07 20:15:36,616 - INFO - Setting up workflow...
+2025-05-07 20:15:36,617 - INFO - Creating dataset...
+2025-05-07 20:15:37,673 - INFO - Dataset created successfully with cuDF engine
+2025-05-07 20:15:37,673 - INFO - Part size: 1GB
+2025-05-07 20:15:37,673 - INFO - Fitting workflow...
+2025-05-07 20:15:37,674 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-07 20:15:39,335 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 20:15:39,802 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-07 20:15:39,802 - INFO - Workflow fitting completed in 2.13 seconds
+2025-05-07 20:15:39,802 - INFO - Transforming dataset...
+2025-05-07 20:15:41,215 - INFO - Run out-of-band function 'clean_worker_cache'
+Processing files:   0%|          | 0/1024 [00:00<?, ?it/s]Processing files:   0%|          | 1/1024 [00:00<07:52,  2.17it/s]Processing files:   0%|          | 2/1024 [00:00<06:13,  2.74it/s]Processing files:   0%|          | 3/1024 [00:01<06:10,  2.76it/s]Processing files:   0%|          | 4/1024 [00:01<06:29,  2.62it/s]Processing files:   0%|          | 5/1024 [00:01<06:26,  2.64it/s]Processing files:   1%|          | 6/1024 [00:02<06:19,  2.68it/s]Processing files:   1%|          | 7/1024 [00:02<06:37,  2.56it/s]Processing files:   1%|          | 8/1024 [00:03<06:25,  2.64it/s]Processing files:   1%|          | 9/1024 [00:03<06:21,  2.66it/s]Processing files:   1%|          | 10/1024 [00:03<06:24,  2.63it/s]2025-05-07 20:15:45,036 - INFO - GPU 0 memory usage: 21.52 GB
+Processing files:   1%|          | 11/1024 [00:04<06:21,  2.65it/s]Processing files:   1%|          | 12/1024 [00:04<06:15,  2.69it/s]Processing files:   1%|▏         | 13/1024 [00:04<06:27,  2.61it/s]Processing files:   1%|▏         | 14/1024 [00:16<1:03:10,  3.75s/it]Processing files:   1%|▏         | 15/1024 [00:28<1:45:11,  6.26s/it]Processing files:   2%|▏         | 16/1024 [00:40<2:14:59,  8.04s/it]Processing files:   2%|▏         | 17/1024 [00:52<2:33:51,  9.17s/it]Processing files:   2%|▏         | 18/1024 [01:04<2:48:02, 10.02s/it]Processing files:   2%|▏         | 19/1024 [01:16<2:56:09, 10.52s/it]Processing files:   2%|▏         | 20/1024 [01:27<3:00:18, 10.78s/it]2025-05-07 20:17:08,798 - INFO - GPU 0 memory usage: 21.52 GB
+Processing files:   2%|▏         | 21/1024 [01:40<3:11:05, 11.43s/it]Processing files:   2%|▏         | 22/1024 [01:52<3:14:03, 11.62s/it]Processing files:   2%|▏         | 23/1024 [02:04<3:15:20, 11.71s/it]Processing files:   2%|▏         | 24/1024 [02:15<3:12:59, 11.58s/it]Processing files:   2%|▏         | 25/1024 [02:29<3:21:16, 12.09s/it]Processing files:   3%|▎         | 26/1024 [02:41<3:22:04, 12.15s/it]Processing files:   3%|▎         | 27/1024 [02:53<3:19:51, 12.03s/it]Processing files:   3%|▎         | 28/1024 [03:04<3:17:20, 11.89s/it]Processing files:   3%|▎         | 29/1024 [03:17<3:20:06, 12.07s/it]Processing files:   3%|▎         | 30/1024 [03:28<3:17:43, 11.93s/it]2025-05-07 20:19:09,996 - INFO - GPU 0 memory usage: 21.52 GB
+Processing files:   3%|▎         | 31/1024 [03:41<3:21:12, 12.16s/it]Processing files:   3%|▎         | 32/1024 [03:53<3:19:36, 12.07s/it]Processing files:   3%|▎         | 33/1024 [04:05<3:22:23, 12.25s/it]Processing files:   3%|▎         | 34/1024 [04:18<3:24:46, 12.41s/it]Processing files:   3%|▎         | 35/1024 [04:31<3:25:08, 12.45s/it]Processing files:   4%|▎         | 36/1024 [04:43<3:26:04, 12.51s/it]Processing files:   4%|▎         | 37/1024 [04:56<3:24:58, 12.46s/it]Processing files:   4%|▎         | 38/1024 [05:09<3:25:55, 12.53s/it]Processing files:   4%|▍         | 39/1024 [05:21<3:27:24, 12.63s/it]Processing files:   4%|▍         | 40/1024 [05:34<3:25:59, 12.56s/it]2025-05-07 20:21:15,495 - INFO - GPU 0 memory usage: 21.52 GB
+Processing files:   4%|▍         | 41/1024 [05:47<3:27:46, 12.68s/it]Processing files:   4%|▍         | 42/1024 [06:00<3:28:20, 12.73s/it]Processing files:   4%|▍         | 43/1024 [06:12<3:26:15, 12.62s/it]Processing files:   4%|▍         | 44/1024 [06:24<3:22:20, 12.39s/it]Processing files:   4%|▍         | 45/1024 [06:36<3:22:01, 12.38s/it]Processing files:   4%|▍         | 46/1024 [06:49<3:22:59, 12.45s/it]Processing files:   5%|▍         | 47/1024 [07:01<3:21:29, 12.37s/it]Processing files:   5%|▍         | 48/1024 [07:14<3:22:42, 12.46s/it]Processing files:   5%|▍         | 49/1024 [07:26<3:21:18, 12.39s/it]Processing files:   5%|▍         | 50/1024 [07:38<3:19:18, 12.28s/it]2025-05-07 20:23:19,587 - INFO - GPU 0 memory usage: 21.52 GB
+Processing files:   5%|▍         | 51/1024 [07:51<3:23:12, 12.53s/it]Processing files:   5%|▌         | 52/1024 [08:04<3:23:40, 12.57s/it]Processing files:   5%|▌         | 53/1024 [08:16<3:24:30, 12.64s/it]Processing files:   5%|▌         | 54/1024 [08:29<3:22:32, 12.53s/it]Processing files:   5%|▌         | 55/1024 [08:42<3:26:01, 12.76s/it]Processing files:   5%|▌         | 56/1024 [08:55<3:26:03, 12.77s/it]

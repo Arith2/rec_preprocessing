@@ -8,8 +8,9 @@ export CUDA_VISIBLE_DEVICES=0
 INPUT_DIR="gs://criteo_preprocessing/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
-PART_MEM_FRACTIONS=(0.15)
-VOCAB_SIZE=8192
+# PART_MEM_FRACTIONS=(0.15)
+PART_SIZES=("1GB")
+
 # Number of runs for each configuration
 NUM_RUNS=1
 
@@ -47,9 +48,9 @@ mkdir -p logs
 # Setup GCS authentication if needed
 setup_gcs_auth
 
-# Run tests for each part_mem_fraction
-for part_mem_fraction in "${PART_MEM_FRACTIONS[@]}"; do
-    echo "Testing with part_mem_fraction = $part_mem_fraction"
+# Run tests for each part_size
+for part_size in "${PART_SIZES[@]}"; do
+    echo "Testing with part_size = $part_size"
     
     # Run multiple times for each configuration
     for ((run=1; run<=NUM_RUNS; run++)); do
@@ -59,17 +60,16 @@ for part_mem_fraction in "${PART_MEM_FRACTIONS[@]}"; do
         clear_gpu_memory
         
         # Start GPU monitoring in background
-        monitor_gpu > "logs/gpu_util_${part_mem_fraction}_run${run}.log" &
+        monitor_gpu > "logs/gpu_util_${part_size}_run${run}.log" &
         MONITOR_PID=$!
         
         # Run the preprocessing script
-        echo "Running preprocessing with part_mem_fraction=$part_mem_fraction"
+        echo "Running preprocessing with part_size=$part_size"
         python nvtabular_gpu_1TB_8k_no_vocab_dask.py \
             --data_dir "$INPUT_DIR" \
             --file_pattern "criteo_1TB_part_*.parquet" \
-            --part_mem_fraction "$part_mem_fraction" \
-            --vocab_size $VOCAB_SIZE \
-            2>&1 | tee "logs/output_${part_mem_fraction}_run${run}.log"
+            --part_size "$part_size" \
+            2>&1 | tee "logs/output_${part_size}_run${run}.log"
         
         # Stop GPU monitoring
         kill $MONITOR_PID

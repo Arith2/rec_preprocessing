@@ -92,7 +92,7 @@ def get_file_size(file_path):
     else:
         return os.path.getsize(file_path) / (1024**3)  # Convert to GB
 
-def setup_dask_cluster(part_mem_fraction):
+def setup_dask_cluster():
     """Setup Dask cluster with GPU configuration"""
     # Dask dashboard
     dashboard_port = "8787"
@@ -108,19 +108,19 @@ def setup_dask_cluster(part_mem_fraction):
     # Memory configuration
     device_limit_frac = 0.7  # Spill GPU-Worker memory to host at this limit
     device_pool_frac = 0.8
-    part_mem_frac = part_mem_fraction
+    # part_mem_frac = part_mem_fraction
 
     # Calculate memory limits
     device_size = device_mem_size(kind="total")
     device_limit = int(device_limit_frac * device_size)
     device_pool_size = int(device_pool_frac * device_size)
-    part_size = int(part_mem_frac * device_size)
+    # part_size = int(part_mem_frac * device_size)
 
     logging.info(f"visible_devices: {visible_devices}")
     logging.info(f"Device size: {device_size / 1e9:.2f} GB")
     logging.info(f"Device limit: {device_limit / 1e9:.2f} GB")
     logging.info(f"Device pool size: {device_pool_size / 1e9:.2f} GB")
-    logging.info(f"Part size: {part_size / 1e9:.2f} GB")
+    # logging.info(f"Part size: {part_size / 1e9:.2f} GB")
 
     # Check if any device memory is already occupied
     for dev in visible_devices.split(","):
@@ -141,7 +141,7 @@ def setup_dask_cluster(part_mem_fraction):
 
     # Create the distributed client
     client = Client(cluster)
-    return client, cluster, part_size
+    return client, cluster
 
 def preprocess_data(train_paths, client, vocab_size, part_size):
     """Preprocess the data using NVTabular workflow"""
@@ -152,13 +152,9 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     # Define the workflow
     logging.info("Setting up workflow...")
 
-    # categorify_op = Categorify()
-    # cat_features = CATEGORICAL_COLUMNS >> categorify_op
-    # cont_features = CONTINUOUS_COLUMNS >> FillMissing() >> Clip(min_value=0) >> Normalize()
-
     cat_features = (
         CATEGORICAL_COLUMNS
-        >> LambdaOp(lambda x: int(x, 16) % vocab_size)
+        >> LambdaOp(lambda col: col.str.hex_to_int() % vocab_size)
     )
 
     cont_features = (
@@ -180,6 +176,7 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
             part_size=part_size
         )
         logging.info("Dataset created successfully with cuDF engine")
+        logging.info(f"Part size: {part_size}")
     except ValueError as e:
         if "strings_to_categorical" in str(e):
             logging.info("Retrying with pandas engine...")
@@ -197,17 +194,20 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     logging.info('Fitting workflow...')
     start_time = time.time()
     
-    # Add progress tracking for fitting
-    with tqdm(total=len(train_paths), desc="Fitting workflow") as pbar:
-        def fit_callback():
-            pbar.update(1)
-            # Log memory usage
-            for dev in range(len(numba.cuda.gpus)):
-                fmem = pynvml_mem_size(kind="free", index=dev)
-                used = (device_mem_size(kind="total") - fmem) / 1e9
-                logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
-        
-        workflow.fit(train_ds_iterator, callback=fit_callback)
+    # Log initial GPU memory state
+    for dev in range(len(numba.cuda.gpus)):
+        fmem = pynvml_mem_size(kind="free", index=dev)
+        used = (device_mem_size(kind="total") - fmem) / 1e9
+        logging.info(f"Initial GPU {dev} memory usage: {used:.2f} GB")
+    
+    # Fit the workflow
+    workflow.fit(train_ds_iterator)
+    
+    # Log GPU memory after fitting
+    for dev in range(len(numba.cuda.gpus)):
+        fmem = pynvml_mem_size(kind="free", index=dev)
+        used = (device_mem_size(kind="total") - fmem) / 1e9
+        logging.info(f"GPU {dev} memory usage after fitting: {used:.2f} GB")
     
     fit_time = time.time() - start_time
     logging.info(f'Workflow fitting completed in {fit_time:.2f} seconds')
@@ -215,17 +215,19 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     logging.info('Transforming dataset...')
     start_time = time.time()
     
-    # Add progress tracking for transformation
-    with tqdm(total=len(train_paths), desc="Transforming data") as pbar:
-        def transform_callback():
+    # Transform the data with progress tracking
+    transformed_data = workflow.transform(train_ds_iterator)
+    
+    # Monitor progress of transformation
+    with tqdm(total=len(train_paths), desc="Processing files") as pbar:
+        for _ in transformed_data.to_iter():
             pbar.update(1)
-            # Log memory usage
-            for dev in range(len(numba.cuda.gpus)):
-                fmem = pynvml_mem_size(kind="free", index=dev)
-                used = (device_mem_size(kind="total") - fmem) / 1e9
-                logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
-        
-        transformed_data = workflow.transform(train_ds_iterator, callback=transform_callback)
+            # Log memory usage periodically
+            if pbar.n % 10 == 0:  # Log every 10 files
+                for dev in range(len(numba.cuda.gpus)):
+                    fmem = pynvml_mem_size(kind="free", index=dev)
+                    used = (device_mem_size(kind="total") - fmem) / 1e9
+                    logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
 
     transform_time = time.time() - start_time
     logging.info(f'Dataset transformation completed in {transform_time:.2f} seconds')
@@ -242,8 +244,8 @@ def main():
                       help="Directory containing the parquet files (local path or GCS path starting with 'gs://')")
     parser.add_argument('--file_pattern', type=str, default="*.parquet", 
                       help="Pattern to match training parquet files")
-    parser.add_argument('--part_mem_fraction', type=float, default=0.3, 
-                      help="Fraction of GPU memory to use for each data partition (0-1)")
+    parser.add_argument('--part_size', type=str, default="1GB", 
+                      help="Size of each data partition in GB")
     parser.add_argument('--vocab_size', type=int, default=8192, 
                       help="Vocabulary size for categorical features")
     args = parser.parse_args()
@@ -252,7 +254,7 @@ def main():
     runtime = time.time()
 
     # Setup Dask cluster
-    client, cluster, part_size = setup_dask_cluster(args.part_mem_fraction)
+    client, cluster = setup_dask_cluster()
 
     try:
         # Get parquet file paths
@@ -263,7 +265,7 @@ def main():
             logging.info(f"Last file: {train_paths[-1]}")
 
         # Preprocess data
-        preprocess_data(train_paths, client, args.vocab_size, part_size)
+        preprocess_data(train_paths, client, args.vocab_size, args.part_size)
 
     finally:
         # Cleanup

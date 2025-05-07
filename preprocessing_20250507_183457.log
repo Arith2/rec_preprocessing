@@ -1,0 +1,41 @@
+2025-05-07 18:34:57,160 - INFO - NVTabular version: 23.08.00
+2025-05-07 18:34:57,160 - INFO - cuDF version: 23.04.01
+2025-05-07 18:34:57,160 - INFO - Pandas version: 1.5.3
+2025-05-07 18:34:57,164 - INFO - Creating preload: dask_cuda.initialize
+2025-05-07 18:34:57,164 - INFO - Import preload module: dask_cuda.initialize
+2025-05-07 18:34:57,184 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-07 18:34:57,401 - INFO -       Start worker at:      tcp://127.0.0.1:33715
+2025-05-07 18:34:57,401 - INFO -          Listening to:      tcp://127.0.0.1:33715
+2025-05-07 18:34:57,401 - INFO -           Worker name:                          0
+2025-05-07 18:34:57,401 - INFO -          dashboard at:            127.0.0.1:44931
+2025-05-07 18:34:57,401 - INFO - Waiting to connect to:      tcp://127.0.0.1:39159
+2025-05-07 18:34:57,401 - INFO - -------------------------------------------------
+2025-05-07 18:34:57,401 - INFO -               Threads:                          1
+2025-05-07 18:34:57,401 - INFO -                Memory:                 251.74 GiB
+2025-05-07 18:34:57,401 - INFO -       Local Directory: /tmp/dask-worker-space/worker-7aek__s8
+2025-05-07 18:34:57,402 - INFO - Starting Worker plugin RMMSetup-56f4270d-5c17-4b01-841b-ea22fa4c4cd2
+2025-05-07 18:34:57,941 - INFO - Starting Worker plugin PreImport-f7104c20-2810-4972-baaf-6c72faa90bf0
+2025-05-07 18:34:57,942 - INFO - Starting Worker plugin CPUAffinity-1b91aa71-66df-4f9e-a45a-ccb41b493aca
+2025-05-07 18:34:57,942 - INFO - -------------------------------------------------
+2025-05-07 18:34:57,982 - INFO -         Registered to:      tcp://127.0.0.1:39159
+2025-05-07 18:34:57,982 - INFO - -------------------------------------------------
+2025-05-07 18:34:57,983 - INFO - Starting established connection to tcp://127.0.0.1:39159
+2025-05-07 18:35:19,223 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-07 18:35:39,470 - ERROR - Failed to transform operator <merlin.dag.ops.udf.UDF object at 0x7f7ff16d1690>
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/merlin/dag/executors.py", line 237, in _run_node_transform
+    transformed_data = node.op.transform(selection, input_data)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/merlin/dag/ops/udf.py", line 78, in transform
+    new_df[col] = self.f(transformable[col])
+  File "/home/yuzhuyu/u55c/rec_preprocessing/nvtabular_gpu_1TB_8k_no_vocab_dask.py", line 157, in <lambda>
+    >> LambdaOp(
+TypeError: int() can't convert non-string with explicit base
+2025-05-07 18:35:39,602 - WARNING - Compute Failed
+Key:       ('transform-d3019e47ad7b5fad5c12af68e6aea1dc', 0)
+Function:  subgraph_callable-03685651-0f7e-4a9b-99b2-b493b9f3
+args:      ({'piece': ('/mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0000.parquet', [0, 1, 2, 3], [])})
+kwargs:    {}
+Exception: 'TypeError("int() can\'t convert non-string with explicit base")'
+
+2025-05-07 18:35:39,716 - INFO - Stopping worker at tcp://127.0.0.1:33715. Reason: nanny-close
+2025-05-07 18:35:39,719 - INFO - Connection to tcp://127.0.0.1:39159 has been closed.
