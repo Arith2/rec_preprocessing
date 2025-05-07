@@ -180,7 +180,8 @@ def preprocess_data(train_paths, client, vocab_size, part_mem_fraction):
         train_ds_iterator = nvt.Dataset(
             train_paths,
             engine='parquet',
-            part_mem_fraction=part_mem_fraction
+            part_mem_fraction=part_mem_fraction,
+            engine_kwargs={'engine': 'pyarrow'}
         )
     except ValueError as e:
         if "strings_to_categorical" in str(e):
