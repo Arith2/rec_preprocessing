@@ -11,10 +11,12 @@ import numpy as np
 import shutil
 import numba
 from urllib.parse import urlparse
+from datetime import datetime
+from tqdm import tqdm
 
 import dask_cudf
 from dask_cuda import LocalCUDACluster
-from dask.distributed import Client
+from dask.distributed import Client, progress
 import gcsfs
 
 import nvtabular as nvt
@@ -30,11 +32,14 @@ from nvtabular.ops import (
 import logging
 
 # Set up logging
-logging.basicConfig(format="%(asctime)s %(message)s")
-# logging.root.setLevel(logging.NOTSET)
-logging.getLogger().setLevel(logging.INFO)
-logging.getLogger("numba").setLevel(logging.WARNING)
-logging.getLogger("asyncio").setLevel(logging.WARNING)
+logging.basicConfig(
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    level=logging.INFO,
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(f'preprocessing_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
+    ]
+)
 
 # Define dataset schema
 CATEGORICAL_COLUMNS = ["col_" + str(x) for x in range(14, 40)]
@@ -70,6 +75,14 @@ def get_file_list(data_dir, file_pattern):
             raise ValueError(f"No files found matching pattern: {os.path.join(data_dir, file_pattern)}")
         return files
 
+def get_file_size(file_path):
+    """Get file size in GB"""
+    if is_gcs_path(file_path):
+        fs = gcsfs.GCSFileSystem()
+        return fs.size(file_path) / (1024**3)  # Convert to GB
+    else:
+        return os.path.getsize(file_path) / (1024**3)  # Convert to GB
+
 def setup_dask_cluster():
     """Setup Dask cluster with GPU configuration"""
     # Dask dashboard
@@ -94,18 +107,18 @@ def setup_dask_cluster():
     device_pool_size = int(device_pool_frac * device_size)
     part_size = int(part_mem_frac * device_size)
 
-    print("visible_devices: ", visible_devices)
-    print(f"Device size: {device_size / 1e9} GB")
-    print(f"Device limit: {device_limit / 1e9} GB")
-    print(f"Device pool size: {device_pool_size / 1e9} GB")
-    print(f"Part size: {part_size / 1e9} GB")
+    logging.info(f"visible_devices: {visible_devices}")
+    logging.info(f"Device size: {device_size / 1e9:.2f} GB")
+    logging.info(f"Device limit: {device_limit / 1e9:.2f} GB")
+    logging.info(f"Device pool size: {device_pool_size / 1e9:.2f} GB")
+    logging.info(f"Part size: {part_size / 1e9:.2f} GB")
 
     # Check if any device memory is already occupied
     for dev in visible_devices.split(","):
         fmem = pynvml_mem_size(kind="free", index=int(dev))
         used = (device_size - fmem) / 1e9
         if used > 1.0:
-            warnings.warn(f"BEWARE - {used} GB is already occupied on device {int(dev)}!")
+            warnings.warn(f"BEWARE - {used:.2f} GB is already occupied on device {int(dev)}!")
 
     # Create and configure the cluster
     cluster = LocalCUDACluster(
@@ -123,28 +136,49 @@ def setup_dask_cluster():
 
 def preprocess_data(train_paths, client):
     """Preprocess the data using NVTabular workflow"""
+    # Calculate total data size
+    total_size = sum(get_file_size(f) for f in train_paths)
+    logging.info(f"Total data size: {total_size:.2f} GB")
+    
     # Define the workflow
+    logging.info("Setting up workflow...")
     categorify_op = Categorify()
     cat_features = CATEGORICAL_COLUMNS >> categorify_op
     cont_features = CONTINUOUS_COLUMNS >> FillMissing() >> Clip(min_value=0) >> Normalize()
-
-    # features = LABEL_COLUMNS
-    # features += cont_features
-    # features += cat_features
-
     features = LABEL_COLUMNS + cont_features + cat_features
-
-
     workflow = nvt.Workflow(features, client=client)
 
     # Create dataset
+    logging.info("Creating dataset...")
     train_ds_iterator = nvt.Dataset(train_paths, engine='parquet')
 
     # Fit and transform training data
-    logging.info('Train Dataset Preprocessing.....')
+    logging.info('Fitting workflow...')
+    start_time = time.time()
     workflow.fit(train_ds_iterator)
-    transformed_data = workflow.transform(train_ds_iterator)
+    fit_time = time.time() - start_time
+    logging.info(f'Workflow fitting completed in {fit_time:.2f} seconds')
 
+    logging.info('Transforming dataset...')
+    start_time = time.time()
+    transformed_data = workflow.transform(train_ds_iterator)
+    
+    # Monitor progress of transformation
+    with tqdm(total=len(train_paths), desc="Processing files") as pbar:
+        for _ in transformed_data.to_iter():
+            pbar.update(1)
+            # Log memory usage
+            for dev in range(len(numba.cuda.gpus)):
+                fmem = pynvml_mem_size(kind="free", index=dev)
+                used = (device_mem_size(kind="total") - fmem) / 1e9
+                logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
+
+    transform_time = time.time() - start_time
+    logging.info(f'Dataset transformation completed in {transform_time:.2f} seconds')
+    
+    # Log final statistics
+    logging.info(f"Total processing time: {fit_time + transform_time:.2f} seconds")
+    logging.info(f"Average processing speed: {total_size / (fit_time + transform_time):.2f} GB/s")
 
     return
 
@@ -170,6 +204,7 @@ def main():
         logging.info(f"Found {len(train_paths)} training files")
         if len(train_paths) > 0:
             logging.info(f"First file: {train_paths[0]}")
+            logging.info(f"Last file: {train_paths[-1]}")
 
         # Preprocess data
         preprocess_data(train_paths, client)
@@ -181,9 +216,9 @@ def main():
 
     # Print runtime
     runtime = time.time() - runtime
-    print("\nDask-NVTabular Criteo Preprocessing Done!")
-    print(f"Runtime[s]         | {runtime}")
-    print("======================================\n")
+    logging.info("\nDask-NVTabular Criteo Preprocessing Done!")
+    logging.info(f"Total Runtime[s]: {runtime:.2f}")
+    logging.info("======================================\n")
 
 if __name__ == "__main__":
     main()
