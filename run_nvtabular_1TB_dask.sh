@@ -33,21 +33,11 @@ gc.collect()
 
 # Function to setup GCS authentication if needed
 setup_gcs_auth() {
+    # Only check GCS authentication if using a GCS path
     if [[ "$INPUT_DIR" == gs://* ]]; then
-        echo "Setting up GCS authentication..."
-        # Check if GOOGLE_APPLICATION_CREDENTIALS is set
-        if [ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
-            echo "Warning: GOOGLE_APPLICATION_CREDENTIALS environment variable is not set"
-            echo "Please set it to the path of your GCS service account key file:"
-            echo "export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-key.json"
-            exit 1
-        fi
-        
-        # Verify the credentials file exists
-        if [ ! -f "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
-            echo "Error: GCS credentials file not found at $GOOGLE_APPLICATION_CREDENTIALS"
-            exit 1
-        fi
+        echo "Using GCS path, make sure you've run 'gcloud auth application-default login'"
+    else
+        echo "Using local file system, skipping GCS authentication"
     fi
 }
 
