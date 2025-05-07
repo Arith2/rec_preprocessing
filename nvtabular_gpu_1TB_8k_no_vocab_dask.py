@@ -196,23 +196,36 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     # Fit and transform training data
     logging.info('Fitting workflow...')
     start_time = time.time()
-    workflow.fit(train_ds_iterator)
-    fit_time = time.time() - start_time
-    logging.info(f'Workflow fitting completed in {fit_time:.2f} seconds')
-
-    logging.info('Transforming dataset...')
-    start_time = time.time()
-    transformed_data = workflow.transform(train_ds_iterator)
     
-    # Monitor progress of transformation
-    with tqdm(total=len(train_paths), desc="Processing files") as pbar:
-        for _ in transformed_data.to_iter():
+    # Add progress tracking for fitting
+    with tqdm(total=len(train_paths), desc="Fitting workflow") as pbar:
+        def fit_callback():
             pbar.update(1)
             # Log memory usage
             for dev in range(len(numba.cuda.gpus)):
                 fmem = pynvml_mem_size(kind="free", index=dev)
                 used = (device_mem_size(kind="total") - fmem) / 1e9
                 logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
+        
+        workflow.fit(train_ds_iterator, callback=fit_callback)
+    
+    fit_time = time.time() - start_time
+    logging.info(f'Workflow fitting completed in {fit_time:.2f} seconds')
+
+    logging.info('Transforming dataset...')
+    start_time = time.time()
+    
+    # Add progress tracking for transformation
+    with tqdm(total=len(train_paths), desc="Transforming data") as pbar:
+        def transform_callback():
+            pbar.update(1)
+            # Log memory usage
+            for dev in range(len(numba.cuda.gpus)):
+                fmem = pynvml_mem_size(kind="free", index=dev)
+                used = (device_mem_size(kind="total") - fmem) / 1e9
+                logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
+        
+        transformed_data = workflow.transform(train_ds_iterator, callback=transform_callback)
 
     transform_time = time.time() - start_time
     logging.info(f'Dataset transformation completed in {transform_time:.2f} seconds')
