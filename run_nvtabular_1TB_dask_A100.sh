@@ -4,12 +4,14 @@
 export CUDA_VISIBLE_DEVICES=0
 
 # Input directory containing parquet files (can be local or GCS path)
-# INPUT_DIR="/mnt/scratch/yuzhuyu/parquet/criteo_1TB"  # Local path
-INPUT_DIR="gs://criteo_preprocessing/criteo_1TB"  # GCS path example
+# INPUT_DIR="/local/home/yuzhuyu/criteo_1TB"  # Local path
+INPUT_DIR="/mnt/myssd/criteo_1TB"  # A100
+# INPUT_DIR="gs://your-bucket/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
 # PART_MEM_FRACTIONS=(0.15)
-PART_SIZES=("10GB")
+PART_SIZES=("1GB")
+VOCAB_SIZE=536870912
 
 # Number of runs for each configuration
 NUM_RUNS=1
@@ -60,8 +62,8 @@ for part_size in "${PART_SIZES[@]}"; do
         clear_gpu_memory
         
         # Start GPU monitoring in background
-        # monitor_gpu > "logs/gpu_util_${part_size}_run${run}.log" &
-        # MONITOR_PID=$!
+        monitor_gpu > "logs/gpu_util_${part_size}_run${run}.log" &
+        MONITOR_PID=$!
         
         # Run the preprocessing script
         echo "Running preprocessing with part_size=$part_size"
@@ -69,10 +71,11 @@ for part_size in "${PART_SIZES[@]}"; do
             --data_dir "$INPUT_DIR" \
             --file_pattern "criteo_1TB_part_*.parquet" \
             --part_size "$part_size" \
+            --vocab_size "$VOCAB_SIZE" \
             2>&1 | tee "logs/output_${part_size}_run${run}.log"
         
-        # # Stop GPU monitoring
-        # kill $MONITOR_PID
+        # Stop GPU monitoring
+        kill $MONITOR_PID
         
         # Clear GPU memory after each run
         clear_gpu_memory
