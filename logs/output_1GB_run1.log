@@ -1,80 +1,79 @@
-2025-05-08 16:46:03,613 - INFO - NVTabular version: 23.08.00
-2025-05-08 16:46:03,614 - INFO - cuDF version: 23.04.01
-2025-05-08 16:46:03,614 - INFO - Pandas version: 1.5.3
-2025-05-08 16:46:03,616 - INFO - visible_devices: 0
-2025-05-08 16:46:03,616 - INFO - Device size: 25.33 GB
-2025-05-08 16:46:03,616 - INFO - Device limit: 17.73 GB
-2025-05-08 16:46:03,616 - INFO - Device pool size: 20.26 GB
-2025-05-08 16:46:05,701 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
-2025-05-08 16:46:05,726 - INFO - State start
-2025-05-08 16:46:05,733 - INFO -   Scheduler at:     tcp://127.0.0.1:39721
-2025-05-08 16:46:05,733 - INFO -   dashboard at:  http://127.0.0.1:8787/status
-2025-05-08 16:46:05,839 - INFO -         Start Nanny at: 'tcp://127.0.0.1:40741'
-2025-05-08 16:46:11,727 - INFO - NVTabular version: 23.08.00
-2025-05-08 16:46:11,728 - INFO - cuDF version: 23.04.01
-2025-05-08 16:46:11,728 - INFO - Pandas version: 1.5.3
-2025-05-08 16:46:11,732 - distributed.preloading - INFO - Creating preload: dask_cuda.initialize
-2025-05-08 16:46:11,732 - INFO - Creating preload: dask_cuda.initialize
-2025-05-08 16:46:11,732 - distributed.preloading - INFO - Import preload module: dask_cuda.initialize
-2025-05-08 16:46:11,732 - INFO - Import preload module: dask_cuda.initialize
-2025-05-08 16:46:11,773 - INFO - Run preload setup: dask_cuda.initialize
-2025-05-08 16:46:12,074 - INFO -       Start worker at:      tcp://127.0.0.1:46375
-2025-05-08 16:46:12,074 - INFO -          Listening to:      tcp://127.0.0.1:46375
-2025-05-08 16:46:12,074 - INFO -           Worker name:                          0
-2025-05-08 16:46:12,074 - INFO -          dashboard at:            127.0.0.1:34153
-2025-05-08 16:46:12,074 - INFO - Waiting to connect to:      tcp://127.0.0.1:39721
-2025-05-08 16:46:12,075 - INFO - -------------------------------------------------
-2025-05-08 16:46:12,075 - INFO -               Threads:                          1
-2025-05-08 16:46:12,075 - INFO -                Memory:                 251.74 GiB
-2025-05-08 16:46:12,075 - INFO -       Local Directory: /tmp/dask-worker-space/worker-g_8b_fe2
-2025-05-08 16:46:12,075 - INFO - Starting Worker plugin PreImport-cc594912-eb08-4f3a-bc03-7c87e21e37cf
-2025-05-08 16:46:12,075 - INFO - Starting Worker plugin CPUAffinity-a40a85e5-b1b9-4589-aff7-ea1cf3afd4c1
-2025-05-08 16:46:12,076 - INFO - Starting Worker plugin RMMSetup-0adc3910-101c-4927-890f-39eaa37d98c8
-2025-05-08 16:46:19,745 - INFO - -------------------------------------------------
-2025-05-08 16:46:19,888 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:46375', name: 0, status: init, memory: 0, processing: 0>
-2025-05-08 16:46:19,901 - INFO - Starting worker compute stream, tcp://127.0.0.1:46375
-2025-05-08 16:46:19,901 - INFO - Starting established connection to tcp://127.0.0.1:56968
-2025-05-08 16:46:19,901 - INFO -         Registered to:      tcp://127.0.0.1:39721
-2025-05-08 16:46:19,901 - INFO - -------------------------------------------------
-2025-05-08 16:46:19,904 - INFO - Starting established connection to tcp://127.0.0.1:39721
-2025-05-08 16:46:19,912 - INFO - Receive client connection: Client-34255044-2c1b-11f0-af10-506b4bdbc6c4
-2025-05-08 16:46:19,912 - INFO - Starting established connection to tcp://127.0.0.1:56974
-2025-05-08 16:46:19,914 - INFO - Found 512 training files
-2025-05-08 16:46:19,914 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0332.parquet
-2025-05-08 16:46:19,914 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0142.parquet
-2025-05-08 16:46:19,916 - INFO - Total data size: 736.68 GB
-2025-05-08 16:46:19,916 - INFO - Setting up workflow...
-2025-05-08 16:46:19,917 - INFO - Creating dataset...
-2025-05-08 16:46:21,167 - INFO - Dataset created successfully with cuDF engine
-2025-05-08 16:46:21,168 - INFO - Part size: 1GB
-2025-05-08 16:46:21,168 - INFO - Fitting workflow...
-2025-05-08 16:46:21,168 - INFO - Initial GPU 0 memory usage: 20.96 GB
-2025-05-08 16:46:21,718 - INFO - Run out-of-band function 'clean_worker_cache'
-2025-05-08 16:52:22,760 - INFO - full garbage collection released 247.27 MiB from 406 reference cycles (threshold: 9.54 MiB)
-2025-05-08 16:52:33,367 - INFO - Connection to tcp://127.0.0.1:56968 has been closed.
-2025-05-08 16:52:33,369 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:46375', name: 0, status: running, memory: 234, processing: 2>
-2025-05-08 16:52:33,370 - INFO - Removing comms to tcp://127.0.0.1:46375
-2025-05-08 16:52:33,391 - INFO - Lost all workers
-2025-05-08 16:52:40,425 - INFO - Worker process 2912480 was killed by signal 7
-2025-05-08 16:52:40,430 - distributed.nanny - WARNING - Restarting worker
-2025-05-08 16:52:40,430 - WARNING - Restarting worker
-2025-05-08 16:52:48,394 - INFO - Closing Nanny at 'tcp://127.0.0.1:40741'. Reason: nanny-close
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/multiprocessing/spawn.py", line 116, in spawn_main
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/multiprocessing/spawn.py", line 125, in _main
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/multiprocessing/spawn.py", line 236, in prepare
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/runpy.py", line 289, in run_path
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/runpy.py", line 96, in _run_module_code
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/runpy.py", line 86, in _run_code
-  File "/home/yuzhuyu/u55c/rec_preprocessing/nvtabular_gpu_1TB_8k_no_vocab_dask.py", line 17, in <module>
-    import dask_cudf
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/dask_cudf/__init__.py", line 5, in <module>
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/cudf/__init__.py", line 10, in <module>
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/rmm/__init__.py", line 15, in <module>
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/rmm/mr.py", line 14, in <module>
-  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/rmm/_lib/__init__.py", line 15, in <module>
-  File "device_buffer.pyx", line 1, in init rmm._lib.device_buffer
-ModuleNotFoundError: No module named 'rmm._lib.memory_resource'
-2025-05-08 16:53:02,924 - INFO - Worker process 2915144 was killed by signal 7
+2025-05-08 19:10:04,001 - INFO - NVTabular version: 23.08.00
+2025-05-08 19:10:04,001 - INFO - cuDF version: 23.04.01
+2025-05-08 19:10:04,002 - INFO - Pandas version: 1.5.3
+2025-05-08 19:10:04,012 - INFO - visible_devices: 0
+2025-05-08 19:10:04,013 - INFO - Device size: 25.33 GB
+2025-05-08 19:10:04,013 - INFO - Device limit: 17.73 GB
+2025-05-08 19:10:04,014 - INFO - Device pool size: 20.26 GB
+2025-05-08 19:10:07,225 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-08 19:10:07,289 - INFO - State start
+2025-05-08 19:10:07,299 - INFO -   Scheduler at:     tcp://127.0.0.1:45197
+2025-05-08 19:10:07,300 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-08 19:10:07,400 - INFO -         Start Nanny at: 'tcp://127.0.0.1:42127'
+2025-05-08 19:10:12,649 - INFO - NVTabular version: 23.08.00
+2025-05-08 19:10:12,650 - INFO - cuDF version: 23.04.01
+2025-05-08 19:10:12,650 - INFO - Pandas version: 1.5.3
+2025-05-08 19:10:12,655 - distributed.preloading - INFO - Creating preload: dask_cuda.initialize
+2025-05-08 19:10:12,655 - INFO - Creating preload: dask_cuda.initialize
+2025-05-08 19:10:12,655 - distributed.preloading - INFO - Import preload module: dask_cuda.initialize
+2025-05-08 19:10:12,655 - INFO - Import preload module: dask_cuda.initialize
+2025-05-08 19:10:12,692 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-08 19:10:12,856 - INFO -       Start worker at:      tcp://127.0.0.1:35263
+2025-05-08 19:10:12,856 - INFO -          Listening to:      tcp://127.0.0.1:35263
+2025-05-08 19:10:12,857 - INFO -           Worker name:                          0
+2025-05-08 19:10:12,857 - INFO -          dashboard at:            127.0.0.1:42995
+2025-05-08 19:10:12,858 - INFO - Waiting to connect to:      tcp://127.0.0.1:45197
+2025-05-08 19:10:12,858 - INFO - -------------------------------------------------
+2025-05-08 19:10:12,859 - INFO -               Threads:                          1
+2025-05-08 19:10:12,859 - INFO -                Memory:                 251.74 GiB
+2025-05-08 19:10:12,860 - INFO -       Local Directory: /tmp/dask-worker-space/worker-thc2rb8p
+2025-05-08 19:10:12,860 - INFO - Starting Worker plugin RMMSetup-aaa0af36-94cb-4a43-9a6a-d34278027a1e
+2025-05-08 19:10:18,171 - INFO - Starting Worker plugin CPUAffinity-96d64bf3-3f5d-490c-a89b-3134763d376c
+2025-05-08 19:10:18,172 - INFO - Starting Worker plugin PreImport-06536907-cb9b-4894-842a-1f5ce8632593
+2025-05-08 19:10:18,174 - INFO - -------------------------------------------------
+2025-05-08 19:10:18,294 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:35263', name: 0, status: init, memory: 0, processing: 0>
+2025-05-08 19:10:18,312 - INFO - Starting worker compute stream, tcp://127.0.0.1:35263
+2025-05-08 19:10:18,313 - INFO - Starting established connection to tcp://127.0.0.1:42692
+2025-05-08 19:10:18,313 - INFO -         Registered to:      tcp://127.0.0.1:45197
+2025-05-08 19:10:18,315 - INFO - -------------------------------------------------
+2025-05-08 19:10:18,318 - INFO - Starting established connection to tcp://127.0.0.1:45197
+2025-05-08 19:10:18,325 - INFO - Receive client connection: Client-510a18fc-2c2f-11f0-a81a-506b4bdbc6c4
+2025-05-08 19:10:18,326 - INFO - Starting established connection to tcp://127.0.0.1:42696
+2025-05-08 19:10:18,330 - INFO - Found 512 training files
+2025-05-08 19:10:18,331 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0332.parquet
+2025-05-08 19:10:18,332 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0142.parquet
+2025-05-08 19:10:18,334 - INFO - Total data size: 736.68 GB
+2025-05-08 19:10:18,335 - INFO - Setting up workflow...
+2025-05-08 19:10:18,336 - INFO - Creating dataset...
+2025-05-08 19:10:19,892 - INFO - Dataset created successfully with cuDF engine
+2025-05-08 19:10:19,893 - INFO - Part size: 1GB
+2025-05-08 19:10:19,894 - INFO - Fitting workflow...
+2025-05-08 19:10:19,896 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-08 19:10:20,498 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 19:10:21,234 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-08 19:10:21,235 - INFO - Workflow fitting completed in 1.34 seconds
+2025-05-08 19:10:21,235 - INFO - Transforming dataset...
+2025-05-08 19:10:21,605 - INFO - Run out-of-band function 'clean_worker_cache'
+Processing files:   0%|          | 0/512 [00:00<?, ?it/s]Processing files:   0%|          | 1/512 [00:00<02:30,  3.39it/s]Processing files:   0%|          | 2/512 [00:00<04:17,  1.98it/s]Processing files:   1%|          | 3/512 [00:01<04:52,  1.74it/s]Processing files:   1%|          | 4/512 [00:02<05:02,  1.68it/s]Processing files:   1%|          | 5/512 [00:03<06:00,  1.41it/s]Processing files:   1%|          | 6/512 [00:03<05:45,  1.47it/s]Processing files:   1%|▏         | 7/512 [00:04<05:53,  1.43it/s]Processing files:   2%|▏         | 8/512 [00:05<05:57,  1.41it/s]Processing files:   2%|▏         | 9/512 [00:05<05:36,  1.50it/s]Processing files:   2%|▏         | 10/512 [00:06<05:30,  1.52it/s]2025-05-08 19:10:28,076 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:   2%|▏         | 11/512 [00:07<05:34,  1.50it/s]Processing files:   2%|▏         | 12/512 [00:07<05:36,  1.49it/s]Processing files:   3%|▎         | 13/512 [00:08<05:20,  1.56it/s]Processing files:   3%|▎         | 14/512 [00:08<05:01,  1.65it/s]Processing files:   3%|▎         | 15/512 [00:09<05:23,  1.54it/s]Processing files:   3%|▎         | 16/512 [00:10<05:53,  1.40it/s]Processing files:   3%|▎         | 17/512 [00:11<05:46,  1.43it/s]Processing files:   4%|▎         | 18/512 [00:11<05:55,  1.39it/s]Processing files:   4%|▎         | 19/512 [00:12<06:17,  1.31it/s]Processing files:   4%|▍         | 20/512 [00:13<06:10,  1.33it/s]2025-05-08 19:10:35,189 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:   4%|▍         | 21/512 [00:14<06:01,  1.36it/s]Processing files:   4%|▍         | 22/512 [00:15<06:00,  1.36it/s]Processing files:   4%|▍         | 23/512 [00:15<05:33,  1.47it/s]Processing files:   5%|▍         | 24/512 [00:16<05:11,  1.57it/s]Processing files:   5%|▍         | 25/512 [00:16<04:57,  1.64it/s]Processing files:   5%|▌         | 26/512 [00:17<04:51,  1.67it/s]Processing files:   5%|▌         | 27/512 [00:17<05:09,  1.57it/s]Processing files:   5%|▌         | 28/512 [00:18<05:18,  1.52it/s]Processing files:   6%|▌         | 29/512 [00:19<05:22,  1.50it/s]Processing files:   6%|▌         | 30/512 [00:19<05:19,  1.51it/s]2025-05-08 19:10:41,611 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:   6%|▌         | 31/512 [00:20<05:23,  1.49it/s]Processing files:   6%|▋         | 32/512 [00:21<05:19,  1.50it/s]Processing files:   6%|▋         | 33/512 [00:22<05:27,  1.46it/s]Processing files:   7%|▋         | 34/512 [00:22<05:26,  1.46it/s]Processing files:   7%|▋         | 35/512 [00:23<05:33,  1.43it/s]Processing files:   7%|▋         | 36/512 [00:24<05:36,  1.41it/s]Processing files:   7%|▋         | 37/512 [00:24<05:24,  1.46it/s]Processing files:   7%|▋         | 38/512 [00:25<04:56,  1.60it/s]Processing files:   8%|▊         | 39/512 [00:25<05:02,  1.56it/s]Processing files:   8%|▊         | 40/512 [00:26<05:00,  1.57it/s]2025-05-08 19:10:48,247 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:   8%|▊         | 41/512 [00:27<05:04,  1.55it/s]Processing files:   8%|▊         | 42/512 [00:27<04:54,  1.60it/s]Processing files:   8%|▊         | 43/512 [00:28<04:33,  1.72it/s]Processing files:   9%|▊         | 44/512 [00:28<04:14,  1.84it/s]Processing files:   9%|▉         | 45/512 [00:29<04:04,  1.91it/s]Processing files:   9%|▉         | 46/512 [00:29<03:52,  2.00it/s]Processing files:   9%|▉         | 47/512 [00:30<03:54,  1.98it/s]Processing files:   9%|▉         | 48/512 [00:30<04:08,  1.86it/s]Processing files:  10%|▉         | 49/512 [00:31<04:31,  1.70it/s]Processing files:  10%|▉         | 50/512 [00:32<04:38,  1.66it/s]2025-05-08 19:10:53,822 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  10%|▉         | 51/512 [00:32<04:33,  1.69it/s]Processing files:  10%|█         | 52/512 [00:33<04:26,  1.73it/s]Processing files:  10%|█         | 53/512 [00:33<04:23,  1.74it/s]Processing files:  11%|█         | 54/512 [00:34<04:31,  1.69it/s]Processing files:  11%|█         | 55/512 [00:35<04:21,  1.75it/s]Processing files:  11%|█         | 56/512 [00:35<04:06,  1.85it/s]Processing files:  11%|█         | 57/512 [00:36<04:02,  1.88it/s]Processing files:  11%|█▏        | 58/512 [00:36<03:56,  1.92it/s]Processing files:  12%|█▏        | 59/512 [00:37<04:00,  1.88it/s]Processing files:  12%|█▏        | 60/512 [00:37<03:51,  1.95it/s]2025-05-08 19:10:59,165 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  12%|█▏        | 61/512 [00:38<04:10,  1.80it/s]Processing files:  12%|█▏        | 62/512 [00:38<04:09,  1.81it/s]Processing files:  12%|█▏        | 63/512 [00:39<04:15,  1.76it/s]Processing files:  12%|█▎        | 64/512 [00:39<04:07,  1.81it/s]Processing files:  13%|█▎        | 65/512 [00:40<04:12,  1.77it/s]Processing files:  13%|█▎        | 66/512 [00:40<04:04,  1.82it/s]Processing files:  13%|█▎        | 67/512 [00:41<04:13,  1.76it/s]Processing files:  13%|█▎        | 68/512 [00:42<03:59,  1.85it/s]Processing files:  13%|█▎        | 69/512 [00:42<04:20,  1.70it/s]Processing files:  14%|█▎        | 70/512 [00:43<04:18,  1.71it/s]2025-05-08 19:11:04,960 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  14%|█▍        | 71/512 [00:43<04:26,  1.66it/s]Processing files:  14%|█▍        | 72/512 [00:44<04:21,  1.68it/s]Processing files:  14%|█▍        | 73/512 [00:45<04:28,  1.64it/s]Processing files:  14%|█▍        | 74/512 [00:45<04:27,  1.64it/s]Processing files:  15%|█▍        | 75/512 [00:46<04:36,  1.58it/s]Processing files:  15%|█▍        | 76/512 [00:47<04:39,  1.56it/s]Processing files:  15%|█▌        | 77/512 [00:47<04:42,  1.54it/s]Processing files:  15%|█▌        | 78/512 [00:48<04:42,  1.53it/s]Processing files:  15%|█▌        | 79/512 [00:49<04:41,  1.54it/s]Processing files:  16%|█▌        | 80/512 [00:49<04:34,  1.57it/s]2025-05-08 19:11:11,361 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  16%|█▌        | 81/512 [00:50<04:42,  1.52it/s]Processing files:  16%|█▌        | 82/512 [00:51<04:42,  1.52it/s]Processing files:  16%|█▌        | 83/512 [00:51<04:38,  1.54it/s]Processing files:  16%|█▋        | 84/512 [00:52<04:35,  1.55it/s]Processing files:  17%|█▋        | 85/512 [00:52<04:28,  1.59it/s]Processing files:  17%|█▋        | 86/512 [00:53<04:21,  1.63it/s]Processing files:  17%|█▋        | 87/512 [00:54<04:23,  1.61it/s]Processing files:  17%|█▋        | 88/512 [00:54<04:14,  1.66it/s]Processing files:  17%|█▋        | 89/512 [00:55<04:16,  1.65it/s]Processing files:  18%|█▊        | 90/512 [00:55<04:09,  1.69it/s]2025-05-08 19:11:17,523 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  18%|█▊        | 91/512 [00:56<04:13,  1.66it/s]Processing files:  18%|█▊        | 92/512 [00:57<04:20,  1.62it/s]Processing files:  18%|█▊        | 93/512 [00:57<04:13,  1.65it/s]Processing files:  18%|█▊        | 94/512 [00:58<04:13,  1.65it/s]Processing files:  19%|█▊        | 95/512 [00:58<04:01,  1.73it/s]Processing files:  19%|█▉        | 96/512 [00:59<04:05,  1.69it/s]Processing files:  19%|█▉        | 97/512 [01:00<04:03,  1.71it/s]Processing files:  19%|█▉        | 98/512 [01:00<04:04,  1.70it/s]Processing files:  19%|█▉        | 99/512 [01:01<04:03,  1.70it/s]Processing files:  20%|█▉        | 100/512 [01:01<04:06,  1.67it/s]2025-05-08 19:11:23,508 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  20%|█▉        | 101/512 [01:02<04:18,  1.59it/s]Processing files:  20%|█▉        | 102/512 [01:03<04:21,  1.57it/s]Processing files:  20%|██        | 103/512 [01:03<04:30,  1.51it/s]Processing files:  20%|██        | 104/512 [01:04<04:31,  1.50it/s]Processing files:  21%|██        | 105/512 [01:05<04:28,  1.51it/s]Processing files:  21%|██        | 106/512 [01:05<04:24,  1.53it/s]Processing files:  21%|██        | 107/512 [01:06<04:21,  1.55it/s]Processing files:  21%|██        | 108/512 [01:07<04:26,  1.52it/s]Processing files:  21%|██▏       | 109/512 [01:07<04:21,  1.54it/s]Processing files:  21%|██▏       | 110/512 [01:08<04:19,  1.55it/s]2025-05-08 19:11:30,125 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  22%|██▏       | 111/512 [01:09<04:19,  1.54it/s]Processing files:  22%|██▏       | 112/512 [01:09<04:18,  1.55it/s]Processing files:  22%|██▏       | 113/512 [01:10<04:28,  1.49it/s]Processing files:  22%|██▏       | 114/512 [01:11<04:09,  1.60it/s]Processing files:  22%|██▏       | 115/512 [01:11<04:12,  1.57it/s]Processing files:  23%|██▎       | 116/512 [01:12<04:10,  1.58it/s]Processing files:  23%|██▎       | 117/512 [01:12<04:02,  1.63it/s]Processing files:  23%|██▎       | 118/512 [01:13<03:52,  1.69it/s]Processing files:  23%|██▎       | 119/512 [01:13<03:11,  2.06it/s]Processing files:  23%|██▎       | 120/512 [01:13<02:49,  2.31it/s]2025-05-08 19:11:35,613 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  24%|██▎       | 121/512 [01:14<03:13,  2.02it/s]Processing files:  24%|██▍       | 122/512 [01:15<03:27,  1.88it/s]Processing files:  24%|██▍       | 123/512 [01:15<03:41,  1.76it/s]Processing files:  24%|██▍       | 124/512 [01:16<03:42,  1.75it/s]Processing files:  24%|██▍       | 125/512 [01:17<03:52,  1.66it/s]Processing files:  25%|██▍       | 126/512 [01:17<03:59,  1.61it/s]Processing files:  25%|██▍       | 127/512 [01:18<04:01,  1.60it/s]Processing files:  25%|██▌       | 128/512 [01:19<04:01,  1.59it/s]Processing files:  25%|██▌       | 129/512 [01:19<03:55,  1.63it/s]Processing files:  25%|██▌       | 130/512 [01:20<03:51,  1.65it/s]2025-05-08 19:11:41,883 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  26%|██▌       | 131/512 [01:20<04:00,  1.58it/s]Processing files:  26%|██▌       | 132/512 [01:21<04:00,  1.58it/s]Processing files:  26%|██▌       | 133/512 [01:22<04:02,  1.56it/s]Processing files:  26%|██▌       | 134/512 [01:22<04:06,  1.53it/s]Processing files:  26%|██▋       | 135/512 [01:23<04:04,  1.54it/s]Processing files:  27%|██▋       | 136/512 [01:23<03:18,  1.89it/s]Processing files:  27%|██▋       | 137/512 [01:24<03:26,  1.82it/s]Processing files:  27%|██▋       | 138/512 [01:25<03:37,  1.72it/s]Processing files:  27%|██▋       | 139/512 [01:25<03:48,  1.63it/s]Processing files:  27%|██▋       | 140/512 [01:26<03:52,  1.60it/s]2025-05-08 19:11:48,029 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  28%|██▊       | 141/512 [01:27<03:55,  1.57it/s]Processing files:  28%|██▊       | 142/512 [01:27<03:49,  1.61it/s]Processing files:  28%|██▊       | 143/512 [01:28<04:02,  1.52it/s]Processing files:  28%|██▊       | 144/512 [01:28<03:55,  1.56it/s]Processing files:  28%|██▊       | 145/512 [01:29<03:59,  1.53it/s]Processing files:  29%|██▊       | 146/512 [01:30<03:59,  1.53it/s]Processing files:  29%|██▊       | 147/512 [01:30<03:56,  1.54it/s]Processing files:  29%|██▉       | 148/512 [01:31<03:42,  1.63it/s]Processing files:  29%|██▉       | 149/512 [01:32<03:45,  1.61it/s]Processing files:  29%|██▉       | 150/512 [01:32<03:50,  1.57it/s]2025-05-08 19:11:54,433 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  29%|██▉       | 151/512 [01:33<03:50,  1.57it/s]Processing files:  30%|██▉       | 152/512 [01:34<03:43,  1.61it/s]Processing files:  30%|██▉       | 153/512 [01:34<03:45,  1.59it/s]Processing files:  30%|███       | 154/512 [01:35<03:45,  1.59it/s]Processing files:  30%|███       | 155/512 [01:36<03:52,  1.54it/s]Processing files:  30%|███       | 156/512 [01:36<03:43,  1.60it/s]Processing files:  31%|███       | 157/512 [01:37<03:33,  1.66it/s]Processing files:  31%|███       | 158/512 [01:37<03:29,  1.69it/s]Processing files:  31%|███       | 159/512 [01:38<03:31,  1.67it/s]Processing files:  31%|███▏      | 160/512 [01:38<03:30,  1.67it/s]2025-05-08 19:12:00,529 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  31%|███▏      | 161/512 [01:39<03:35,  1.63it/s]Processing files:  32%|███▏      | 162/512 [01:40<03:32,  1.65it/s]Processing files:  32%|███▏      | 163/512 [01:40<03:29,  1.67it/s]Processing files:  32%|███▏      | 164/512 [01:41<03:24,  1.70it/s]Processing files:  32%|███▏      | 165/512 [01:41<03:30,  1.65it/s]Processing files:  32%|███▏      | 166/512 [01:42<03:28,  1.66it/s]Processing files:  33%|███▎      | 167/512 [01:43<03:30,  1.64it/s]Processing files:  33%|███▎      | 168/512 [01:43<03:33,  1.61it/s]Processing files:  33%|███▎      | 169/512 [01:44<03:31,  1.62it/s]Processing files:  33%|███▎      | 170/512 [01:45<03:39,  1.56it/s]2025-05-08 19:12:06,745 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  33%|███▎      | 171/512 [01:45<03:22,  1.69it/s]Processing files:  34%|███▎      | 172/512 [01:46<03:15,  1.74it/s]Processing files:  34%|███▍      | 173/512 [01:46<03:26,  1.64it/s]Processing files:  34%|███▍      | 174/512 [01:47<03:26,  1.63it/s]Processing files:  34%|███▍      | 175/512 [01:48<03:36,  1.56it/s]Processing files:  34%|███▍      | 176/512 [01:48<03:36,  1.56it/s]Processing files:  35%|███▍      | 177/512 [01:49<03:44,  1.49it/s]Processing files:  35%|███▍      | 178/512 [01:50<03:34,  1.56it/s]Processing files:  35%|███▍      | 179/512 [01:50<03:34,  1.55it/s]Processing files:  35%|███▌      | 180/512 [01:51<03:33,  1.56it/s]2025-05-08 19:12:13,018 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  35%|███▌      | 181/512 [01:52<03:37,  1.52it/s]Processing files:  36%|███▌      | 182/512 [01:52<03:39,  1.51it/s]Processing files:  36%|███▌      | 183/512 [01:53<03:40,  1.49it/s]Processing files:  36%|███▌      | 184/512 [01:54<03:36,  1.52it/s]Processing files:  36%|███▌      | 185/512 [01:54<03:37,  1.50it/s]Processing files:  36%|███▋      | 186/512 [01:55<03:35,  1.51it/s]Processing files:  37%|███▋      | 187/512 [01:56<03:35,  1.51it/s]Processing files:  37%|███▋      | 188/512 [01:56<03:33,  1.52it/s]Processing files:  37%|███▋      | 189/512 [01:57<03:37,  1.48it/s]Processing files:  37%|███▋      | 190/512 [01:58<03:35,  1.50it/s]2025-05-08 19:12:19,716 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  37%|███▋      | 191/512 [01:58<03:33,  1.50it/s]Processing files:  38%|███▊      | 192/512 [01:59<03:32,  1.50it/s]Processing files:  38%|███▊      | 193/512 [02:00<03:30,  1.51it/s]Processing files:  38%|███▊      | 194/512 [02:00<03:34,  1.48it/s]Processing files:  38%|███▊      | 195/512 [02:01<03:33,  1.49it/s]Processing files:  38%|███▊      | 196/512 [02:02<03:28,  1.52it/s]Processing files:  38%|███▊      | 197/512 [02:02<03:29,  1.51it/s]Processing files:  39%|███▊      | 198/512 [02:03<03:20,  1.57it/s]Processing files:  39%|███▉      | 199/512 [02:04<03:30,  1.49it/s]Processing files:  39%|███▉      | 200/512 [02:04<03:24,  1.53it/s]2025-05-08 19:12:26,311 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  39%|███▉      | 201/512 [02:05<03:29,  1.48it/s]Processing files:  39%|███▉      | 202/512 [02:06<03:31,  1.47it/s]Processing files:  40%|███▉      | 203/512 [02:06<03:29,  1.47it/s]Processing files:  40%|███▉      | 204/512 [02:07<03:29,  1.47it/s]Processing files:  40%|████      | 205/512 [02:08<03:30,  1.46it/s]Processing files:  40%|████      | 206/512 [02:08<03:24,  1.50it/s]Processing files:  40%|████      | 207/512 [02:09<03:22,  1.51it/s]Processing files:  41%|████      | 208/512 [02:10<03:16,  1.54it/s]Processing files:  41%|████      | 209/512 [02:10<03:18,  1.52it/s]Processing files:  41%|████      | 210/512 [02:11<03:18,  1.52it/s]2025-05-08 19:12:33,008 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  41%|████      | 211/512 [02:11<03:09,  1.59it/s]Processing files:  41%|████▏     | 212/512 [02:12<03:02,  1.64it/s]Processing files:  42%|████▏     | 213/512 [02:13<03:06,  1.60it/s]Processing files:  42%|████▏     | 214/512 [02:13<03:05,  1.60it/s]Processing files:  42%|████▏     | 215/512 [02:14<03:09,  1.57it/s]Processing files:  42%|████▏     | 216/512 [02:15<03:06,  1.59it/s]Processing files:  42%|████▏     | 217/512 [02:15<03:09,  1.56it/s]Processing files:  43%|████▎     | 218/512 [02:16<03:11,  1.53it/s]Processing files:  43%|████▎     | 219/512 [02:17<03:11,  1.53it/s]Processing files:  43%|████▎     | 220/512 [02:17<03:15,  1.50it/s]2025-05-08 19:12:39,405 - INFO - GPU 0 memory usage: 21.74 GB
+Processing files:  43%|████▎     | 221/512 [02:18<03:14,  1.49it/s]Processing files:  43%|████▎     | 222/512 [02:19<03:12,  1.51it/s]Processing files:  44%|████▎     | 223/512 [02:19<03:09,  1.52it/s]Processing files:  44%|████▍     | 224/512 [02:20<03:04,  1.56it/s]
