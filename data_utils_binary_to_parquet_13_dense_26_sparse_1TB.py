@@ -104,7 +104,7 @@ def generate_criteo_1TB(output_dir, num_files=1024, rows_per_file=4100000, batch
     
     # Prepare arguments for parallel processing
     args = []
-    for i in range(154, num_files):
+    for i in range(num_files):
         output_path = os.path.join(output_dir, f'criteo_1TB_part_{i:04d}.parquet')
         args.append((output_path, rows_per_file))
     
