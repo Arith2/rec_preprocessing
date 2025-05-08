@@ -69,7 +69,7 @@ for part_size in "${PART_SIZES[@]}"; do
         echo "Running preprocessing with part_size=$part_size"
         python nvtabular_gpu_1TB_8k_no_vocab_dask.py \
             --data_dir "$INPUT_DIR" \
-            --file_pattern "criteo_1TB_part_*.parquet" \
+            --file_pattern "*.parquet" \
             --part_size "$part_size" \
             --vocab_size "$VOCAB_SIZE" \
             2>&1 | tee "logs/output_${part_size}_run${run}.log"
