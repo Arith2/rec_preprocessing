@@ -16,7 +16,7 @@ print(f"Output directory: {output_folder}")
 print(f"Row group size: {ROW_GROUP_SIZE:,} rows")
 
 # Process in batches of 16 files
-for group_id in tqdm(1, range(total_files // files_per_group), desc="Processing groups"):
+for group_id in tqdm(range(1, total_files // files_per_group), desc="Processing groups"):
     start = group_id * files_per_group
     end = start + files_per_group
 
