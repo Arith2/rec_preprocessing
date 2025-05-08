@@ -9,7 +9,7 @@ INPUT_DIR="/mnt/scratch/yuzhuyu/parquet/criteo_1TB"  # Local path
 
 # Test different part_mem_fraction values
 # PART_MEM_FRACTIONS=(0.15)
-PART_SIZES=("256MB")
+PART_SIZES=("1GB")
 
 # Number of runs for each configuration
 NUM_RUNS=1

@@ -1,0 +1,38 @@
+2025-05-07 23:17:10,798 - INFO - NVTabular version: 23.08.00
+2025-05-07 23:17:10,798 - INFO - cuDF version: 23.04.01
+2025-05-07 23:17:10,798 - INFO - Pandas version: 1.5.3
+2025-05-07 23:17:10,800 - INFO - visible_devices: 0
+2025-05-07 23:17:10,800 - INFO - Device size: 25.33 GB
+2025-05-07 23:17:10,800 - INFO - Device limit: 17.73 GB
+2025-05-07 23:17:10,800 - INFO - Device pool size: 20.26 GB
+2025-05-07 23:17:11,268 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-07 23:17:11,302 - INFO - State start
+2025-05-07 23:17:11,311 - INFO -   Scheduler at:     tcp://127.0.0.1:42703
+2025-05-07 23:17:11,312 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-07 23:17:11,402 - INFO -         Start Nanny at: 'tcp://127.0.0.1:34733'
+2025-05-07 23:17:17,611 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:44071', name: 0, status: init, memory: 0, processing: 0>
+2025-05-07 23:17:17,633 - INFO - Starting worker compute stream, tcp://127.0.0.1:44071
+2025-05-07 23:17:17,633 - INFO - Starting established connection to tcp://127.0.0.1:35434
+2025-05-07 23:17:17,690 - INFO - Receive client connection: Client-a7a8287f-2b88-11f0-b518-506b4bdbc6c4
+2025-05-07 23:17:17,690 - INFO - Starting established connection to tcp://127.0.0.1:35448
+2025-05-07 23:17:17,694 - INFO - Found 1024 training files
+2025-05-07 23:17:17,694 - INFO - First file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0991.parquet
+2025-05-07 23:17:17,694 - INFO - Last file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0855.parquet
+2025-05-07 23:17:18,041 - INFO - Total data size: 1473.35 GB
+2025-05-07 23:17:18,041 - INFO - Setting up workflow...
+2025-05-07 23:17:18,043 - INFO - Creating dataset...
+2025-05-07 23:17:23,784 - INFO - Dataset created successfully with cuDF engine
+2025-05-07 23:17:23,785 - INFO - Part size: 5GB
+2025-05-07 23:17:23,785 - INFO - Fitting workflow...
+2025-05-07 23:17:23,785 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-07 23:17:46,932 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-07 23:17:46,933 - INFO - Workflow fitting completed in 23.15 seconds
+2025-05-07 23:17:46,933 - INFO - Transforming dataset...
+2025-05-07 23:17:49,391 - INFO - Closing Nanny at 'tcp://127.0.0.1:34733'. Reason: nanny-close
+2025-05-07 23:17:49,391 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-07 23:17:49,395 - INFO - Received 'close-stream' from tcp://127.0.0.1:35434; closing.
+2025-05-07 23:17:49,396 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:44071', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-07 23:17:49,396 - INFO - Removing comms to tcp://127.0.0.1:44071
+2025-05-07 23:17:49,396 - INFO - Lost all workers
+2025-05-07 23:17:50,545 - INFO - Scheduler closing...
+2025-05-07 23:17:50,546 - INFO - Scheduler closing all comms

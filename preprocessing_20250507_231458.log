@@ -1,0 +1,30 @@
+2025-05-07 23:14:58,476 - INFO - NVTabular version: 23.08.00
+2025-05-07 23:14:58,476 - INFO - cuDF version: 23.04.01
+2025-05-07 23:14:58,476 - INFO - Pandas version: 1.5.3
+2025-05-07 23:14:58,479 - INFO - visible_devices: 0
+2025-05-07 23:14:58,479 - INFO - Device size: 25.33 GB
+2025-05-07 23:14:58,479 - INFO - Device limit: 17.73 GB
+2025-05-07 23:14:58,479 - INFO - Device pool size: 20.26 GB
+2025-05-07 23:14:59,260 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-07 23:14:59,285 - INFO - State start
+2025-05-07 23:14:59,293 - INFO -   Scheduler at:     tcp://127.0.0.1:46879
+2025-05-07 23:14:59,293 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-07 23:14:59,404 - INFO -         Start Nanny at: 'tcp://127.0.0.1:37993'
+2025-05-07 23:15:12,676 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:46365', name: 0, status: init, memory: 0, processing: 0>
+2025-05-07 23:15:12,699 - INFO - Starting worker compute stream, tcp://127.0.0.1:46365
+2025-05-07 23:15:12,700 - INFO - Starting established connection to tcp://127.0.0.1:46848
+2025-05-07 23:15:12,717 - INFO - Receive client connection: Client-5d2aed1a-2b88-11f0-b080-506b4bdbc6c4
+2025-05-07 23:15:12,718 - INFO - Starting established connection to tcp://127.0.0.1:46858
+2025-05-07 23:15:12,721 - INFO - Found 1024 training files
+2025-05-07 23:15:12,721 - INFO - First file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0991.parquet
+2025-05-07 23:15:12,721 - INFO - Last file: /mnt/scratch/yuzhuyu/parquet/criteo_1TB/criteo_1TB_part_0855.parquet
+2025-05-07 23:15:13,011 - INFO - Total data size: 1473.35 GB
+2025-05-07 23:15:13,011 - INFO - Setting up workflow...
+2025-05-07 23:15:13,115 - INFO - Closing Nanny at 'tcp://127.0.0.1:37993'. Reason: nanny-close
+2025-05-07 23:15:13,115 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-07 23:15:13,120 - INFO - Received 'close-stream' from tcp://127.0.0.1:46848; closing.
+2025-05-07 23:15:13,120 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:46365', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-07 23:15:13,120 - INFO - Removing comms to tcp://127.0.0.1:46365
+2025-05-07 23:15:13,121 - INFO - Lost all workers
+2025-05-07 23:15:14,014 - INFO - Scheduler closing...
+2025-05-07 23:15:14,015 - INFO - Scheduler closing all comms
