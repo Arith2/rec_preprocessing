@@ -1,0 +1,39 @@
+2025-05-08 16:46:03,613 - INFO - NVTabular version: 23.08.00
+2025-05-08 16:46:03,614 - INFO - cuDF version: 23.04.01
+2025-05-08 16:46:03,614 - INFO - Pandas version: 1.5.3
+2025-05-08 16:46:03,616 - INFO - visible_devices: 0
+2025-05-08 16:46:03,616 - INFO - Device size: 25.33 GB
+2025-05-08 16:46:03,616 - INFO - Device limit: 17.73 GB
+2025-05-08 16:46:03,616 - INFO - Device pool size: 20.26 GB
+2025-05-08 16:46:05,701 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-08 16:46:05,726 - INFO - State start
+2025-05-08 16:46:05,733 - INFO -   Scheduler at:     tcp://127.0.0.1:39721
+2025-05-08 16:46:05,733 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-08 16:46:05,839 - INFO -         Start Nanny at: 'tcp://127.0.0.1:40741'
+2025-05-08 16:46:19,888 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:46375', name: 0, status: init, memory: 0, processing: 0>
+2025-05-08 16:46:19,901 - INFO - Starting worker compute stream, tcp://127.0.0.1:46375
+2025-05-08 16:46:19,901 - INFO - Starting established connection to tcp://127.0.0.1:56968
+2025-05-08 16:46:19,912 - INFO - Receive client connection: Client-34255044-2c1b-11f0-af10-506b4bdbc6c4
+2025-05-08 16:46:19,912 - INFO - Starting established connection to tcp://127.0.0.1:56974
+2025-05-08 16:46:19,914 - INFO - Found 512 training files
+2025-05-08 16:46:19,914 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0332.parquet
+2025-05-08 16:46:19,914 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0142.parquet
+2025-05-08 16:46:19,916 - INFO - Total data size: 736.68 GB
+2025-05-08 16:46:19,916 - INFO - Setting up workflow...
+2025-05-08 16:46:19,917 - INFO - Creating dataset...
+2025-05-08 16:46:21,167 - INFO - Dataset created successfully with cuDF engine
+2025-05-08 16:46:21,168 - INFO - Part size: 1GB
+2025-05-08 16:46:21,168 - INFO - Fitting workflow...
+2025-05-08 16:46:21,168 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-08 16:52:33,367 - INFO - Connection to tcp://127.0.0.1:56968 has been closed.
+2025-05-08 16:52:33,369 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:46375', name: 0, status: running, memory: 234, processing: 2>
+2025-05-08 16:52:33,370 - INFO - Removing comms to tcp://127.0.0.1:46375
+2025-05-08 16:52:33,391 - INFO - Lost all workers
+2025-05-08 16:52:40,425 - INFO - Worker process 2912480 was killed by signal 7
+2025-05-08 16:52:40,430 - WARNING - Restarting worker
+2025-05-08 16:52:48,394 - INFO - Closing Nanny at 'tcp://127.0.0.1:40741'. Reason: nanny-close
+2025-05-08 16:53:02,924 - INFO - Worker process 2915144 was killed by signal 7
+2025-05-08 17:17:13,348 - INFO - Remove client Client-34255044-2c1b-11f0-af10-506b4bdbc6c4
+2025-05-08 17:17:13,888 - INFO - Received 'close-stream' from tcp://127.0.0.1:56974; closing.
+2025-05-08 17:17:13,889 - INFO - Remove client Client-34255044-2c1b-11f0-af10-506b4bdbc6c4
+2025-05-08 17:17:13,892 - INFO - Close client connection: Client-34255044-2c1b-11f0-af10-506b4bdbc6c4

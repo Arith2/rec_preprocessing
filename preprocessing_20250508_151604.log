@@ -22,3 +22,5 @@
 2025-05-08 15:16:05,324 - INFO - Starting established connection to tcp://127.0.0.1:40001
 2025-05-08 15:16:06,943 - INFO - Run out-of-band function 'clean_worker_cache'
 2025-05-08 15:16:07,811 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 15:26:27,989 - INFO - Stopping worker at tcp://127.0.0.1:32871. Reason: nanny-close
+2025-05-08 15:26:27,996 - INFO - Connection to tcp://127.0.0.1:40001 has been closed.

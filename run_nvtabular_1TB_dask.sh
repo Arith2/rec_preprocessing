@@ -11,6 +11,7 @@ INPUT_DIR="/local/home/yuzhuyu/criteo_1TB"  # Local path
 # Test different part_mem_fraction values
 # PART_MEM_FRACTIONS=(0.15)
 PART_SIZES=("1GB")
+VOCAB_SIZE=536870912
 
 # Number of runs for each configuration
 NUM_RUNS=1
@@ -70,6 +71,7 @@ for part_size in "${PART_SIZES[@]}"; do
             --data_dir "$INPUT_DIR" \
             --file_pattern "criteo_1TB_part_*.parquet" \
             --part_size "$part_size" \
+            --vocab_size "$VOCAB_SIZE" \
             2>&1 | tee "logs/output_${part_size}_run${run}.log"
         
         # Stop GPU monitoring

@@ -3,16 +3,9 @@ import time
 import argparse
 import glob
 from tqdm import tqdm
+import cudf
+import pandas as pd
 
-# Choose either cudf (GPU) or pandas (CPU)
-try:
-    import cudf
-    USE_CUDF = True
-    print("Using cuDF for reading Parquet files")
-except ImportError:
-    import pandas as pd
-    USE_CUDF = False
-    print("Using pandas for reading Parquet files")
 
 def load_parquet_files(folder, engine="auto"):
     files = glob.glob(os.path.join(folder, "*.parquet"))
@@ -37,7 +30,7 @@ def load_parquet_files(folder, engine="auto"):
             file_start = time.time()
             file_size = os.path.getsize(file)
             
-            if USE_CUDF:
+            if engine=="cudf":
                 df = cudf.read_parquet(file)
                 print("Read with cuDF")
             else:
@@ -85,7 +78,7 @@ def load_parquet_files(folder, engine="auto"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("folder", help="Folder containing Parquet files")
-    parser.add_argument("--engine", default="auto", help="Pandas engine (if using CPU): 'pyarrow' or 'fastparquet'")
+    parser.add_argument("--engine", default="cudf", help="Pandas engine (if using CPU): 'pyarrow' or 'fastparquet'")
     args = parser.parse_args()
 
     load_parquet_files(args.folder, engine=args.engine)

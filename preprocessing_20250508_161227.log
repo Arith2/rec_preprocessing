@@ -1,0 +1,27 @@
+2025-05-08 16:12:27,328 - INFO - NVTabular version: 23.08.00
+2025-05-08 16:12:27,328 - INFO - cuDF version: 23.04.01
+2025-05-08 16:12:27,328 - INFO - Pandas version: 1.5.3
+2025-05-08 16:12:27,332 - INFO - Creating preload: dask_cuda.initialize
+2025-05-08 16:12:27,332 - INFO - Import preload module: dask_cuda.initialize
+2025-05-08 16:12:27,365 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-08 16:12:27,535 - INFO -       Start worker at:      tcp://127.0.0.1:45187
+2025-05-08 16:12:27,535 - INFO -          Listening to:      tcp://127.0.0.1:45187
+2025-05-08 16:12:27,536 - INFO -           Worker name:                          0
+2025-05-08 16:12:27,536 - INFO -          dashboard at:            127.0.0.1:46115
+2025-05-08 16:12:27,536 - INFO - Waiting to connect to:      tcp://127.0.0.1:46633
+2025-05-08 16:12:27,536 - INFO - -------------------------------------------------
+2025-05-08 16:12:27,536 - INFO -               Threads:                          1
+2025-05-08 16:12:27,536 - INFO -                Memory:                 251.74 GiB
+2025-05-08 16:12:27,536 - INFO -       Local Directory: /tmp/dask-worker-space/worker-fkfcke49
+2025-05-08 16:12:27,536 - INFO - Starting Worker plugin PreImport-5b3b503d-e460-486a-a6cf-65cf355c1699
+2025-05-08 16:12:27,536 - INFO - Starting Worker plugin CPUAffinity-168e682f-b9da-486e-834a-712dc579c735
+2025-05-08 16:12:27,536 - INFO - Starting Worker plugin RMMSetup-1afd9c19-9352-450b-88ea-abf80cb62a67
+2025-05-08 16:12:28,082 - INFO - -------------------------------------------------
+2025-05-08 16:12:28,126 - INFO -         Registered to:      tcp://127.0.0.1:46633
+2025-05-08 16:12:28,127 - INFO - -------------------------------------------------
+2025-05-08 16:12:28,128 - INFO - Starting established connection to tcp://127.0.0.1:46633
+2025-05-08 16:12:29,716 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 16:25:30,651 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 16:25:32,789 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 16:44:20,966 - INFO - Stopping worker at tcp://127.0.0.1:45187. Reason: nanny-close
+2025-05-08 16:44:20,970 - INFO - Connection to tcp://127.0.0.1:46633 has been closed.

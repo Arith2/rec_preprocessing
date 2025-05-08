@@ -108,3 +108,33 @@
 2025-05-08 15:24:25,780 - INFO - GPU 0 memory usage: 21.74 GB
 2025-05-08 15:24:33,203 - INFO - GPU 0 memory usage: 21.74 GB
 2025-05-08 15:24:40,705 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:24:48,210 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:24:55,708 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:03,141 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:10,401 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:17,272 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:23,991 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:30,493 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:37,912 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:45,439 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:25:53,131 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:26:00,804 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:26:08,526 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:26:15,985 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:26:23,336 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 15:26:27,877 - INFO - Dataset transformation completed in 620.33 seconds
+2025-05-08 15:26:27,877 - INFO - Total processing time: 621.35 seconds
+2025-05-08 15:26:27,877 - INFO - Average processing speed: 1.10 GB/s
+2025-05-08 15:26:27,986 - INFO - Closing Nanny at 'tcp://127.0.0.1:33081'. Reason: nanny-close
+2025-05-08 15:26:27,986 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-08 15:26:27,996 - INFO - Received 'close-stream' from tcp://127.0.0.1:34262; closing.
+2025-05-08 15:26:27,996 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:32871', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-08 15:26:27,996 - INFO - Removing comms to tcp://127.0.0.1:32871
+2025-05-08 15:26:27,996 - INFO - Lost all workers
+2025-05-08 15:26:28,987 - INFO - Scheduler closing...
+2025-05-08 15:26:28,988 - INFO - Scheduler closing all comms
+2025-05-08 15:26:28,990 - INFO - 
+Dask-NVTabular Criteo Preprocessing Done!
+2025-05-08 15:26:28,990 - INFO - Total Runtime[s]: 633.47
+2025-05-08 15:26:28,990 - INFO - ======================================
+
