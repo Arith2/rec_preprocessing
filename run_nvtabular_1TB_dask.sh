@@ -5,7 +5,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Input directory containing parquet files (can be local or GCS path)
 INPUT_DIR="/local/home/yuzhuyu/criteo_1TB"  # Local path
-# INPUT_DIR="/home/yuzhuyu/criteo_1TB"  # A100
+# INPUT_DIR="/mnt/myssd/criteo_1TB"  # A100
 # INPUT_DIR="gs://your-bucket/criteo_1TB"  # GCS path example
 
 # Test different part_mem_fraction values
