@@ -154,5 +154,5 @@ def generate_criteo_1TB(output_dir, num_files=1024, rows_per_file=4100000, batch
 
 # Example usage with recommended parameters
 # output_dir = "/mnt/scratch/yuzhuyu/parquet/criteo_1TB"
-output_dir = "/home/yuzhuyu/parquet/criteo_1TB"
-generate_criteo_1TB(output_dir, num_files=1024, rows_per_file=4100000, batch_size=8)
+output_dir = "/home/yuzhuyu/criteo_1TB"
+generate_criteo_1TB(output_dir, num_files=128, rows_per_file=4100000, batch_size=8)
