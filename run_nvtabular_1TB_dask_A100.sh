@@ -9,7 +9,7 @@ INPUT_DIR="/mnt/myssd/criteo_1TB"  # A100
 # INPUT_DIR="gs://your-bucket/criteo_1TB"  # GCS path example
 
 # Test different part_size values (smaller sizes for better memory management)
-PART_SIZES=("256MB" "512MB")
+PART_SIZES=("1GB")
 VOCAB_SIZE=536870912
 
 # Number of runs for each configuration

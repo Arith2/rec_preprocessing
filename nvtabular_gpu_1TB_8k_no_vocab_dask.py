@@ -155,15 +155,11 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     cat_features = (
         CATEGORICAL_COLUMNS
         >> LambdaOp(lambda x: x)
-        # >> LambdaOp(lambda col: col.str.hex_to_int() % vocab_size)
-        # >> Categorify()
     )
 
     cont_features = (
         CONTINUOUS_COLUMNS 
         >> LambdaOp(lambda x: x)
-        # >> Clip(min_value=0)
-        # >> LogOp()
     )
 
     features = LABEL_COLUMNS + cont_features + cat_features
@@ -180,6 +176,18 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
         )
         logging.info("Dataset created successfully with cuDF engine")
         logging.info(f"Part size: {part_size}")
+        
+        # Log dataset information
+        logging.info(f"Number of input files: {len(train_paths)}")
+        logging.info(f"Row groups per file: 22 (3M rows each)")
+        logging.info(f"Total row groups: {len(train_paths) * 22}")
+        logging.info(f"Total rows: {len(train_paths) * 22 * 3_000_000:,}")
+        
+        # Calculate approximate number of parts
+        part_size_bytes = int(part_size.replace("MB", "")) * 1024 * 1024 if "MB" in part_size else int(part_size.replace("GB", "")) * 1024 * 1024 * 1024
+        approx_parts = total_size / (part_size_bytes / (1024**3))
+        logging.info(f"Approximate number of parts based on {part_size}: {approx_parts:.1f}")
+        
     except ValueError as e:
         if "strings_to_categorical" in str(e):
             logging.info("Retrying with pandas engine...")
@@ -221,16 +229,44 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     # Transform the data with progress tracking
     transformed_data = workflow.transform(train_ds_iterator)
     
+    # Get total number of row groups
+    total_row_groups = len(list(transformed_data.to_iter()))
+    logging.info(f"Total number of row groups to process: {total_row_groups}")
+    logging.info(f"Row groups per file: {total_row_groups // len(train_paths)}")
+    
     # Monitor progress of transformation
-    with tqdm(total=len(train_paths), desc="Processing files") as pbar:
+    current_file = 0
+    row_groups_in_current_file = 0
+    total_row_groups_processed = 0
+    current_part = 0
+    
+    with tqdm(total=total_row_groups, desc="Processing row groups") as pbar:
         for _ in transformed_data.to_iter():
+            total_row_groups_processed += 1
+            row_groups_in_current_file += 1
+            current_part += 1
+            
+            # Update progress bar with detailed information
             pbar.update(1)
+            pbar.set_postfix({
+                'file': f"{current_file + 1}/{len(train_paths)}",
+                'row_groups': f"{row_groups_in_current_file}/22",
+                'total': f"{total_row_groups_processed}/{total_row_groups}",
+                'part': f"{current_part}"
+            })
+            
             # Log memory usage periodically
-            if pbar.n % 10 == 0:  # Log every 10 files
+            if pbar.n % 10 == 0:  # Log every 10 row groups
                 for dev in range(len(numba.cuda.gpus)):
                     fmem = pynvml_mem_size(kind="free", index=dev)
                     used = (device_mem_size(kind="total") - fmem) / 1e9
                     logging.info(f"GPU {dev} memory usage: {used:.2f} GB")
+                    logging.info(f"Processing file {current_file + 1}/{len(train_paths)}, row group {row_groups_in_current_file}/22, part {current_part}")
+            
+            # Check if we've moved to a new file
+            if row_groups_in_current_file >= 22:  # 22 row groups per file
+                current_file += 1
+                row_groups_in_current_file = 0
 
     transform_time = time.time() - start_time
     logging.info(f'Dataset transformation completed in {transform_time:.2f} seconds')
@@ -238,6 +274,9 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
     # Log final statistics
     logging.info(f"Total processing time: {fit_time + transform_time:.2f} seconds")
     logging.info(f"Average processing speed: {total_size / (fit_time + transform_time):.2f} GB/s")
+    logging.info(f"Total row groups processed: {total_row_groups}")
+    logging.info(f"Row groups per file: {total_row_groups // len(train_paths)}")
+    logging.info(f"Total parts processed: {current_part}")
 
     return
 
