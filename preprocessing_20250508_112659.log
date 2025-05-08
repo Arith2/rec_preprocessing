@@ -1,0 +1,73 @@
+2025-05-08 11:26:59,712 - INFO - NVTabular version: 23.08.00
+2025-05-08 11:26:59,712 - INFO - cuDF version: 23.04.01
+2025-05-08 11:26:59,712 - INFO - Pandas version: 1.5.3
+2025-05-08 11:26:59,716 - INFO - visible_devices: 0
+2025-05-08 11:26:59,716 - INFO - Device size: 25.33 GB
+2025-05-08 11:26:59,716 - INFO - Device limit: 17.73 GB
+2025-05-08 11:26:59,716 - INFO - Device pool size: 20.26 GB
+2025-05-08 11:27:02,518 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-08 11:27:02,570 - INFO - State start
+2025-05-08 11:27:02,577 - INFO -   Scheduler at:     tcp://127.0.0.1:33555
+2025-05-08 11:27:02,577 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-08 11:27:02,753 - INFO -         Start Nanny at: 'tcp://127.0.0.1:35477'
+2025-05-08 11:27:09,649 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:43237', name: 0, status: init, memory: 0, processing: 0>
+2025-05-08 11:27:09,667 - INFO - Starting worker compute stream, tcp://127.0.0.1:43237
+2025-05-08 11:27:09,668 - INFO - Starting established connection to tcp://127.0.0.1:46412
+2025-05-08 11:27:09,724 - INFO - Receive client connection: Client-9dbe69cf-2bee-11f0-a507-506b4bdbc6c4
+2025-05-08 11:27:09,725 - INFO - Starting established connection to tcp://127.0.0.1:46420
+2025-05-08 11:27:09,727 - INFO - Found 128 training files
+2025-05-08 11:27:09,727 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0085.parquet
+2025-05-08 11:27:09,727 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0054.parquet
+2025-05-08 11:27:09,728 - INFO - Total data size: 184.17 GB
+2025-05-08 11:27:09,728 - INFO - Setting up workflow...
+2025-05-08 11:27:09,729 - INFO - Creating dataset...
+2025-05-08 11:27:11,174 - INFO - Dataset created successfully with cuDF engine
+2025-05-08 11:27:11,174 - INFO - Part size: 1GB
+2025-05-08 11:27:11,174 - INFO - Fitting workflow...
+2025-05-08 11:27:11,174 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-08 11:27:12,020 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-08 11:27:12,020 - INFO - Workflow fitting completed in 0.85 seconds
+2025-05-08 11:27:12,020 - INFO - Transforming dataset...
+2025-05-08 11:27:17,653 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:22,894 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:28,873 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:34,508 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:39,454 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:45,009 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:50,337 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:27:55,147 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:00,927 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:06,417 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:12,002 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:17,393 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:22,778 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:28,564 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:33,609 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:39,480 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:45,745 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:50,923 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:28:56,922 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:03,109 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:08,027 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:13,550 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:19,902 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:25,604 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:31,120 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-08 11:29:34,455 - INFO - Dataset transformation completed in 142.43 seconds
+2025-05-08 11:29:34,455 - INFO - Total processing time: 143.28 seconds
+2025-05-08 11:29:34,455 - INFO - Average processing speed: 1.29 GB/s
+2025-05-08 11:29:34,562 - INFO - Closing Nanny at 'tcp://127.0.0.1:35477'. Reason: nanny-close
+2025-05-08 11:29:34,562 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-08 11:29:34,566 - INFO - Received 'close-stream' from tcp://127.0.0.1:46412; closing.
+2025-05-08 11:29:34,566 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:43237', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-08 11:29:34,566 - INFO - Removing comms to tcp://127.0.0.1:43237
+2025-05-08 11:29:34,566 - INFO - Lost all workers
+2025-05-08 11:29:37,764 - WARNING - Worker process still alive after 3.199987030029297 seconds, killing
+2025-05-08 11:29:37,955 - INFO - Worker process 2745962 was killed by signal 9
+2025-05-08 11:29:37,957 - INFO - Scheduler closing...
+2025-05-08 11:29:37,957 - INFO - Scheduler closing all comms
+2025-05-08 11:29:37,960 - INFO - 
+Dask-NVTabular Criteo Preprocessing Done!
+2025-05-08 11:29:37,960 - INFO - Total Runtime[s]: 158.24
+2025-05-08 11:29:37,960 - INFO - ======================================
+
