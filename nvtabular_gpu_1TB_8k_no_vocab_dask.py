@@ -156,7 +156,7 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
         CATEGORICAL_COLUMNS
         # >> LambdaOp(lambda x: x)
         >> LambdaOp(lambda col: col.str.hex_to_int() % vocab_size)
-        # >> Categorify()
+        >> Categorify()
     )
 
     cont_features = (

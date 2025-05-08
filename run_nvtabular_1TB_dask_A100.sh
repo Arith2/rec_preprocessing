@@ -10,7 +10,8 @@ INPUT_DIR="/mnt/myssd/criteo_1TB"  # A100
 
 # Test different part_size values (smaller sizes for better memory management)
 PART_SIZES=("512MB")
-VOCAB_SIZE=536870912
+# VOCAB_SIZE=536870912
+VOCAB_SIZE=8192
 
 # Number of runs for each configuration
 NUM_RUNS=1
