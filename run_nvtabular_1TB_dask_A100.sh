@@ -8,9 +8,8 @@ export CUDA_VISIBLE_DEVICES=0
 INPUT_DIR="/mnt/myssd/criteo_1TB"  # A100
 # INPUT_DIR="gs://your-bucket/criteo_1TB"  # GCS path example
 
-# Test different part_mem_fraction values
-# PART_MEM_FRACTIONS=(0.15)
-PART_SIZES=("1GB")
+# Test different part_size values (smaller sizes for better memory management)
+PART_SIZES=("256MB" "512MB")
 VOCAB_SIZE=536870912
 
 # Number of runs for each configuration
@@ -65,11 +64,11 @@ for part_size in "${PART_SIZES[@]}"; do
         monitor_gpu > "logs/gpu_util_${part_size}_run${run}.log" &
         MONITOR_PID=$!
         
-        # Run the preprocessing script
+        # Run the preprocessing script with adjusted memory settings
         echo "Running preprocessing with part_size=$part_size"
         python nvtabular_gpu_1TB_8k_no_vocab_dask.py \
             --data_dir "$INPUT_DIR" \
-            --file_pattern "*.parquet" \
+            --file_pattern "combine_128_part_*.parquet" \
             --part_size "$part_size" \
             --vocab_size "$VOCAB_SIZE" \
             2>&1 | tee "logs/output_${part_size}_run${run}.log"
