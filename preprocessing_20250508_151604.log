@@ -1,0 +1,24 @@
+2025-05-08 15:16:04,428 - INFO - NVTabular version: 23.08.00
+2025-05-08 15:16:04,428 - INFO - cuDF version: 23.04.01
+2025-05-08 15:16:04,428 - INFO - Pandas version: 1.5.3
+2025-05-08 15:16:04,432 - INFO - Creating preload: dask_cuda.initialize
+2025-05-08 15:16:04,432 - INFO - Import preload module: dask_cuda.initialize
+2025-05-08 15:16:04,497 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-08 15:16:04,701 - INFO -       Start worker at:      tcp://127.0.0.1:32871
+2025-05-08 15:16:04,701 - INFO -          Listening to:      tcp://127.0.0.1:32871
+2025-05-08 15:16:04,701 - INFO -           Worker name:                          0
+2025-05-08 15:16:04,701 - INFO -          dashboard at:            127.0.0.1:40079
+2025-05-08 15:16:04,701 - INFO - Waiting to connect to:      tcp://127.0.0.1:40001
+2025-05-08 15:16:04,701 - INFO - -------------------------------------------------
+2025-05-08 15:16:04,702 - INFO -               Threads:                          1
+2025-05-08 15:16:04,702 - INFO -                Memory:                 251.74 GiB
+2025-05-08 15:16:04,702 - INFO -       Local Directory: /tmp/dask-worker-space/worker-fojsewro
+2025-05-08 15:16:04,702 - INFO - Starting Worker plugin CPUAffinity-9c88a856-260c-4f63-936a-3aba4dd72c06
+2025-05-08 15:16:04,702 - INFO - Starting Worker plugin PreImport-ab0804ad-71be-4cb4-9c12-581f5eaf85b3
+2025-05-08 15:16:04,703 - INFO - Starting Worker plugin RMMSetup-1904b38f-143c-4c60-9c7b-2442a948574b
+2025-05-08 15:16:05,260 - INFO - -------------------------------------------------
+2025-05-08 15:16:05,323 - INFO -         Registered to:      tcp://127.0.0.1:40001
+2025-05-08 15:16:05,323 - INFO - -------------------------------------------------
+2025-05-08 15:16:05,324 - INFO - Starting established connection to tcp://127.0.0.1:40001
+2025-05-08 15:16:06,943 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-08 15:16:07,811 - INFO - Run out-of-band function 'clean_worker_cache'
