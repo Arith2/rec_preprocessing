@@ -1,0 +1,27 @@
+2025-05-09 08:40:30,275 - INFO - NVTabular version: 23.08.00
+2025-05-09 08:40:30,275 - INFO - cuDF version: 23.04.01
+2025-05-09 08:40:30,275 - INFO - Pandas version: 1.5.3
+2025-05-09 08:40:30,286 - INFO - visible_devices: 0
+2025-05-09 08:40:30,286 - INFO - Device size: 25.33 GB
+2025-05-09 08:40:30,286 - INFO - Device limit: 17.73 GB
+2025-05-09 08:40:30,286 - INFO - Device pool size: 20.26 GB
+2025-05-09 08:40:32,407 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-09 08:40:32,459 - INFO - State start
+2025-05-09 08:40:32,467 - INFO -   Scheduler at:     tcp://127.0.0.1:34173
+2025-05-09 08:40:32,468 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-09 08:40:32,591 - INFO -         Start Nanny at: 'tcp://127.0.0.1:42911'
+2025-05-09 08:40:43,454 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:36059', name: 0, status: init, memory: 0, processing: 0>
+2025-05-09 08:40:43,474 - INFO - Starting worker compute stream, tcp://127.0.0.1:36059
+2025-05-09 08:40:43,474 - INFO - Starting established connection to tcp://127.0.0.1:49688
+2025-05-09 08:40:43,489 - INFO - Receive client connection: Client-87e5639c-2ca0-11f0-ac8f-506b4bdbc6c4
+2025-05-09 08:40:43,489 - INFO - Starting established connection to tcp://127.0.0.1:49690
+2025-05-09 08:40:43,492 - INFO - Found 512 training files
+2025-05-09 08:40:43,492 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0332.parquet
+2025-05-09 08:40:43,492 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0142.parquet
+2025-05-09 08:40:43,494 - INFO - Total data size: 736.68 GB
+2025-05-09 08:40:43,494 - INFO - Setting up workflow...
+2025-05-09 08:40:43,494 - INFO - Creating dataset...
+2025-05-09 08:40:45,121 - INFO - Dataset created successfully with cuDF engine
+2025-05-09 08:40:45,121 - INFO - Part size: 1GB
+2025-05-09 08:40:45,121 - INFO - Fitting workflow...
+2025-05-09 08:40:45,122 - INFO - Initial GPU 0 memory usage: 20.96 GB
