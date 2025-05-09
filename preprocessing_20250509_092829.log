@@ -1,0 +1,29 @@
+2025-05-09 09:28:29,017 - INFO - NVTabular version: 23.08.00
+2025-05-09 09:28:29,017 - INFO - cuDF version: 23.04.01
+2025-05-09 09:28:29,017 - INFO - Pandas version: 1.5.3
+2025-05-09 09:28:29,022 - INFO - Found stale lock file and directory '/tmp/dask-worker-space/worker-lug0n_cc', purging
+2025-05-09 09:28:40,079 - INFO - Creating preload: dask_cuda.initialize
+2025-05-09 09:28:40,080 - INFO - Import preload module: dask_cuda.initialize
+2025-05-09 09:28:40,130 - INFO - Run preload setup: dask_cuda.initialize
+2025-05-09 09:28:40,302 - INFO -       Start worker at:      tcp://127.0.0.1:44483
+2025-05-09 09:28:40,302 - INFO -          Listening to:      tcp://127.0.0.1:44483
+2025-05-09 09:28:40,302 - INFO -           Worker name:                          0
+2025-05-09 09:28:40,303 - INFO -          dashboard at:            127.0.0.1:34977
+2025-05-09 09:28:40,303 - INFO - Waiting to connect to:      tcp://127.0.0.1:41769
+2025-05-09 09:28:40,303 - INFO - -------------------------------------------------
+2025-05-09 09:28:40,303 - INFO -               Threads:                          1
+2025-05-09 09:28:40,303 - INFO -                Memory:                 251.74 GiB
+2025-05-09 09:28:40,303 - INFO -       Local Directory: /tmp/dask-worker-space/worker-wnxelint
+2025-05-09 09:28:40,303 - INFO - Starting Worker plugin CPUAffinity-02b24e7e-c830-4002-b428-d17bf0e0b0c2
+2025-05-09 09:28:40,304 - INFO - Starting Worker plugin RMMSetup-357d006c-911f-480e-be7c-ffd1884a6291
+2025-05-09 09:28:49,605 - INFO - Starting Worker plugin PreImport-fe5fe6fc-be41-43e6-9c2e-82caad2bab08
+2025-05-09 09:28:49,606 - INFO - -------------------------------------------------
+2025-05-09 09:28:49,744 - INFO -         Registered to:      tcp://127.0.0.1:41769
+2025-05-09 09:28:49,744 - INFO - -------------------------------------------------
+2025-05-09 09:28:49,748 - INFO - Starting established connection to tcp://127.0.0.1:41769
+2025-05-09 09:28:52,662 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-09 09:29:22,074 - INFO - full garbage collection released 327.08 MiB from 280 reference cycles (threshold: 9.54 MiB)
+2025-05-09 09:42:52,100 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-09 09:42:53,830 - INFO - Run out-of-band function 'clean_worker_cache'
+2025-05-09 10:01:59,422 - INFO - Stopping worker at tcp://127.0.0.1:44483. Reason: nanny-close
+2025-05-09 10:01:59,425 - INFO - Connection to tcp://127.0.0.1:41769 has been closed.

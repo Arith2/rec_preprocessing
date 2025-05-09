@@ -25,3 +25,35 @@
 2025-05-09 08:40:45,121 - INFO - Part size: 1GB
 2025-05-09 08:40:45,121 - INFO - Fitting workflow...
 2025-05-09 08:40:45,122 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-09 09:19:00,550 - INFO - Closing Nanny at 'tcp://127.0.0.1:42911'. Reason: nanny-close
+2025-05-09 09:19:00,563 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-09 09:19:03,792 - WARNING - Worker process still alive after 3.1999160766601564 seconds, killing
+2025-05-09 09:19:03,803 - INFO - Connection to tcp://127.0.0.1:49688 has been closed.
+2025-05-09 09:19:03,805 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:36059', name: 0, status: running, memory: 0, processing: 0>
+2025-05-09 09:19:03,805 - INFO - Removing comms to tcp://127.0.0.1:36059
+2025-05-09 09:19:03,807 - INFO - Lost all workers
+2025-05-09 09:19:04,564 - ERROR - Error in Nanny killing Worker subprocess
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/nanny.py", line 607, in close
+    await self.kill(timeout=timeout, reason=reason)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/nanny.py", line 390, in kill
+    await self.process.kill(reason=reason, timeout=0.8 * (deadline - time()))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/nanny.py", line 844, in kill
+    await process.join(max(0, deadline - time()))
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/process.py", line 330, in join
+    await wait_for(asyncio.shield(self._exit_future), timeout)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/site-packages/distributed/utils.py", line 1849, in wait_for
+    return await asyncio.wait_for(fut, timeout)
+  File "/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+2025-05-09 09:19:04,630 - INFO - Scheduler closing...
+2025-05-09 09:19:04,637 - INFO - Scheduler closing all comms
+2025-05-09 09:19:22,425 - INFO - Worker process 3190322 was killed by signal 9

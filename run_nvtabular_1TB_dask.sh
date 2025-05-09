@@ -11,7 +11,7 @@ INPUT_DIR="/local/home/yuzhuyu/criteo_1TB"  # Local path
 # Test different part_mem_fraction values
 # PART_MEM_FRACTIONS=(0.15)
 PART_SIZES=("1GB")
-VOCAB_SIZE=536870912
+VOCAB_SIZE=524288
 
 # Number of runs for each configuration
 NUM_RUNS=1

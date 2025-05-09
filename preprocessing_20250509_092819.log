@@ -1,0 +1,148 @@
+2025-05-09 09:28:19,774 - INFO - NVTabular version: 23.08.00
+2025-05-09 09:28:19,774 - INFO - cuDF version: 23.04.01
+2025-05-09 09:28:19,774 - INFO - Pandas version: 1.5.3
+2025-05-09 09:28:19,786 - INFO - visible_devices: 0
+2025-05-09 09:28:19,786 - INFO - Device size: 25.33 GB
+2025-05-09 09:28:19,786 - INFO - Device limit: 17.73 GB
+2025-05-09 09:28:19,786 - INFO - Device pool size: 20.26 GB
+2025-05-09 09:28:22,742 - INFO - To route to workers diagnostics web server please install jupyter-server-proxy: python -m pip install jupyter-server-proxy
+2025-05-09 09:28:22,809 - INFO - State start
+2025-05-09 09:28:22,817 - INFO -   Scheduler at:     tcp://127.0.0.1:41769
+2025-05-09 09:28:22,817 - INFO -   dashboard at:  http://127.0.0.1:8787/status
+2025-05-09 09:28:22,960 - INFO -         Start Nanny at: 'tcp://127.0.0.1:39291'
+2025-05-09 09:28:49,725 - INFO - Register worker <WorkerState 'tcp://127.0.0.1:44483', name: 0, status: init, memory: 0, processing: 0>
+2025-05-09 09:28:49,744 - INFO - Starting worker compute stream, tcp://127.0.0.1:44483
+2025-05-09 09:28:49,744 - INFO - Starting established connection to tcp://127.0.0.1:60846
+2025-05-09 09:28:49,803 - INFO - Receive client connection: Client-4045ed0d-2ca7-11f0-8c52-506b4bdbc6c4
+2025-05-09 09:28:49,803 - INFO - Starting established connection to tcp://127.0.0.1:60852
+2025-05-09 09:28:49,806 - INFO - Found 512 training files
+2025-05-09 09:28:49,806 - INFO - First file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0332.parquet
+2025-05-09 09:28:49,806 - INFO - Last file: /local/home/yuzhuyu/criteo_1TB/criteo_1TB_part_0142.parquet
+2025-05-09 09:28:49,810 - INFO - Total data size: 736.68 GB
+2025-05-09 09:28:49,810 - INFO - Setting up workflow...
+2025-05-09 09:28:49,810 - INFO - Creating dataset...
+2025-05-09 09:28:51,975 - INFO - Dataset created successfully with cuDF engine
+2025-05-09 09:28:51,975 - INFO - Part size: 1GB
+2025-05-09 09:28:51,975 - INFO - Fitting workflow...
+2025-05-09 09:28:51,976 - INFO - Initial GPU 0 memory usage: 20.96 GB
+2025-05-09 09:42:53,433 - INFO - GPU 0 memory usage after fitting: 20.96 GB
+2025-05-09 09:42:53,433 - INFO - Workflow fitting completed in 841.46 seconds
+2025-05-09 09:42:53,433 - INFO - Transforming dataset...
+2025-05-09 09:43:05,300 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:43:16,460 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:43:27,507 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:43:38,654 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:43:49,632 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:44:00,452 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:44:10,970 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:44:21,831 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:44:32,930 - INFO - GPU 0 memory usage: 21.74 GB
+2025-05-09 09:44:44,199 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:44:55,452 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:45:06,605 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:45:18,008 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:45:29,708 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:45:41,466 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:45:53,059 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:46:04,675 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:46:15,986 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:46:27,095 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:46:38,746 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:46:50,489 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:47:01,932 - INFO - GPU 0 memory usage: 21.78 GB
+2025-05-09 09:47:13,223 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:47:24,895 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:47:36,371 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:47:47,572 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:47:57,382 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:48:05,789 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:48:13,594 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:48:21,935 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:48:29,737 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:48:40,912 - INFO - GPU 0 memory usage: 21.78 GB
+2025-05-09 09:48:51,865 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:49:03,090 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:49:14,396 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:49:26,028 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:49:37,478 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:49:48,685 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:49:59,912 - INFO - GPU 0 memory usage: 21.78 GB
+2025-05-09 09:50:11,441 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:50:23,030 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:50:34,687 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:50:46,278 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:50:57,533 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:51:09,120 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:51:20,620 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:51:32,193 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:51:43,819 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:51:55,178 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:52:06,756 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:52:18,391 - INFO - GPU 0 memory usage: 21.73 GB
+2025-05-09 09:52:29,515 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:52:40,406 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:52:51,636 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:03,002 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:14,293 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:25,405 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:36,645 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:48,101 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:53:59,210 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:54:09,934 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:54:19,532 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:54:28,969 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:54:38,476 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:54:50,178 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:55:01,779 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:55:13,324 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:55:25,180 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:55:36,491 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:55:47,834 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:55:59,589 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:56:11,072 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:56:22,372 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:56:34,237 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:56:45,766 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:56:57,642 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:57:09,228 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:57:21,172 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:57:32,710 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:57:44,291 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:57:55,698 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:58:07,342 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:58:18,882 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:58:30,173 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:58:41,825 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:58:53,662 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:59:05,533 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:59:16,925 - INFO - GPU 0 memory usage: 21.78 GB
+2025-05-09 09:59:28,629 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 09:59:40,112 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 09:59:51,487 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 10:00:02,682 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:00:13,732 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:00:24,915 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:00:36,057 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 10:00:47,295 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:00:58,753 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 10:01:10,183 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:01:21,400 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:01:32,552 - INFO - GPU 0 memory usage: 21.81 GB
+2025-05-09 10:01:43,651 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:01:54,703 - INFO - GPU 0 memory usage: 21.77 GB
+2025-05-09 10:01:59,309 - INFO - Dataset transformation completed in 1145.88 seconds
+2025-05-09 10:01:59,309 - INFO - Total processing time: 1987.33 seconds
+2025-05-09 10:01:59,309 - INFO - Average processing speed: 0.37 GB/s
+2025-05-09 10:01:59,419 - INFO - Closing Nanny at 'tcp://127.0.0.1:39291'. Reason: nanny-close
+2025-05-09 10:01:59,419 - INFO - Nanny asking worker to close. Reason: nanny-close
+2025-05-09 10:01:59,425 - INFO - Received 'close-stream' from tcp://127.0.0.1:60846; closing.
+2025-05-09 10:01:59,426 - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:44483', name: 0, status: closing, memory: 0, processing: 0>
+2025-05-09 10:01:59,426 - INFO - Removing comms to tcp://127.0.0.1:44483
+2025-05-09 10:01:59,427 - INFO - Lost all workers
+2025-05-09 10:02:01,414 - INFO - Scheduler closing...
+2025-05-09 10:02:01,415 - INFO - Scheduler closing all comms
+2025-05-09 10:02:01,417 - INFO - 
+Dask-NVTabular Criteo Preprocessing Done!
+2025-05-09 10:02:01,417 - INFO - Total Runtime[s]: 2021.63
+2025-05-09 10:02:01,417 - INFO - ======================================
+

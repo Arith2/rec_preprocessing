@@ -62,3 +62,40 @@
 2025-05-09 09:15:09,023 - INFO - Event loop was unresponsive in Worker for 22.55s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
 2025-05-09 09:15:28,353 - INFO - Event loop was unresponsive in Worker for 19.33s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
 2025-05-09 09:15:40,371 - INFO - Event loop was unresponsive in Worker for 12.02s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:15:59,078 - INFO - Event loop was unresponsive in Worker for 18.71s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:16:17,655 - INFO - Event loop was unresponsive in Worker for 18.58s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:16:30,124 - INFO - Event loop was unresponsive in Worker for 12.47s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:17:57,058 - INFO - Event loop was unresponsive in Worker for 26.46s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:18:16,042 - INFO - Event loop was unresponsive in Worker for 18.98s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
+2025-05-09 09:18:22,451 - WARNING - Compute Failed
+Key:       ('reduce_1-92f78663419de070f1acf8866a06c170', 0, 0, 0, 3)
+Function:  _mid_level_groupby
+args:      ([pyarrow.Table
+col_14: int64
+col_14_size: int64
+----
+col_14: [[364793721,125092146,136255482,266830812,499343240,...,109274283,124283963,347461156,120405483,493303112]]
+col_14_size: [[1,2,1,1,1,...,1,1,1,2,1]], pyarrow.Table
+col_14: int64
+col_14_size: int64
+----
+col_14: [[403097528,227366788,519938580,179214145,314436049,...,117386572,279377235,118250948,486354448,212729366]]
+col_14_size: [[1,2,1,1,1,...,1,1,2,1,1]], pyarrow.Table
+col_14: int64
+col_14_size: int64
+----
+col_14: [[99942057,328422048,303194896,254240051,478864100,...,305039539,321408435,221070620,32737287,404587709]]
+col_14_size: [[1,1,1,1,2,...,1,1,1,1,1]], pyarrow.Table
+col_14: int64
+col_14_size: int64
+----
+col_14: [[146966303,138126641,31304802,325812138,523747413,...,84940085,228409429,468483964,165131969,245576208]]
+col_14_size: [[2,1,1,1,1,...,1,1,1,1,1]], pyarrow.Table
+col_14: int64
+col_14_size: int64
+----
+col_14: [[246113703,332041429,274313780,353397253,149250319,...,32154784,403024939,521455462,13693601,29613272
+kwargs:    {}
+Exception: "MemoryError('std::bad_alloc: out_of_memory: RMM failure at:/home/yuzhuyu/miniconda3/envs/nvtabular_23_08/include/rmm/mr/device/pool_memory_resource.hpp:195: Maximum pool size exceeded')"
+
+2025-05-09 09:18:34,614 - INFO - Event loop was unresponsive in Worker for 18.57s.  This is often caused by long-running GIL-holding functions or moving large chunks of data. This can cause timeouts and instability.
