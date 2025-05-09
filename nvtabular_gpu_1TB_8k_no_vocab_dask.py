@@ -154,16 +154,16 @@ def preprocess_data(train_paths, client, vocab_size, part_size):
 
     cat_features = (
         CATEGORICAL_COLUMNS
-        >> LambdaOp(lambda x: x)
-        # >> LambdaOp(lambda col: col.str.hex_to_int() % vocab_size)
+        # >> LambdaOp(lambda x: x)
+        >> LambdaOp(lambda col: col.str.hex_to_int() % vocab_size)
         # >> Categorify()
     )
 
     cont_features = (
         CONTINUOUS_COLUMNS 
-        >> LambdaOp(lambda x: x)
-        # >> Clip(min_value=0)
-        # >> LogOp()
+        # >> LambdaOp(lambda x: x)
+        >> Clip(min_value=0)
+        >> LogOp()
     )
 
     features = LABEL_COLUMNS + cont_features + cat_features
