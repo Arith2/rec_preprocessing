@@ -1,27 +1,26 @@
 ===== RUNNING ALL VOCABULARY GENERATION JOBS =====
-===== RUNNING ALL VOCABULARY GENERATION JOBS =====
 --- GENERATION CONFIG 1: n2-standard-128 with 1 worker ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-128" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-128" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary generation job...
 Running vocab generation with:
 MACHINE_TYPE: n2-standard-128
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-128_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-128_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-128_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-128_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-128 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-128-criteo-small-gen"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-128-criteo-large-gen"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288 \
@@ -31,26 +30,26 @@ Generation config 1 completed successfully.
 
 --- GENERATION CONFIG 2: n2-standard-96 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-96" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-96" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary generation job...
 Running vocab generation with:
 MACHINE_TYPE: n2-standard-96
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-96_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-96_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-96_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-96_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-96 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-96-criteo-small-gen"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-96-criteo-large-gen"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288 \
@@ -60,26 +59,26 @@ Generation config 2 completed successfully.
 
 --- GENERATION CONFIG 3: n2-standard-64 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-64" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-64" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary generation job...
 Running vocab generation with:
 MACHINE_TYPE: n2-standard-64
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-64_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-64_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-64_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-64_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-64 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-64-criteo-small-gen"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-64-criteo-large-gen"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288 \
@@ -89,26 +88,26 @@ Generation config 2 completed successfully.
 
 --- GENERATION CONFIG 4: n2-standard-32 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-32" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-32" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary generation job...
 Running vocab generation with:
 MACHINE_TYPE: n2-standard-32
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-32_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-32_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-32_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-32_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-32 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-32-criteo-small-gen"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-32-criteo-large-gen"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288 \
@@ -119,26 +118,26 @@ Generation config 2 completed successfully.
 ===== RUNNING ALL VOCABULARY APPLY JOBS =====
 --- APPLY CONFIG 1: n2-standard-128 with 1 worker ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-128" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-128" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary apply job...
 Running vocab apply with:
 MACHINE_TYPE: n2-standard-128
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-128_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-128_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-128_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-128_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-128 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-128-criteo-small-apply"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-128-criteo-large-apply"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288
@@ -147,26 +146,26 @@ Apply config 1 completed successfully.
 
 --- APPLY CONFIG 2: n2-standard-96 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-96" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-96" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary apply job...
 Running vocab apply with:
 MACHINE_TYPE: n2-standard-96
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-96_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-96_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-96_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-96_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-96 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-96-criteo-small-apply"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-96-criteo-large-apply"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288
@@ -175,26 +174,26 @@ Apply config 2 completed successfully.
 
 --- APPLY CONFIG 3: n2-standard-64 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-64" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-64" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary apply job...
 Running vocab apply with:
 MACHINE_TYPE: n2-standard-64
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-64_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-64_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-64_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-64_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-64 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-64-criteo-small-apply"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-64-criteo-large-apply"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288
@@ -203,27 +202,58 @@ Apply config 2 completed successfully.
 
 --- APPLY CONFIG 4: n2-standard-32 with 1 workers ---
 Will execute the following command:
-bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-32" "1" "criteo_small" "criteo_small" "524288"
+bash run_apache_beam_google_cloud_vocab_apply.sh "n2-standard-32" "1" "criteo_large" "criteo_large" "524288"
 
 Starting vocabulary apply job...
 Running vocab apply with:
 MACHINE_TYPE: n2-standard-32
 NUM_WORKERS: 1
-DATASET_NAME: criteo_small
-JOB_TYPE: criteo_small
+DATASET_NAME: criteo_large
+FILE_TYPE: criteo_large
 VOCAB_SIZE: 524288
 Executing the following command:
-python3 apache_beam_google_cloud_parquet_criteo_small.py \
-  --input_path "gs://criteo_preprocessing/criteo_small/*.parquet" \
-  --output_path "gs://criteo_preprocessing/criteo_small_output/vocab_524288_1_n2-standard-32_criteo_small/" \
-  --temp_dir "gs://criteo_preprocessing/criteo_small_temp/vocab_524288_1_n2-standard-32_criteo_small" \
+python3 apache_beam_google_cloud_parquet_criteo_large.py \
+  --input_path "gs://criteo_preprocessing/criteo_large/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_large_output/vocab_524288_1_n2-standard-32_criteo_large/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_large_temp/vocab_524288_1_n2-standard-32_criteo_large" \
   --runner DataflowRunner --project cloud-shared-execution \
   --region europe-west1 \
   --machine_type n2-standard-32 \
   --num_workers 1 \
   --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
-  --job_name "criteo-small-vocab-524288-workers-1-n2-standard-32-criteo-small-apply"  \
+  --job_name "criteo-large-vocab-524288-workers-1-n2-standard-32-criteo-large-apply"  \
   --autoscaling_algorithm NONE \
   --max_num_workers 1 \
   --max_vocab_size 524288
 
+Apply config 2 completed successfully.
+
+===== RUNNING ALL VOCABULARY GENERATION JOBS =====
+--- GENERATION CONFIG 1: n2-standard-128 with 1 worker ---
+Will execute the following command:
+bash run_apache_beam_google_cloud_vocab_gen.sh "n2-standard-128" "1" "criteo_1TB" "criteo_small" "524288"
+
+Starting vocabulary generation job...
+Running vocab generation with:
+MACHINE_TYPE: n2-standard-128
+NUM_WORKERS: 1
+DATASET_NAME: criteo_1TB
+FILE_TYPE: criteo_small
+VOCAB_SIZE: 524288
+Executing the following command:
+python3 apache_beam_google_cloud_parquet_criteo_small.py \
+  --input_path "gs://criteo_preprocessing/criteo_1TB/*.parquet" \
+  --output_path "gs://criteo_preprocessing/criteo_1TB_output/vocab_524288_1_n2-standard-128_criteo_small/" \
+  --temp_dir "gs://criteo_preprocessing/criteo_1TB_temp/vocab_524288_1_n2-standard-128_criteo_small" \
+  --runner DataflowRunner --project cloud-shared-execution \
+  --region europe-west1 \
+  --machine_type n2-standard-128 \
+  --num_workers 1 \
+  --sdk_container_image europe-west1-docker.pkg.dev/cloud-shared-execution/beam-docker/beam-custom:v1 \
+  --job_name "criteo-1tb-vocab-524288-workers-1-n2-standard-128-criteo-small-gen"  \
+  --autoscaling_algorithm NONE \
+  --max_num_workers 1 \
+  --max_vocab_size 524288 \
+  --vocab_gen_mode
+
+Vocabulary generation job failed. Exiting.
